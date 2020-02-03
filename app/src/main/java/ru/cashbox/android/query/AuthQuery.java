@@ -9,8 +9,8 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
-import ru.cashbox.android.model.auth.Session;
-import ru.cashbox.android.model.auth.User;
+import ru.cashbox.android.model.Session;
+import ru.cashbox.android.model.User;
 
 public interface AuthQuery {
 

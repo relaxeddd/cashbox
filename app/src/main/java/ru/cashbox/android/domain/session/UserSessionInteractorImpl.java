@@ -1,6 +1,6 @@
 package ru.cashbox.android.domain.session;
 
-import ru.cashbox.android.model.auth.Session;
+import ru.cashbox.android.model.Session;
 
 public class UserSessionInteractorImpl implements UserSessionInteractor {
 

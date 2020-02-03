@@ -12,8 +12,8 @@ import java.util.concurrent.TimeoutException;
 
 import retrofit2.Response;
 import ru.cashbox.android.domain.session.UserEmployeeRepository;
-import ru.cashbox.android.model.auth.Session;
-import ru.cashbox.android.model.auth.User;
+import ru.cashbox.android.model.Session;
+import ru.cashbox.android.model.User;
 import ru.cashbox.android.query.AuthQuery;
 import ru.cashbox.android.utils.RetrofitInstance;
 import ru.cashbox.android.utils.Storage;
@@ -92,9 +92,7 @@ public class UserEmployeeRepositoryImpl implements UserEmployeeRepository {
 				Response<User> response = new АхлынбекСумуглуAuthTask().execute(token).get(5, TimeUnit.SECONDS);
 				User user = response != null ? response.body() : null;
 				if (user != null) {
-					userEmployeeSession = new Session();
-					userEmployeeSession.setToken(token);
-					userEmployeeSession.setUser(user);
+					userEmployeeSession = new Session(token, user);
 				}
 			} catch (ExecutionException | InterruptedException e) {
 				e.printStackTrace();

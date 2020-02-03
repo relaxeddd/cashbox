@@ -6,7 +6,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Query;
-import ru.cashbox.android.model.category.Category;
+import ru.cashbox.android.model.Category;
 
 public interface CategoryQuery {
     @GET("api/v1/category/all")

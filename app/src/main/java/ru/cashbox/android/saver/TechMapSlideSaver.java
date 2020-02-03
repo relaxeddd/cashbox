@@ -6,8 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mancj.slideup.SlideUp;
 
-import lombok.Getter;
-import lombok.Setter;
 import ru.cashbox.android.adapter.TechMapAdapter;
 
 public class TechMapSlideSaver {
@@ -16,7 +14,6 @@ public class TechMapSlideSaver {
     private SlideUp slideUp;
     private RecyclerView techMapGridView;
     private TextView totalText;
-    @Getter @Setter
     private TechMapAdapter adapter;
 
     public static TechMapSlideSaver getInstance() {
@@ -27,6 +24,14 @@ public class TechMapSlideSaver {
         this.slideUp = slideUp;
         this.techMapGridView = techMapGridView;
         this.totalText = totalText;
+    }
+
+    public TechMapAdapter getAdapter() {
+        return adapter;
+    }
+
+    public void setAdapter(TechMapAdapter adapter) {
+        this.adapter = adapter;
     }
 
     public void show() {

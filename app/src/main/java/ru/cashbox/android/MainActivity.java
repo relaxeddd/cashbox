@@ -31,9 +31,9 @@ import ru.cashbox.android.auth.Logout;
 import ru.cashbox.android.fragment.CheckFragment;
 import ru.cashbox.android.fragment.ElementFragment;
 import ru.cashbox.android.fragment.SettingsFragment;
-import ru.cashbox.android.model.check.Check;
-import ru.cashbox.android.model.check.CheckItem;
-import ru.cashbox.android.model.types.CheckItemCategoryType;
+import ru.cashbox.android.model.Check;
+import ru.cashbox.android.model.CheckItem;
+import ru.cashbox.android.model.CheckItemCategoryType;
 import ru.cashbox.android.saver.CheckStateSaver;
 import ru.cashbox.android.saver.TechMapSlideSaver;
 import ru.cashbox.android.utils.BillHelper;
@@ -171,15 +171,10 @@ public class MainActivity extends AppCompatActivity implements Logout {
             @Override
             public void onClick(View view) {
                 String build = slideSaver.getAdapter().build();
-                CheckItem checkItemBuild = CheckItem.builder()
-                        .id(slideSaver.getAdapter().getTechmapId())
-                        .name(build)
-                        .price(Double.parseDouble(slideSaver.getTotal()))
-                        .fullPrice(Double.parseDouble(slideSaver.getTotal()))
-                        .amount(1)
-                        .type(CheckItemCategoryType.TECHMAP)
-                        .modificators(slideSaver.getAdapter().getModificators())
-                        .build();
+                CheckItem checkItemBuild = new CheckItem(slideSaver.getAdapter().getTechmapId(), "", build, 1,
+                        Double.parseDouble(slideSaver.getTotal()), Double.parseDouble(slideSaver.getTotal()),
+                        CheckItemCategoryType.TECHMAP, slideSaver.getAdapter().getModificators());
+
                 if (checkStateSaver.getCurrentCheck() != null) {
                     checkStateSaver.addItemToCurrentCheck(checkItemBuild);
                     billHelper.updateCurrentCheck();

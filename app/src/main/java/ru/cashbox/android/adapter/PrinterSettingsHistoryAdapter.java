@@ -11,10 +11,8 @@ import net.igenius.customcheckbox.CustomCheckBox;
 
 import java.util.List;
 
-import lombok.Getter;
-import lombok.Setter;
 import ru.cashbox.android.R;
-import ru.cashbox.android.model.printer.Printer;
+import ru.cashbox.android.model.Printer;
 import ru.cashbox.android.utils.Storage;
 
 public class PrinterSettingsHistoryAdapter extends BaseAdapter {
@@ -22,7 +20,6 @@ public class PrinterSettingsHistoryAdapter extends BaseAdapter {
     private Context context;
     private Storage storage;
     private LayoutInflater inflater;
-    @Getter @Setter
     private List<Printer> printers;
 
     public PrinterSettingsHistoryAdapter(Context context, List<Printer> printers) {
@@ -67,5 +64,9 @@ public class PrinterSettingsHistoryAdapter extends BaseAdapter {
         }
 
         return view;
+    }
+
+    public List<Printer> getPrinters() {
+        return printers;
     }
 }

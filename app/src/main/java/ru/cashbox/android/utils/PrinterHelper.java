@@ -16,23 +16,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
-import lombok.Getter;
 import ru.atol.drivers10.fptr.Fptr;
 import ru.atol.drivers10.fptr.IFptr;
 import ru.cashbox.android.adapter.PrinterSettingsHistoryAdapter;
-import ru.cashbox.android.model.auth.User;
-import ru.cashbox.android.model.check.Check;
-import ru.cashbox.android.model.check.CheckItem;
-import ru.cashbox.android.model.printer.Printer;
-import ru.cashbox.android.model.printer.PrinterAction;
-import ru.cashbox.android.model.types.PrinterConnectionType;
-import ru.cashbox.android.model.printer.PrinterQueueWrapper;
+import ru.cashbox.android.model.Check;
+import ru.cashbox.android.model.CheckItem;
+import ru.cashbox.android.model.Printer;
+import ru.cashbox.android.model.PrinterAction;
+import ru.cashbox.android.model.PrinterConnectionType;
+import ru.cashbox.android.model.PrinterQueueWrapper;
+import ru.cashbox.android.model.User;
 
 public class PrinterHelper {
     private static PrinterHelper printerHelper;
     private String PRINTER_SETTINGS_TAG = "Printer_Settings";
     private boolean printerBusy = false;
-    @Getter
     private boolean scanExecuted = false;
     private ScanTask scanTask;
     private Queue<PrinterQueueWrapper> queue = new ArrayDeque<>();
@@ -43,6 +41,10 @@ public class PrinterHelper {
 
     public interface ScanListener {
         void onScanned(Printer printer);
+    }
+
+    public boolean isScanExecuted() {
+        return scanExecuted;
     }
 
     private class ScanTask extends AsyncTask<Void, Void, Printer> {
@@ -92,13 +94,9 @@ public class PrinterHelper {
                     fptr.setParam(IFptr.LIBFPTR_PARAM_DATA_TYPE, IFptr.LIBFPTR_DT_STATUS);
                     fptr.queryData();
                     String modelName = fptr.getParamString(IFptr.LIBFPTR_PARAM_MODEL_NAME);
-                    Printer printer = Printer.builder()
-                            .name(modelName)
-                            .ip(ip)
-                            .port(Storage.DEFAULT_PRINTER_PORT)
-                            .selected(false)
-                            .connectionType(PrinterConnectionType.WIFI)
-                            .build();
+                    Printer printer = new Printer(modelName, PrinterConnectionType.WIFI, ip,
+                            Storage.DEFAULT_PRINTER_PORT, false);
+
                     fptr.close();
                     fptr.destroy();
                     return printer;
@@ -154,13 +152,9 @@ public class PrinterHelper {
                         fptr.setParam(IFptr.LIBFPTR_PARAM_DATA_TYPE, IFptr.LIBFPTR_DT_STATUS);
                         fptr.queryData();
                         String modelName = fptr.getParamString(IFptr.LIBFPTR_PARAM_MODEL_NAME);
-                        Printer printer = Printer.builder()
-                                .name(modelName)
-                                .ip(ip)
-                                .port(Storage.DEFAULT_PRINTER_PORT)
-                                .selected(false)
-                                .connectionType(PrinterConnectionType.WIFI)
-                                .build();
+                        Printer printer = new Printer(modelName, PrinterConnectionType.WIFI, ip,
+                                Storage.DEFAULT_PRINTER_PORT, false);
+
                         printers.add(printer);
                         fptr.close();
                         fptr.destroy();
@@ -217,7 +211,7 @@ public class PrinterHelper {
                 fptr.open();
 
                 User user = storage.getUserEmployeeSession().getUser();
-                fptr.setParam(1021, user.getFullName());
+                fptr.setParam(1021, user.getFullname());
                 fptr.operatorLogin();
 
                 fptr.setParam(IFptr.LIBFPTR_PARAM_RECEIPT_TYPE, IFptr.LIBFPTR_RT_SELL);
@@ -281,7 +275,7 @@ public class PrinterHelper {
                 fptr.open();
 
                 User user = storage.getUserEmployeeSession().getUser();
-                fptr.setParam(1021, user.getFullName());
+                fptr.setParam(1021, user.getFullname());
                 fptr.operatorLogin();
 
                 fptr.setParam(IFptr.LIBFPTR_PARAM_REPORT_TYPE, IFptr.LIBFPTR_RT_CLOSE_SHIFT);
@@ -394,13 +388,11 @@ public class PrinterHelper {
 
     public void printCheck(Context context, Check check) {
         if (printerBusy) {
-            PrinterQueueWrapper printerQueueWrapper = new PrinterQueueWrapper();
-            printerQueueWrapper.setAction(PrinterAction.PRINT);
             List<Object> params = new ArrayList<>();
             params.add(context);
             params.add(check);
-            printerQueueWrapper.setParams(params);
-            queue.offer(printerQueueWrapper);
+
+            queue.offer(new PrinterQueueWrapper(PrinterAction.PRINT, params));
         } else {
             new PrintTask(context, check).execute();
         }
@@ -408,12 +400,10 @@ public class PrinterHelper {
 
     public void closeShift(Context context) {
         if (printerBusy) {
-            PrinterQueueWrapper printerQueueWrapper = new PrinterQueueWrapper();
-            printerQueueWrapper.setAction(PrinterAction.CLOSE_SHIFT);
             List<Object> params = new ArrayList<>();
             params.add(context);
-            printerQueueWrapper.setParams(params);
-            queue.offer(printerQueueWrapper);
+
+            queue.offer(new PrinterQueueWrapper(PrinterAction.CLOSE_SHIFT, params));
         } else {
             new CloseShiftTask(context).execute();
         }
@@ -451,14 +441,13 @@ public class PrinterHelper {
 
     public void testPrint(Context context, String ip, String port) {
         if (printerBusy) {
-            PrinterQueueWrapper printerQueueWrapper = new PrinterQueueWrapper();
-            printerQueueWrapper.setAction(PrinterAction.TEST_PRINT);
             List<Object> params = new ArrayList<>();
+
             params.add(context);
             params.add(ip);
             params.add(port);
-            printerQueueWrapper.setParams(params);
-            queue.offer(printerQueueWrapper);
+
+            queue.offer(new PrinterQueueWrapper(PrinterAction.TEST_PRINT, params));
         } else {
             new TestPrintTask(context, ip, port).execute();
         }

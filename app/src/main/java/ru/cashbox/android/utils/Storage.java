@@ -5,8 +5,6 @@ import android.content.SharedPreferences;
 
 import java.text.DecimalFormat;
 
-import lombok.Getter;
-import lombok.Setter;
 import ru.cashbox.android.data.session.ShiftRepositoryImpl;
 import ru.cashbox.android.data.session.UserEmployeeRepositoryImpl;
 import ru.cashbox.android.data.session.UserTerminalRepositoryImpl;
@@ -15,7 +13,7 @@ import ru.cashbox.android.domain.session.UserEmployeeRepository;
 import ru.cashbox.android.domain.session.UserSessionInteractor;
 import ru.cashbox.android.domain.session.UserSessionInteractorImpl;
 import ru.cashbox.android.domain.session.UserTerminalRepository;
-import ru.cashbox.android.model.auth.Session;
+import ru.cashbox.android.model.Session;
 import ru.cashbox.android.query.AuthQuery;
 
 public class Storage {
@@ -57,7 +55,6 @@ public class Storage {
         return userSessions.getShiftRepository();
     }
 
-    @Getter @Setter
     private String balance;
 
     public static Storage getStorage()
@@ -78,6 +75,14 @@ public class Storage {
 
     public Context getContext() {
         return context;
+    }
+
+    public String getBalance() {
+        return balance;
+    }
+
+    public void setBalance(String balance) {
+        this.balance = balance;
     }
 
     public String checkBalanceValue(String value) {

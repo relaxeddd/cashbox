@@ -26,7 +26,7 @@ import ru.cashbox.android.auth.LoginEmployeeActivity;
 import ru.cashbox.android.auth.LoginTerminalActivity;
 import ru.cashbox.android.auth.Logout;
 import ru.cashbox.android.auth.LogoutExecutor;
-import ru.cashbox.android.model.auth.Session;
+import ru.cashbox.android.model.Session;
 import ru.cashbox.android.printer.PrinterSettingsActivity;
 import ru.cashbox.android.saver.CheckStateSaver;
 import ru.cashbox.android.utils.CashSessionHelper;
@@ -63,7 +63,7 @@ public class SettingsFragment extends Fragment implements Logout, View.OnClickLi
         printerSettingsItem = view.findViewById(R.id.setting_connect_printer_item);
 
         Session userEmployeeSession = storage.getUserEmployeeSession();
-        name.setText(userEmployeeSession.getUser().getFullName());
+        name.setText(userEmployeeSession.getUser().getFullname());
 
         btnLogout.setOnClickListener(this);
         printerSettingsItem.setOnClickListener(this);

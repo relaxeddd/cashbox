@@ -9,15 +9,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import lombok.Getter;
-import lombok.Setter;
 import ru.cashbox.android.R;
-import ru.cashbox.android.model.check.CheckItem;
+import ru.cashbox.android.model.CheckItem;
 import ru.cashbox.android.utils.Storage;
 
 public class CheckHistoryProductAdapter extends BaseAdapter {
 
-    @Getter @Setter
     private List<CheckItem> items;
     private Storage storage;
     private LayoutInflater inflater;
@@ -62,5 +59,9 @@ public class CheckHistoryProductAdapter extends BaseAdapter {
         total.setText(String.valueOf(item.getFullPrice()));
 
         return view;
+    }
+
+    public void setItems(List<CheckItem> items) {
+        this.items = items;
     }
 }

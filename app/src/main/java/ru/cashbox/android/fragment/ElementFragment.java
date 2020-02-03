@@ -31,20 +31,20 @@ import ru.cashbox.android.adapter.ElementAdapter;
 import ru.cashbox.android.adapter.TechMapAdapter;
 import ru.cashbox.android.adapter.TechMapAdapterGrid;
 import ru.cashbox.android.auth.LoginTerminalActivity;
-import ru.cashbox.android.model.category.Category;
-import ru.cashbox.android.model.category.Ingredient;
-import ru.cashbox.android.model.check.CheckItem;
-import ru.cashbox.android.model.element.Element;
-import ru.cashbox.android.model.element.ElementWrapper;
-import ru.cashbox.android.model.techmap.TechMap;
-import ru.cashbox.android.model.techmap.TechMapElement;
-import ru.cashbox.android.model.techmap.TechMapElementWrapper;
-import ru.cashbox.android.model.techmap.TechMapGroup;
-import ru.cashbox.android.model.techmap.TechMapModificator;
-import ru.cashbox.android.model.types.CategoryType;
-import ru.cashbox.android.model.types.CheckItemCategoryType;
-import ru.cashbox.android.model.types.ElementType;
-import ru.cashbox.android.model.types.ItemType;
+import ru.cashbox.android.model.Category;
+import ru.cashbox.android.model.CategoryType;
+import ru.cashbox.android.model.CheckItem;
+import ru.cashbox.android.model.CheckItemCategoryType;
+import ru.cashbox.android.model.Element;
+import ru.cashbox.android.model.ElementType;
+import ru.cashbox.android.model.ElementWrapper;
+import ru.cashbox.android.model.Ingredient;
+import ru.cashbox.android.model.ItemType;
+import ru.cashbox.android.model.TechMap;
+import ru.cashbox.android.model.TechMapElement;
+import ru.cashbox.android.model.TechMapElementWrapper;
+import ru.cashbox.android.model.TechMapGroup;
+import ru.cashbox.android.model.TechMapModificator;
 import ru.cashbox.android.query.CategoryQuery;
 import ru.cashbox.android.query.TechMapQuery;
 import ru.cashbox.android.saver.CheckStateSaver;
@@ -94,15 +94,10 @@ public class ElementFragment extends Fragment {
                 switch (element.getElementType()) {
                     case GOOD:
                         Ingredient ingredient = (Ingredient) element;
-                        CheckItem checkItem = CheckItem.builder()
-                                .id(ingredient.getId())
-                                .imageUrl(ingredient.getImageUrl())
-                                .name(ingredient.getName())
-                                .amount(1)
-                                .price(ingredient.getPrice())
-                                .fullPrice(1 * ingredient.getPrice())
-                                .type(CheckItemCategoryType.ITEM)
-                                .build();
+                        CheckItem checkItem = new CheckItem(ingredient.getId(), ingredient.getImageUrl(),
+                                ingredient.getName(), 1, ingredient.getPrice(),
+                                1 * ingredient.getPrice(), CheckItemCategoryType.ITEM, new ArrayList<>());
+
                         if (checkStateSaver.getCurrentCheck() != null) {
                             checkStateSaver.addItemToCurrentCheck(checkItem);
                             billHelper.updateCurrentCheck();
@@ -120,17 +115,11 @@ public class ElementFragment extends Fragment {
                         break;
                     case TECHMAP:
                         TechMap techMap = (TechMap) element;
-                        if (techMap.getModificatorGroups() == null ||
-                                techMap.getModificatorGroups().isEmpty()) {
-                            CheckItem checkItemTechMap = CheckItem.builder()
-                                    .id(techMap.getId())
-                                    .imageUrl(techMap.getImageUrl())
-                                    .name(techMap.getName())
-                                    .amount(1)
-                                    .price(techMap.getPrice())
-                                    .fullPrice(1 * techMap.getPrice())
-                                    .type(CheckItemCategoryType.TECHMAP)
-                                    .build();
+                        if (techMap.getModificatorGroups() == null || techMap.getModificatorGroups().isEmpty()) {
+                            CheckItem checkItemTechMap = new CheckItem(techMap.getId(), techMap.getImageUrl(),
+                                    techMap.getName(), 1, techMap.getPrice(), 1 * techMap.getPrice(),
+                                    CheckItemCategoryType.TECHMAP, new ArrayList<>());
+
                             if (checkStateSaver.getCurrentCheck() != null) {
                                 checkStateSaver.addItemToCurrentCheck(checkItemTechMap);
                                 billHelper.updateCurrentCheck();
@@ -141,7 +130,7 @@ public class ElementFragment extends Fragment {
                         }
                         if (techMap.getModificatorGroups() != null) {
                             slideSaver.show();
-                            slideSaver.setTotal(techMap.getPrice().toString());
+                            slideSaver.setTotal(String.valueOf(techMap.getPrice()));
 
                             List<TechMapElementWrapper> data = new ArrayList<>();
                             TechMapAdapter techMapAdapter = new TechMapAdapter(view.getContext(),
@@ -153,26 +142,19 @@ public class ElementFragment extends Fragment {
                             for (int i = 0; i < modificatorGroups.size(); i++) {
                                 TechMapGroup techMapGroup = modificatorGroups.get(i);
                                 List<TechMapModificator> modificators = techMapGroup.getModificators();
-
-                                TechMapElementWrapper item = new TechMapElementWrapper();
-                                item.setGroupName(techMapGroup.getName());
-                                item.setMaxSelected(techMapGroup.getModificatorsCount() == null
-                                        ? 1 : techMapGroup.getModificatorsCount());
                                 List<TechMapElement> techMapElements = new ArrayList<>();
-                                item.setElements(techMapElements);
 
                                 for (int j = 0; j < modificators.size(); j++) {
                                     TechMapModificator techMapModificator = modificators.get(j);
-                                    TechMapElement build = TechMapElement.builder()
-                                            .id(techMapModificator.getId())
-                                            .count(1)
-                                            .name(techMapModificator.getName())
-                                            .imageUrl(techMapModificator.getImageUrl())
-                                            .price(techMap.getPrice())
-                                            .selected(j == 0)
-                                            .build();
-                                    techMapElements.add(build);
+
+                                    techMapElements.add(new TechMapElement(techMapModificator.getId(), j == 0,
+                                            techMapModificator.getName(), techMapModificator.getImageUrl(),
+                                            techMap.getPrice(), 1));
                                 }
+
+                                TechMapElementWrapper item = new TechMapElementWrapper(techMapGroup.getName(),
+                                        techMapGroup.getModificatorsCount() == null
+                                                ? 1 : techMapGroup.getModificatorsCount(), techMapElements);
 
                                 if (techMapGroup.getModificatorsCount() == null) {
                                     techMapGroup.setModificatorsCount(1);
@@ -236,7 +218,9 @@ public class ElementFragment extends Fragment {
 
         @Override
         protected ElementWrapper doInBackground(Void... voids) {
-            ElementWrapper elementWrapper = new ElementWrapper();
+            int code = 0;
+            List<Element> elements = new ArrayList<>();
+
             try {
                 CategoryQuery categoryQuery = RetrofitInstance.getRetrofit()
                         .create(CategoryQuery.class);
@@ -249,16 +233,16 @@ public class ElementFragment extends Fragment {
                 Response<List<TechMap>> techMapResponse = techMapQuery
                         .getAllTechMaps(storage.getUserEmployeeSession().getToken()).execute();
 
-                elementWrapper.setCode(categoryResponse.code());
+                code = categoryResponse.code();
                 if (categoryResponse.body() != null && techMapResponse.body() != null) {
-                    elementWrapper.setCode(categoryResponse.code());
-                    elementWrapper.getElements().addAll(categoryResponse.body());
-                    elementWrapper.getElements().addAll(techMapResponse.body());
+                    elements.addAll(categoryResponse.body());
+                    elements.addAll(techMapResponse.body());
                 }
             } catch (IOException e) {
                 Log.e(CATEGORY_TAG, context.getString(R.string.internal_error), e);
             }
-            return elementWrapper;
+
+            return new ElementWrapper(code, elements);
         }
 
         @Override
@@ -302,7 +286,7 @@ public class ElementFragment extends Fragment {
             Element element = elements.get(i);
             if (element instanceof Category) {
                 Category category = (Category) element;
-                if (category.getCategoryType().equals(CategoryType.TERMINAL)
+                if (category.getType().equals(CategoryType.TERMINAL)
                         && category.getDefaultCategory()) {
                     return category.getId();
                 }
@@ -316,7 +300,7 @@ public class ElementFragment extends Fragment {
             Element element = elementWrapperMain.getElements().get(i);
             if (element instanceof Element) {
                 Category category = (Category) elementWrapperMain.getElements().get(i);
-                if (category.getId().equals(id)) {
+                if (category.getId() != null && category.getId().equals(id)) {
                     return category;
                 }
             }
@@ -342,6 +326,7 @@ public class ElementFragment extends Fragment {
 
     private List<Element> getElementsByCategoryId(Long id, List<Element> allElements) {
         List<Element> elements = new ArrayList<>();
+
         for (int i = 0; i < allElements.size(); i++) {
             Element element = allElements.get(i);
             if (element instanceof Category) {
@@ -350,27 +335,25 @@ public class ElementFragment extends Fragment {
                     if (category.getIngredients() != null) {
                         for (int j = 0; j < category.getIngredients().size(); j++) {
                             Ingredient ingredient = category.getIngredients().get(j);
-                            if (ingredient.getItemType().equals(ItemType.GOOD)) {
-                                ingredient.setElementType(ElementType.GOOD);
+                            if (ingredient.getType().equals(ItemType.GOOD)) {
                                 elements.add(ingredient);
                             }
                         }
                     }
                 }
                 if (category.getParentId() != null && category.getParentId().equals(id)
-                        && category.getCategoryType().equals(CategoryType.TERMINAL)) {
-                    category.setElementType(ElementType.CATEGORY);
+                        && category.getType().equals(CategoryType.TERMINAL)) {
                     elements.add(category);
                 }
             }
             if (element instanceof TechMap) {
                 TechMap techMap = (TechMap) element;
                 if (techMap.getCategory().getId().equals(id)) {
-                    techMap.setElementType(ElementType.TECHMAP);
                     elements.add(techMap);
                 }
             }
         }
+
         return elements;
     }
 

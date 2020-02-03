@@ -11,9 +11,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import lombok.Setter;
 import ru.cashbox.android.R;
-import ru.cashbox.android.model.check.CheckItem;
+import ru.cashbox.android.model.CheckItem;
 import ru.cashbox.android.saver.CheckStateSaver;
 import ru.cashbox.android.saver.SlideViewSaver;
 import ru.cashbox.android.utils.BillHelper;
@@ -25,7 +24,6 @@ public class CheckAdapter extends BaseAdapter {
     private Context context;
     private Storage storage;
     private LayoutInflater inflater;
-    @Setter
     private List<CheckItem> checkItems;
     private CheckStateSaver checkStateSaver;
     private SlideViewSaver slideViewSaver;
@@ -120,4 +118,7 @@ public class CheckAdapter extends BaseAdapter {
         return convertView;
     }
 
+    public void setCheckItems(List<CheckItem> checkItems) {
+        this.checkItems = checkItems;
+    }
 }

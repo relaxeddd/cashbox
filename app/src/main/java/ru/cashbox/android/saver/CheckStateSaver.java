@@ -14,15 +14,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import lombok.Getter;
-import lombok.Setter;
 import mehdi.sakout.fancybuttons.FancyButton;
 import ru.cashbox.android.R;
 import ru.cashbox.android.adapter.CheckAdapter;
-import ru.cashbox.android.model.check.Check;
-import ru.cashbox.android.model.check.CheckItem;
-import ru.cashbox.android.model.types.CheckStatus;
-import ru.cashbox.android.model.types.PayType;
+import ru.cashbox.android.model.Check;
+import ru.cashbox.android.model.CheckItem;
+import ru.cashbox.android.model.CheckStatus;
+import ru.cashbox.android.model.PayType;
 import ru.cashbox.android.utils.BillHelper;
 import ru.cashbox.android.utils.Storage;
 
@@ -36,20 +34,14 @@ public class CheckStateSaver {
     private Storage storage;
     private List<Check> checks;
     private CheckAdapter checkAdapter;
-    @Setter
     private TextView checkCost;
-    @Setter
     private TextView checkCostWithoutDiscount;
-    @Getter
     private List<Check> closedChecks;
     private UUID currentCheckHash;
     private SlideViewSaver slideViewSaver;
 
-    @Setter
     private ConstraintLayout checkContentLayout;
-    @Setter
     private TextView currentCheckText;
-    @Setter
     private FancyButton btnNewCheckCenter;
     private BillHelper billHelper;
 
@@ -61,6 +53,30 @@ public class CheckStateSaver {
         setup();
     }
 
+    public void setCheckCost(TextView checkCost) {
+        this.checkCost = checkCost;
+    }
+
+    public void setCheckCostWithoutDiscount(TextView checkCostWithoutDiscount) {
+        this.checkCostWithoutDiscount = checkCostWithoutDiscount;
+    }
+
+    public List<Check> getClosedChecks() {
+        return closedChecks;
+    }
+
+    public void setCheckContentLayout(ConstraintLayout checkContentLayout) {
+        this.checkContentLayout = checkContentLayout;
+    }
+
+    public void setCurrentCheckText(TextView currentCheckText) {
+        this.currentCheckText = currentCheckText;
+    }
+
+    public void setBtnNewCheckCenter(FancyButton btnNewCheckCenter) {
+        this.btnNewCheckCenter = btnNewCheckCenter;
+    }
+
     public void setup() {
         checks = new ArrayList<>();
         closedChecks = new ArrayList<>();
@@ -70,14 +86,9 @@ public class CheckStateSaver {
     public Check createCheck(Integer number) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         Date date = new Date();
-        Check check = Check.builder()
-                .number(number)
-                .items(new ArrayList<CheckItem>())
-                .hash(UUID.randomUUID())
-                .status(CheckStatus.OPENED)
-                .created(dateFormat.format(date))
-                .payType(PayType.UNDEFINED)
-                .build();
+        Check check = new Check(number, UUID.randomUUID(), new ArrayList<>(), CheckStatus.OPENED,
+                dateFormat.format(date), "", false, PayType.UNDEFINED);
+
         checks.add(check);
         return check;
     }

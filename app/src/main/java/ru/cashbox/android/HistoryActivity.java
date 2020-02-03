@@ -27,10 +27,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import ru.cashbox.android.adapter.CheckHistoryAdapter;
 import ru.cashbox.android.adapter.CheckHistoryProductAdapter;
-import ru.cashbox.android.model.check.Check;
-import ru.cashbox.android.model.check.CheckItem;
-import ru.cashbox.android.model.types.CheckStatus;
-import ru.cashbox.android.model.types.PayType;
+import ru.cashbox.android.model.Check;
+import ru.cashbox.android.model.CheckItem;
+import ru.cashbox.android.model.CheckStatus;
+import ru.cashbox.android.model.PayType;
 import ru.cashbox.android.query.BillQuery;
 import ru.cashbox.android.saver.CheckStateSaver;
 import ru.cashbox.android.utils.PrinterHelper;
@@ -67,7 +67,7 @@ public class HistoryActivity extends AppCompatActivity {
             @Override
             public int compare(Check checkTwo, Check checkOne)
             {
-                return  checkOne.getNumber().compareTo(checkTwo.getNumber());
+                return Integer.compare(checkOne.getNumber(), checkTwo.getNumber());
             }
         });
 
@@ -282,7 +282,7 @@ public class HistoryActivity extends AppCompatActivity {
     private void checkToScreen(Check check) {
         currentSelectedCheck = check;
         checkNumber.setText(String.valueOf(check.getNumber()));
-        employeeName.setText(storage.getUserEmployeeSession().getUser().getFullName());
+        employeeName.setText(storage.getUserEmployeeSession().getUser().getFullname());
         created.setText(check.getCreated());
         status.setText(check.getStatus().getTranslatedName());
         productAdapter.setItems(check.getItems());

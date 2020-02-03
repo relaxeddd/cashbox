@@ -32,8 +32,8 @@ import mehdi.sakout.fancybuttons.FancyButton;
 import retrofit2.Response;
 import ru.cashbox.android.MainActivity;
 import ru.cashbox.android.R;
-import ru.cashbox.android.model.auth.Session;
-import ru.cashbox.android.model.auth.User;
+import ru.cashbox.android.model.Session;
+import ru.cashbox.android.model.User;
 import ru.cashbox.android.query.AuthQuery;
 import ru.cashbox.android.saver.LoginStateSaver;
 import ru.cashbox.android.utils.PrinterHelper;
@@ -77,7 +77,7 @@ public class LoginEmployeeActivity extends AppCompatActivity {
         btnTerminalLogout = findViewById(R.id.btn_terminal_logout);
         terminalTitle = findViewById(R.id.employee_terminal_title);
         User terminal = storage.getUserTerminalSession().getUser();
-        terminalTitle.setText(terminal.getFullName());
+        terminalTitle.setText(terminal.getFullname());
 
         one = findViewById(R.id.btn_employee_one);
         two = findViewById(R.id.btn_employee_two);

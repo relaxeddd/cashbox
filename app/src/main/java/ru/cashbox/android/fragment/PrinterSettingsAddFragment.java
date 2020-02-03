@@ -20,7 +20,7 @@ import java.util.List;
 
 import mehdi.sakout.fancybuttons.FancyButton;
 import ru.cashbox.android.R;
-import ru.cashbox.android.model.printer.Printer;
+import ru.cashbox.android.model.Printer;
 import ru.cashbox.android.printer.PrinterSettingsActivity;
 import ru.cashbox.android.utils.PrinterHelper;
 import ru.cashbox.android.utils.Storage;

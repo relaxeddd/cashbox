@@ -12,8 +12,8 @@ import android.widget.TextView;
 import java.util.List;
 
 import ru.cashbox.android.R;
-import ru.cashbox.android.model.check.Check;
-import ru.cashbox.android.model.check.CheckItem;
+import ru.cashbox.android.model.Check;
+import ru.cashbox.android.model.CheckItem;
 import ru.cashbox.android.utils.Storage;
 
 public class CheckPopupHistoryAdapter extends BaseAdapter {

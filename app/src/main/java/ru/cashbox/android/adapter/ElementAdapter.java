@@ -13,11 +13,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import lombok.Getter;
-import lombok.Setter;
 import ru.cashbox.android.R;
-import ru.cashbox.android.model.element.Element;
-import ru.cashbox.android.model.types.ElementType;
+import ru.cashbox.android.model.Element;
 import ru.cashbox.android.utils.Storage;
 
 public class ElementAdapter extends BaseAdapter {
@@ -25,7 +22,6 @@ public class ElementAdapter extends BaseAdapter {
     private Context context;
     private Storage storage;
     private LayoutInflater inflater;
-    @Getter @Setter
     private List<Element> elements;
 
     public ElementAdapter(Context context, List<Element> categories) {
@@ -72,4 +68,7 @@ public class ElementAdapter extends BaseAdapter {
         return view;
     }
 
+    public void setElements(List<Element> elements) {
+        this.elements = elements;
+    }
 }

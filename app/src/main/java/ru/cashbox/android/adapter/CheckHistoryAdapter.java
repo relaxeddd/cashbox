@@ -14,18 +14,14 @@ import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.List;
 
-import lombok.Getter;
-import lombok.Setter;
 import ru.cashbox.android.R;
-import ru.cashbox.android.model.check.Check;
-import ru.cashbox.android.model.check.CheckItem;
+import ru.cashbox.android.model.Check;
+import ru.cashbox.android.model.CheckItem;
 import ru.cashbox.android.saver.CheckStateSaver;
 import ru.cashbox.android.utils.Storage;
 
 public class CheckHistoryAdapter extends BaseAdapter {
 
-    @Getter
-    @Setter
     private List<Check> checks;
     private Storage storage;
     private LayoutInflater inflater;
@@ -84,16 +80,20 @@ public class CheckHistoryAdapter extends BaseAdapter {
                 break;
         }
 
-        if (check.getHistorySelected() != null && check.getHistorySelected()) {
+        if (check.getHistorySelected()) {
             layout.setBackgroundColor(storage.getContext().getResources().getColor(R.color.colorSelected));
             products.setTextColor(storage.getContext().getResources().getColor(android.R.color.white));
         }
-        if (check.getHistorySelected() == null || !check.getHistorySelected()) {
+        if (!check.getHistorySelected()) {
             layout.setBackgroundColor(storage.getContext().getResources().getColor(android.R.color.white));
             products.setTextColor(storage.getContext().getResources().getColor(android.R.color.darker_gray));
         }
 
         return view;
+    }
+
+    public List<Check> getChecks() {
+        return checks;
     }
 
     private String buildProductLine(List<CheckItem> items) {

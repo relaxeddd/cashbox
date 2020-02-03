@@ -12,8 +12,8 @@ import java.util.concurrent.TimeoutException;
 
 import retrofit2.Response;
 import ru.cashbox.android.domain.session.UserTerminalRepository;
-import ru.cashbox.android.model.auth.Session;
-import ru.cashbox.android.model.auth.User;
+import ru.cashbox.android.model.Session;
+import ru.cashbox.android.model.User;
 import ru.cashbox.android.query.AuthQuery;
 import ru.cashbox.android.utils.RetrofitInstance;
 import ru.cashbox.android.utils.Storage;
@@ -92,9 +92,7 @@ public class UserTerminalRepositoryImpl implements UserTerminalRepository {
 				Response<User> response = new TerminalAuthTask().execute(token).get(5, TimeUnit.SECONDS);
 				User user = response != null ? response.body() : null;
 				if (user != null) {
-					userTerminalSession = new Session();
-					userTerminalSession.setToken(token);
-					userTerminalSession.setUser(user);
+					userTerminalSession = new Session(token, user);
 				}
 			} catch (ExecutionException | InterruptedException | TimeoutException e) {
 				e.printStackTrace();

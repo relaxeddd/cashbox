@@ -86,7 +86,7 @@ public class BetweenLoginScreen extends AppCompatActivity implements Logout {
             }
         });
 
-        employeeName.setText(storage.getUserEmployeeSession().getUser().getFullName());
+        employeeName.setText(storage.getUserEmployeeSession().getUser().getFullname());
         btnOpenShift.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

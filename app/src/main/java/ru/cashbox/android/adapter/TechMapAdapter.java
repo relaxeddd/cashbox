@@ -17,11 +17,10 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.Getter;
 import ru.cashbox.android.R;
-import ru.cashbox.android.model.bill.BillModificatorWrapper;
-import ru.cashbox.android.model.techmap.TechMapElement;
-import ru.cashbox.android.model.techmap.TechMapElementWrapper;
+import ru.cashbox.android.model.BillModificatorWrapper;
+import ru.cashbox.android.model.TechMapElement;
+import ru.cashbox.android.model.TechMapElementWrapper;
 import ru.cashbox.android.utils.Storage;
 import ru.rambler.libs.swipe_layout.SwipeLayout;
 
@@ -30,7 +29,6 @@ public class TechMapAdapter extends RecyclerView.Adapter<TechMapAdapter.SimpleVi
     private final Context mContext;
     private final List<TechMapElementWrapper> data;
     private final String techMapName;
-    @Getter
     private final Long techmapId;
     private Storage storage;
 
@@ -57,6 +55,10 @@ public class TechMapAdapter extends RecyclerView.Adapter<TechMapAdapter.SimpleVi
         this.data = data;
         this.techMapName = techMapName;
         this.techmapId = techmapId;
+    }
+
+    public Long getTechmapId() {
+        return techmapId;
     }
 
     public SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
