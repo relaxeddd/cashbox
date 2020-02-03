@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ru.rambler.libs.swipe_layout.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/techmap_swipe_layout"
+    style="@style/SwipeLayout"
+    android:background="@android:color/white"
+    android:layout_width="200dp"
+    android:layout_height="150dp"
+    app:left_swipe_enabled="true"
+    app:right_swipe_enabled="false">
+
+    <!--CENTER-->
+    <LinearLayout
+        android:id="@+id/techmap_center_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white">
+
+        <include
+            layout="@layout/techmap_item"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <!--RIGHT-->
+    <FrameLayout
+        android:id="@+id/techmap_right_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:bring_to_clamp="100dp"
+        app:clamp="self"
+        app:gravity="right"
+        app:sticky="none"
+        tools:ignore="MissingPrefix">
+
+        <include
+            layout="@layout/check_item_actions_right"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            />
+
+
+    </FrameLayout>
+
+    <!--LEFT-->
+    <FrameLayout
+        android:id="@+id/techmap_left_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:bring_to_clamp="100dp"
+        app:clamp="self"
+        app:gravity="left"
+        app:sticky="none"
+        tools:ignore="MissingPrefix">
+
+        <include
+            layout="@layout/techmap_item_actions_left"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            />
+
+
+    </FrameLayout>
+</ru.rambler.libs.swipe_layout.SwipeLayout>

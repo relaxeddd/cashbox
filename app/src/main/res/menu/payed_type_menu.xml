@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <group android:id="@+id/payed_type_menu_group" >
+        <item
+            android:id="@+id/payed_type_menu_cash"
+            android:title="Наличный расчет"/>
+        <item
+            android:id="@+id/payed_type_menu_wire"
+            android:title="Базналичный расчет"/>
+
+    </group>
+
+</menu>

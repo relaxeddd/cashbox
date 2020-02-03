@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#e8eaed</color>
+    <color name="colorPrimaryDark">#828282</color>
+    <color name="colorAccent">#1a8cc7</color>
+    <color name="colorTransparent">#004DB6AC</color>
+    <color name="colorHalfTransparent">#DF747474</color>
+    <color name="colorPopupMenu">#F3F1F1</color>
+    <color name="colorCategoryItem">#FFD180</color>
+    <color name="colorBackgroundElement">#eeeeee</color>
+    <color name="colorCheckPaid">#28FF00</color>
+    <color name="colorCheckClosed">#FFEC00</color>
+    <color name="colorCheckRevert">#FF0000</color>
+    <color name="colorSelected">#0066FF</color>
+</resources>
