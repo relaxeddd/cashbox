@@ -1,26 +1,40 @@
 package ru.cashbox.android.model
 
+import androidx.annotation.Keep
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import ru.cashbox.android.common.*
 import java.util.UUID
 
-data class User(val id: Long, val username: String, val fullname: String, val activate: Boolean,
+@Entity(tableName = USERS)
+@Keep
+data class User(@PrimaryKey val id: Long, val username: String, val fullname: String, val activate: Boolean,
                 val pin: String)
 
+@Keep
 data class Session(val token: String, val user: User)
 
+@Keep
 data class BillModificatorWrapper(val id: Long, val count: Int, val price: Double)
 
+@Keep
 data class BillResponseNumberWrapper(val id: Int)
 
+@Keep
 data class TechMapModificator(val id: Long, val imageUrl: String, val name: String)
 
+@Keep
 data class TechMapGroup(val id: Long, val name: String, var modificatorsCount: Int?,
                         val modificators: List<TechMapModificator>)
 
+@Keep
 data class TechMapElement(val id: Long, var selected: Boolean, val name: String, val imageUrl: String,
                           val price: Double, var count: Int)
 
+@Keep
 data class TechMapElementWrapper(val groupName: String, val maxSelected: Int, val elements: List<TechMapElement>)
 
+@Keep
 data class Ingredient(override val id: Long?, override val imageUrl: String, override val name: String,
                       val price: Double,
                       val type: ItemType,
@@ -29,6 +43,7 @@ data class Ingredient(override val id: Long?, override val imageUrl: String, ove
         get() = ElementType.GOOD
 }
 
+@Keep
 data class Category(override val id: Long?, override val imageUrl: String, override val name: String,
                     val parentId: Long?,
                     val ingredients: List<Ingredient>,
@@ -38,6 +53,7 @@ data class Category(override val id: Long?, override val imageUrl: String, overr
         get() = ElementType.CATEGORY
 }
 
+@Keep
 data class TechMap(override val id: Long?, override val imageUrl: String, override val name: String,
                    val price: Double,
                    val category: Category,
@@ -46,18 +62,23 @@ data class TechMap(override val id: Long?, override val imageUrl: String, overri
         get() = ElementType.TECHMAP
 }
 
+@Keep
 data class CheckItem(val id: Long?, val imageUrl: String, val name: String, var amount: Int, val price: Double,
                      var fullPrice: Double, val type: CheckItemCategoryType,
                      val modificators: List<BillModificatorWrapper>)
 
+@Keep
 data class Check(val number: Int, val hash: UUID, val items: List<CheckItem>, var status: CheckStatus,
                  val created: String, var closed: String, var historySelected: Boolean, var payType: PayType)
 
+@Keep
 data class ElementWrapper(val code: Int, val elements: List<Element>)
 
+@Keep
 data class Printer(val name: String, val connectionType: PrinterConnectionType, val ip: String, val port: String,
                    var selected: Boolean)
 
+@Keep
 data class PrinterQueueWrapper(val action: PrinterAction, val params: List<Any>)
 
 //----------------------------------------------------------------------------------------------------------------------

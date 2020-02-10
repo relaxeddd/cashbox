@@ -1,6 +1,5 @@
 package ru.cashbox.android.fragment;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -13,7 +12,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import org.apache.http.HttpStatus;
 
@@ -25,7 +24,6 @@ import moe.feng.common.view.breadcrumbs.BreadcrumbsView;
 import moe.feng.common.view.breadcrumbs.DefaultBreadcrumbsCallback;
 import moe.feng.common.view.breadcrumbs.model.BreadcrumbItem;
 import retrofit2.Response;
-import ru.cashbox.android.CashboxApplication;
 import ru.cashbox.android.R;
 import ru.cashbox.android.adapter.ElementAdapter;
 import ru.cashbox.android.adapter.TechMapAdapter;
@@ -36,7 +34,6 @@ import ru.cashbox.android.model.CategoryType;
 import ru.cashbox.android.model.CheckItem;
 import ru.cashbox.android.model.CheckItemCategoryType;
 import ru.cashbox.android.model.Element;
-import ru.cashbox.android.model.ElementType;
 import ru.cashbox.android.model.ElementWrapper;
 import ru.cashbox.android.model.Ingredient;
 import ru.cashbox.android.model.ItemType;
@@ -66,14 +63,6 @@ public class ElementFragment extends Fragment {
     private BreadcrumbsView breadcrumbsView;
     private TechMapSlideSaver slideSaver;
     private BillHelper billHelper;
-
-    private Context appContext;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        appContext = CashboxApplication.getInstance().getContextProvider().getContext();
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -194,7 +183,7 @@ public class ElementFragment extends Fragment {
             }
         });
 
-        new ElementLoaderTask(appContext).execute();
+        new ElementLoaderTask(getContext()).execute();
 
         return view;
     }
