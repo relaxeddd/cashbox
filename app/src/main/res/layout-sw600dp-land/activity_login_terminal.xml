@@ -86,7 +86,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:met_hideUnderline="true"
             app:met_iconLeft="@drawable/username_icon"
-            app:met_iconPadding="0dp" />
+            app:met_iconPadding="0dp"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -113,6 +114,7 @@
             app:met_hideUnderline="true"
             app:met_iconLeft="@drawable/password_icon"
             app:met_iconPadding="0dp" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <mehdi.sakout.fancybuttons.FancyButton
@@ -884,7 +886,7 @@
         fancy:fb_textSize="20sp" />
 
 
-    <FrameLayout
+    <!--<FrameLayout
         android:id="@+id/dim_domain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -894,9 +896,9 @@
         app:layout_constraintBottom_toBottomOf="@+id/include2"
         app:layout_constraintEnd_toEndOf="@+id/include2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <include
+    <!--<include
         android:id="@+id/include2"
         layout="@layout/domain_slide"
         android:layout_width="0dp"
@@ -904,6 +906,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

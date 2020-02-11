@@ -3,8 +3,6 @@ package ru.cashbox.android.auth;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import org.apache.http.HttpStatus;
-
 import java.io.IOException;
 
 import okhttp3.ResponseBody;

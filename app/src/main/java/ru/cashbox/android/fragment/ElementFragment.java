@@ -14,8 +14,6 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import org.apache.http.HttpStatus;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +27,7 @@ import ru.cashbox.android.adapter.ElementAdapter;
 import ru.cashbox.android.adapter.TechMapAdapter;
 import ru.cashbox.android.adapter.TechMapAdapterGrid;
 import ru.cashbox.android.auth.LoginTerminalActivity;
+import ru.cashbox.android.common.HttpStatusKt;
 import ru.cashbox.android.model.Category;
 import ru.cashbox.android.model.CategoryType;
 import ru.cashbox.android.model.CheckItem;
@@ -246,12 +245,12 @@ public class ElementFragment extends Fragment {
             }
 
             switch (result.getCode()) {
-                case HttpStatus.SC_UNAUTHORIZED:
+                case HttpStatusKt.UNAUTHORIZED:
                     getActivity().finishAffinity();
                     startActivity(new Intent(storage.getContext(), LoginTerminalActivity.class));
                     Log.i(CATEGORY_TAG, context.getString(R.string.token_outdated));
                     break;
-                case HttpStatus.SC_OK:
+                case HttpStatusKt.OK:
                     if (result.getElements() != null) {
                         elementWrapperMain = result;
                         Long mainCategoryId = getMainCategoryId(result.getElements());

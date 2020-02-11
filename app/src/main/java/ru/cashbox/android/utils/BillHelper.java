@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import org.apache.http.HttpStatus;
-
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -21,6 +19,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import ru.cashbox.android.R;
 import ru.cashbox.android.auth.LoginTerminalActivity;
+import ru.cashbox.android.common.HttpStatusKt;
 import ru.cashbox.android.model.BillModificatorWrapper;
 import ru.cashbox.android.model.BillResponseNumberWrapper;
 import ru.cashbox.android.model.Check;
@@ -57,12 +56,12 @@ public class BillHelper {
         billQuery.createBill(storage.getUserEmployeeSession().getToken(), buildBill(null, CheckStatus.OPENED)).enqueue(new Callback<BillResponseNumberWrapper>() {
             @Override
             public void onResponse(Call<BillResponseNumberWrapper> call, Response<BillResponseNumberWrapper> response) {
-                if (response.code() == HttpStatus.SC_UNAUTHORIZED) {
+                if (response.code() == HttpStatusKt.UNAUTHORIZED) {
                     Intent intent = new Intent(storage.getContext(), LoginTerminalActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     storage.getContext().startActivity(intent);
                 }
-                if (response.code() == HttpStatus.SC_OK) {
+                if (response.code() == HttpStatusKt.OK) {
                     BillResponseNumberWrapper body = response.body();
                     Check check = checkStateSaver.createCheck(body.getId());
                     checkStateSaver.setCheckTitle(check.getNumber());
@@ -92,7 +91,7 @@ public class BillHelper {
                 buildBill(null, CheckStatus.OPENED)).enqueue(new Callback<BillResponseNumberWrapper>() {
             @Override
             public void onResponse(Call<BillResponseNumberWrapper> call, Response<BillResponseNumberWrapper> response) {
-                if (response.code() == HttpStatus.SC_OK) {
+                if (response.code() == HttpStatusKt.OK) {
                     BillResponseNumberWrapper body = response.body();
                     Check check = checkStateSaver.createCheck(body.getId());
                     checkStateSaver.setCheckTitle(check.getNumber());
@@ -108,7 +107,7 @@ public class BillHelper {
                 }
 
 
-                if (response.code() == HttpStatus.SC_UNAUTHORIZED) {
+                if (response.code() == HttpStatusKt.UNAUTHORIZED) {
                     Intent intent = new Intent(storage.getContext(), LoginTerminalActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     storage.getContext().startActivity(intent);
@@ -129,7 +128,7 @@ public class BillHelper {
                 CheckStatus.CLOSED.name()).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.code() == HttpStatus.SC_UNAUTHORIZED) {
+                if (response.code() == HttpStatusKt.UNAUTHORIZED) {
                     Intent intent = new Intent(storage.getContext(), LoginTerminalActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     storage.getContext().startActivity(intent);
@@ -149,7 +148,7 @@ public class BillHelper {
                 CheckStatus.PAYED.name(), payType.name()).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.code() == HttpStatus.SC_UNAUTHORIZED) {
+                if (response.code() == HttpStatusKt.UNAUTHORIZED) {
                     Intent intent = new Intent(storage.getContext(), LoginTerminalActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     storage.getContext().startActivity(intent);
@@ -168,7 +167,7 @@ public class BillHelper {
 
         @Override
         protected void onPostExecute(Response<ResponseBody> responseBodyResponse) {
-            if (responseBodyResponse.code() == HttpStatus.SC_UNAUTHORIZED) {
+            if (responseBodyResponse.code() == HttpStatusKt.UNAUTHORIZED) {
                 Intent intent = new Intent(storage.getContext(), LoginTerminalActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 storage.getContext().startActivity(intent);

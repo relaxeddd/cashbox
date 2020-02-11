@@ -21,6 +21,17 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+
+        <activity
+            android:name=".refactor.ActivityMain"
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".auth.BetweenLoginScreen"
             android:screenOrientation="landscape"/>
@@ -35,13 +46,7 @@
             android:name=".auth.LoginTerminalActivity"
             android:launchMode="singleTop"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".auth.LoginEmployeeActivity"
             android:launchMode="singleTop"

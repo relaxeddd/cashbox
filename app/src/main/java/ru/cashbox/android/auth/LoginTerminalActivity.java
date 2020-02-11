@@ -28,8 +28,6 @@ import com.mancj.slideup.SlideUpBuilder;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.yarolegovich.lovelydialog.LovelyStandardDialog;
 
-import org.apache.http.HttpStatus;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -40,6 +38,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import ru.cashbox.android.R;
+import ru.cashbox.android.common.HttpStatusKt;
 import ru.cashbox.android.model.Session;
 import ru.cashbox.android.query.AuthQuery;
 import ru.cashbox.android.saver.LoginStateSaver;
@@ -653,12 +652,12 @@ public class LoginTerminalActivity extends AppCompatActivity {
             }
 
             switch (result.code()) {
-                case HttpStatus.SC_UNAUTHORIZED:
+                case HttpStatusKt.UNAUTHORIZED:
                     Toast.makeText(getApplicationContext(), getString(R.string.correct_data),
                             Toast.LENGTH_SHORT).show();
                     Log.i(LOGIN_TERMINAL_TAG, getString(R.string.correct_data));
                     break;
-                case HttpStatus.SC_OK:
+                case HttpStatusKt.OK:
                     storage.setUserTerminalSession(result.body());
                     startActivity(new Intent(getApplicationContext(), LoginEmployeeActivity.class));
                     break;

@@ -10,6 +10,7 @@ import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
 import com.microsoft.appcenter.distribute.Distribute
 import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import ru.cashbox.android.common.DATABASE_NAME
@@ -18,6 +19,10 @@ import ru.cashbox.android.model.db.AppDatabase
 import ru.cashbox.android.model.http.ApiHelper
 import ru.cashbox.android.model.prefs.SharedHelper
 import ru.cashbox.android.model.repositories.RepositorySettings
+import ru.cashbox.android.model.repositories.RepositoryUser
+import ru.cashbox.android.refactor.ViewModelMain
+import ru.cashbox.android.refactor.login_employee.ViewModelLoginEmployee
+import ru.cashbox.android.refactor.login_terminal.ViewModelLoginTerminal
 import ru.cashbox.android.saver.CheckStateSaver
 import ru.cashbox.android.saver.SlideViewSaver
 import ru.cashbox.android.utils.Storage
@@ -61,10 +66,16 @@ class App : MultiDexApplication() {
                 }
                 factory { NetworkHelper(this@App) }
 
-                single { ApiHelper(get()) }
-
                 single { SharedHelper(this@App) }
+
                 single { RepositorySettings(get()) }
+                single { ApiHelper(get(), get()) }
+
+                single { RepositoryUser(get()) }
+
+                viewModel { ViewModelMain(this@App, get()) }
+                viewModel { ViewModelLoginTerminal(this@App, get(), get()) }
+                viewModel { ViewModelLoginEmployee(this@App, get(), get()) }
             })
         }
     }

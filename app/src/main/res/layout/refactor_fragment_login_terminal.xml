@@ -1,0 +1,863 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".refactor.ActivityMain">
+
+    <data>
+
+        <import type="android.view.View"/>
+        <import type="ru.cashbox.android.refactor.login_terminal.ViewModelLoginTerminal.EditFields"/>
+        <variable
+            name="viewModel"
+            type="ru.cashbox.android.refactor.login_terminal.ViewModelLoginTerminal" />
+        <variable
+            name="clickListenerLogin"
+            type="android.view.View.OnClickListener"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="ContentDescription">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_login_terminal_toolbar"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/size_52"
+            android:background="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_login_terminal_logo"
+                android:layout_width="@dimen/size_30"
+                android:layout_height="@dimen/size_30"
+                android:layout_marginStart="@dimen/size_16"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/logo" />
+
+            <ImageView
+                android:layout_width="@dimen/size_1"
+                android:layout_height="@dimen/size_30"
+                android:layout_marginStart="@dimen/size_16"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/image_login_terminal_logo"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@android:color/darker_gray" />
+
+            <!--<ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/size_8"
+                android:adjustViewBounds="true"
+                android:background="?selectableItemBackgroundBorderless"
+                android:padding="@dimen/size_5"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/settings" />-->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <FrameLayout
+            android:id="@+id/container_login_terminal_domain"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_52"
+            android:layout_marginStart="@dimen/size_150"
+            android:layout_marginTop="@dimen/size_16"
+            android:layout_marginEnd="@dimen/size_150"
+            android:background="@{safeUnbox(viewModel.isSelectedFieldDomain) ? @drawable/edit_text_border_selected : @drawable/edit_text_border}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/container_login_terminal_toolbar">
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/text_login_terminal_domain"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/size_8"
+                android:hint="@string/cashbox_domain"
+                android:onClick="@{(view) -> viewModel.selectField(EditFields.DOMAIN)}"
+                android:text="@{viewModel.textDomain}"
+                android:singleLine="true"
+                android:focusable="false"
+                app:met_hideUnderline="true"
+                app:met_iconLeft="@drawable/username_icon"
+                app:met_iconPadding="0dp" />
+
+        </FrameLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_login_terminal_login_password"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_52"
+            android:layout_marginStart="@dimen/size_150"
+            android:layout_marginTop="@dimen/size_16"
+            android:layout_marginEnd="@dimen/size_150"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/container_login_terminal_domain">
+
+            <FrameLayout
+                android:id="@+id/container_login_terminal_login"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/size_52"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginEnd="@dimen/size_16"
+                android:background="@{safeUnbox(viewModel.isSelectedFieldLogin) ? @drawable/edit_text_border_selected : @drawable/edit_text_border}"
+                app:layout_constraintEnd_toStartOf="@+id/container_login_terminal_password"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/text_login_terminal_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/size_8"
+                    android:hint="@string/login"
+                    android:text="@{viewModel.textLogin}"
+                    android:onClick="@{(view) -> viewModel.selectField(EditFields.LOGIN)}"
+                    android:focusable="false"
+                    android:singleLine="true"
+                    app:met_hideUnderline="true"
+                    app:met_iconLeft="@drawable/username_icon"
+                    app:met_iconPadding="0dp" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/container_login_terminal_password"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/size_52"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="@dimen/size_16"
+                android:background="@{safeUnbox(viewModel.isSelectedFieldPassword) ? @drawable/edit_text_border_selected : @drawable/edit_text_border}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/container_login_terminal_login">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/text_login_terminal_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/size_8"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:text="@{viewModel.textPassword}"
+                    android:onClick="@{(view) -> viewModel.selectField(EditFields.PASSWORD)}"
+                    android:focusable="false"
+                    android:singleLine="true"
+                    app:met_hideUnderline="true"
+                    app:met_iconLeft="@drawable/password_icon"
+                    app:met_iconPadding="0dp" />
+
+            </FrameLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_login"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/size_52"
+            android:layout_marginTop="@dimen/size_16"
+            android:padding="@dimen/size_5"
+            android:onClick="@{clickListenerLogin}"
+            app:layout_constraintEnd_toEndOf="@+id/container_login_terminal_login_password"
+            app:layout_constraintStart_toStartOf="@+id/container_login_terminal_login_password"
+            app:layout_constraintTop_toBottomOf="@+id/container_login_terminal_login_password"
+            fancy:fb_defaultColor="@color/colorAccent"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_iconPaddingLeft="@dimen/size_0"
+            fancy:fb_iconPaddingRight="@dimen/size_0"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="@string/enter"
+            fancy:fb_textColor="#FFFFFF"
+            fancy:fb_textSize="@dimen/font_30" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_one"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginTop="@dimen/size_16"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_two"
+            app:layout_constraintStart_toStartOf="@+id/button_login_terminal_login"
+            app:layout_constraintTop_toBottomOf="@+id/button_login_terminal_login"
+            android:onClick="@{(view) -> viewModel.enterSymbol('1')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="1"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_two"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_three"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_one"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_one"
+            android:onClick="@{(view) -> viewModel.enterSymbol('2')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="2"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_three"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_four"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_two"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_two"
+            android:onClick="@{(view) -> viewModel.enterSymbol('3')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="3"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_four"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_five"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_three"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_three"
+            android:onClick="@{(view) -> viewModel.enterSymbol('4')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="4"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_five"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_six"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_four"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_four"
+            android:onClick="@{(view) -> viewModel.enterSymbol('5')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="5"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_six"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_seven"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_five"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_five"
+            android:onClick="@{(view) -> viewModel.enterSymbol('6')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="6"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_seven"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_eight"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_six"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_six"
+            android:onClick="@{(view) -> viewModel.enterSymbol('7')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="7"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_eight"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_nine"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_seven"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_seven"
+            android:onClick="@{(view) -> viewModel.enterSymbol('8')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="8"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_nine"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_zero"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_eight"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_eight"
+            android:onClick="@{(view) -> viewModel.enterSymbol('9')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="9"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_zero"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            app:layout_constraintEnd_toEndOf="@+id/button_login_terminal_login"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_nine"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_nine"
+            android:onClick="@{(view) -> viewModel.enterSymbol('0')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="0"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+<!--=================================================================================================================-->
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_q"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginTop="@dimen/size_16"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_w"
+            app:layout_constraintStart_toStartOf="@+id/button_login_terminal_login"
+            app:layout_constraintTop_toBottomOf="@+id/button_login_terminal_one"
+            android:onClick="@{(view) -> viewModel.enterSymbol('q')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="Q"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_w"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_e"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_q"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_q"
+            android:onClick="@{(view) -> viewModel.enterSymbol('w')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="W"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_e"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_r"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_w"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_w"
+            android:onClick="@{(view) -> viewModel.enterSymbol('e')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="E"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_r"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_t"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_e"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_e"
+            android:onClick="@{(view) -> viewModel.enterSymbol('r')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="R"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_t"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_y"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_r"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_r"
+            android:onClick="@{(view) -> viewModel.enterSymbol('t')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="T"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_y"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_u"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_t"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_t"
+            android:onClick="@{(view) -> viewModel.enterSymbol('y')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="Y"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_u"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_i"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_y"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_y"
+            android:onClick="@{(view) -> viewModel.enterSymbol('u')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="U"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_i"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_o"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_u"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_u"
+            android:onClick="@{(view) -> viewModel.enterSymbol('i')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="I"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_o"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_p"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_i"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_i"
+            android:onClick="@{(view) -> viewModel.enterSymbol('o')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="O"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_p"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            app:layout_constraintEnd_toEndOf="@+id/button_login_terminal_login"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_o"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_o"
+            android:onClick="@{(view) -> viewModel.enterSymbol('p')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="P"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+<!--=================================================================================================================-->
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_a"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginTop="@dimen/size_16"
+            android:layout_marginStart="@dimen/size_24"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_s"
+            app:layout_constraintStart_toStartOf="@+id/button_login_terminal_login"
+            app:layout_constraintTop_toBottomOf="@+id/button_login_terminal_q"
+            android:onClick="@{(view) -> viewModel.enterSymbol('a')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="A"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_s"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_d"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_a"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_a"
+            android:onClick="@{(view) -> viewModel.enterSymbol('s')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="S"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_d"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_f"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_s"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_s"
+            android:onClick="@{(view) -> viewModel.enterSymbol('d')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="D"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_f"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_g"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_d"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_d"
+            android:onClick="@{(view) -> viewModel.enterSymbol('f')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="F"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_g"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_h"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_f"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_f"
+            android:onClick="@{(view) -> viewModel.enterSymbol('g')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="G"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_h"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_j"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_g"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_g"
+            android:onClick="@{(view) -> viewModel.enterSymbol('h')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="H"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_j"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_k"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_h"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_h"
+            android:onClick="@{(view) -> viewModel.enterSymbol('j')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="J"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_k"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_l"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_j"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_j"
+            android:onClick="@{(view) -> viewModel.enterSymbol('k')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="K"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_l"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            android:layout_marginEnd="@dimen/size_24"
+            app:layout_constraintEnd_toEndOf="@+id/button_login_terminal_login"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_k"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_k"
+            android:onClick="@{(view) -> viewModel.enterSymbol('l')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="L"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+<!--=================================================================================================================-->
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_z"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginTop="@dimen/size_16"
+            android:layout_marginStart="@dimen/size_42"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_x"
+            app:layout_constraintStart_toStartOf="@+id/button_login_terminal_login"
+            app:layout_constraintTop_toBottomOf="@+id/button_login_terminal_a"
+            android:onClick="@{(view) -> viewModel.enterSymbol('z')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="Z"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_x"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_c"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_z"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_z"
+            android:onClick="@{(view) -> viewModel.enterSymbol('x')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="X"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_c"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_v"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_x"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_x"
+            android:onClick="@{(view) -> viewModel.enterSymbol('c')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="C"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_v"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_b"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_c"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_c"
+            android:onClick="@{(view) -> viewModel.enterSymbol('v')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="V"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_b"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_n"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_v"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_v"
+            android:onClick="@{(view) -> viewModel.enterSymbol('b')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="B"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_n"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_m"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_b"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_b"
+            android:onClick="@{(view) -> viewModel.enterSymbol('n')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="N"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_m"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            app:layout_constraintEnd_toStartOf="@+id/button_login_terminal_del"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_n"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_n"
+            android:onClick="@{(view) -> viewModel.enterSymbol('m')}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="M"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_32" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_login_terminal_del"
+            android:layout_width="@dimen/size_50"
+            android:layout_height="@dimen/size_50"
+            android:layout_marginStart="@dimen/size_16"
+            android:layout_marginEnd="@dimen/size_42"
+            app:layout_constraintEnd_toEndOf="@+id/button_login_terminal_login"
+            app:layout_constraintStart_toEndOf="@+id/button_login_terminal_m"
+            app:layout_constraintTop_toTopOf="@+id/button_login_terminal_m"
+            android:onClick="@{(view) -> viewModel.deleteLastSymbol()}"
+            fancy:fb_borderColor="@color/colorPrimaryDark"
+            fancy:fb_borderWidth="@dimen/size_1"
+            fancy:fb_defaultColor="@color/colorPrimary"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="Del"
+            fancy:fb_textColor="@color/colorPrimaryDark"
+            fancy:fb_textSize="@dimen/font_20" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

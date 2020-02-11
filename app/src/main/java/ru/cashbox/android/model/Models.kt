@@ -1,5 +1,6 @@
 package ru.cashbox.android.model
 
+import android.os.Bundle
 import androidx.annotation.Keep
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -81,6 +82,35 @@ data class Printer(val name: String, val connectionType: PrinterConnectionType, 
 @Keep
 data class PrinterQueueWrapper(val action: PrinterAction, val params: List<Any>)
 
+@Keep
+open class NavigationEvent(private val type: EventType, var args: Bundle? = null) {
+
+    private var isHandled = false
+
+    fun getTypeIfNotHandled(): EventType? {
+        return if (isHandled) {
+            null
+        } else {
+            isHandled = true
+            type
+        }
+    }
+}
+
+@Keep
+open class Event<out T>(private val content: T) {
+    private var hasBeenHandled = false
+
+    fun getContentIfNotHandled(): T? {
+        return if (hasBeenHandled) {
+            null
+        } else {
+            hasBeenHandled = true
+            content
+        }
+    }
+}
+
 //----------------------------------------------------------------------------------------------------------------------
 interface Element {
 
@@ -132,4 +162,14 @@ enum class PrinterConnectionType {
 
 enum class PrinterAction {
     PRINT, TEST_PRINT, CLOSE_SHIFT
+}
+
+enum class EventType {
+
+    LOADING_SHOW,
+    LOADING_HIDE,
+    PRESS_BACK,
+    EXIT,
+
+    NAVIGATION_LOGIN_TERMINAL_TO_LOGIN_EMPLOYEE
 }

@@ -3,14 +3,13 @@ package ru.cashbox.android.data.session;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
-import org.apache.http.HttpStatus;
-
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import retrofit2.Response;
+import ru.cashbox.android.common.HttpStatusKt;
 import ru.cashbox.android.domain.session.UserEmployeeRepository;
 import ru.cashbox.android.model.Session;
 import ru.cashbox.android.model.User;
@@ -46,9 +45,9 @@ public class UserEmployeeRepositoryImpl implements UserEmployeeRepository {
 			}
 
 			switch (result.code()) {
-				case HttpStatus.SC_UNAUTHORIZED:
+				case HttpStatusKt.UNAUTHORIZED:
 					break;
-				case HttpStatus.SC_OK:
+				case HttpStatusKt.OK:
 					//storage.setUserTerminalSession(result.body());
 					//startActivity(new Intent(getApplicationContext(), LoginEmployeeActivity.class));
 					break;

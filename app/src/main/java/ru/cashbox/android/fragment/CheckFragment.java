@@ -1,6 +1,5 @@
 package ru.cashbox.android.fragment;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -18,6 +17,7 @@ import android.widget.Toast;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.widget.ListPopupWindow;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
 
 import com.yarolegovich.lovelydialog.LovelyStandardDialog;
 

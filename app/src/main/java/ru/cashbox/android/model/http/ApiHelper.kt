@@ -14,40 +14,53 @@ import java.util.concurrent.TimeUnit
 
 class ApiHelper(settings: RepositorySettings, private val networkHelper: NetworkHelper) {
 
-    private var apiHelper: IApi
+    private var retrofit: Retrofit? = null
+    private var apiHelper: IApi? = null
     private val BASE_API_ADDRESS = "https://%s.inactivesearch.ru/_api/cashbox/"
 
     init {
-        val okHttpClient = OkHttpClient().newBuilder()
-            .connectTimeout(60, TimeUnit.SECONDS)
-            .readTimeout(60, TimeUnit.SECONDS)
-            .writeTimeout(60, TimeUnit.SECONDS)
-            .build()
-        val retrofit = Retrofit.Builder()
-            .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(String.format(BASE_API_ADDRESS, settings.domain.value))
-            .build()
-
-        apiHelper = retrofit.create(IApi::class.java)
-
+        initApi(settings.domain.value)
         settings.domain.observeForever {
-            retrofit.newBuilder()
-                .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(String.format(BASE_API_ADDRESS, settings.domain.value))
-                .build()
-
-            apiHelper = retrofit.create(IApi::class.java)
+            initApi(it)
         }
     }
 
     suspend fun requestLoginTerminal(username: String, password: String, logoutAll: Boolean = true) : Response<Session?> {
-        if (!networkHelper.isNetworkAvailable()) {
+        val api = apiHelper
+        if (!networkHelper.isNetworkAvailable() || api == null) {
             return Response.error(INTERNET_ERROR, ResponseBody.create(null, ""))
         }
 
-        return apiHelper.loginTerminal(buildJsonBody(Pair(USERNAME, username), Pair(PASSWORD, password), Pair(LOGOUT_ALL, logoutAll)))
+        return api.loginTerminal(buildJsonBody(Pair(USERNAME, username), Pair(PASSWORD, password), Pair(LOGOUT_ALL, logoutAll)))
+    }
+
+    private fun initApi(domain: String?) {
+        if (domain?.isNotEmpty() == true) {
+            val localRetrofit = ApiHelper@this.retrofit
+            val okHttpClient = OkHttpClient().newBuilder()
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
+                .build()
+
+            if (localRetrofit != null) {
+                localRetrofit.newBuilder()
+                    .client(okHttpClient)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .baseUrl(String.format(BASE_API_ADDRESS, domain))
+                    .build()
+
+                apiHelper = localRetrofit.create(IApi::class.java)
+                retrofit = localRetrofit
+            } else {
+                val retrofit = Retrofit.Builder()
+                    .client(okHttpClient)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .baseUrl(String.format(BASE_API_ADDRESS, domain))
+                    .build()
+                apiHelper = retrofit.create(IApi::class.java)
+            }
+        }
     }
 
     private fun buildJsonBody(vararg args: Pair<String, Any>) : JSONObject {

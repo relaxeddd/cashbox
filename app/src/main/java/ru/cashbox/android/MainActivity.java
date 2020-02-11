@@ -1,6 +1,5 @@
 package ru.cashbox.android;
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
@@ -15,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.ListPopupWindow;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,12 +22,11 @@ import com.mancj.slideup.SlideUp;
 import com.mancj.slideup.SlideUpBuilder;
 import com.yarolegovich.lovelydialog.LovelyStandardDialog;
 
-import org.apache.http.HttpStatus;
-
 import mehdi.sakout.fancybuttons.FancyButton;
 import ru.cashbox.android.adapter.CheckPopupHistoryAdapter;
 import ru.cashbox.android.auth.LoginEmployeeActivity;
 import ru.cashbox.android.auth.Logout;
+import ru.cashbox.android.common.HttpStatusKt;
 import ru.cashbox.android.fragment.CheckFragment;
 import ru.cashbox.android.fragment.ElementFragment;
 import ru.cashbox.android.fragment.SettingsFragment;
@@ -123,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements Logout {
 
         TechMapSlideSaver.getInstance().init(slideUp, techMapGridView, totalText);
 
-        transaction = getFragmentManager().beginTransaction();
+        transaction = getSupportFragmentManager().beginTransaction();
 
         transaction.replace(R.id.layout_check_container, checkFragment);
         transaction.replace(R.id.layout_element_container, elementFragment);
@@ -133,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements Logout {
             @Override
             public void onClick(View v) {
                 elementFragment = new ElementFragment();
-                transaction = getFragmentManager().beginTransaction();
+                transaction = getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.layout_element_container, elementFragment);
                 transaction.commit();
             }
@@ -154,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements Logout {
         btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                transaction = getFragmentManager().beginTransaction();
+                transaction = getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.layout_element_container, settingsFragment);
                 transaction.commit();
             }
@@ -221,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements Logout {
             return;
         }
         switch (code) {
-            case HttpStatus.SC_OK:
+            case HttpStatusKt.OK:
                 checkStateSaver.setup();
                 startActivity(new Intent(getApplicationContext(), LoginEmployeeActivity.class));
                 finishAffinity();

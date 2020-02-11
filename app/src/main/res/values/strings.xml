@@ -1,9 +1,14 @@
 <resources>
+
     <string name="app_name">Cashbox</string>
     <string name="app_center_key">454791d5-90ba-4b4a-9555-758ebbeb0e07</string>
     <string name="title_home">Главный экран</string>
     <string name="title_settings">Настройки</string>
 
+    <string name="clear">Очистить</string>
+    <string name="enter_pin">Введите PIN-код</string>
+    <string name="error_forbidden">Доступ запрещен</string>
+    <string name="error_undefined">Неизвестная ошибка</string>
     <string name="internal_error">Внутренняя ошибка</string>
     <string name="server_connect_error">Ошибка при подключение к серверу</string>
     <string name="correct_data">Проверьте правильность введенных данных</string>
@@ -40,5 +45,9 @@
     <string name="delete_printer_title">Удаление принтера</string>
     <string name="delete_printer_msg">Вы действительно хотите удалить этот принтер?</string>
     <string name="cashbox_domain">Поддомен Cashbox</string>
+
+    <!--=============================================================================================================-->
+    <string name="label_fragment_login_terminal" translatable="false">LabelFragmentLoginTerminal</string>
+    <string name="label_fragment_login_employee" translatable="false">LabelFragmentLoginEmployee</string>
 
 </resources>

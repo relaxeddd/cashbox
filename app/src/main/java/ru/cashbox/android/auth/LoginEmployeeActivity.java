@@ -22,16 +22,14 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.chaos.view.PinView;
 
-import org.apache.http.HttpStatus;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import mehdi.sakout.fancybuttons.FancyButton;
 import retrofit2.Response;
-import ru.cashbox.android.MainActivity;
 import ru.cashbox.android.R;
+import ru.cashbox.android.common.HttpStatusKt;
 import ru.cashbox.android.model.Session;
 import ru.cashbox.android.model.User;
 import ru.cashbox.android.query.AuthQuery;
@@ -259,7 +257,7 @@ public class LoginEmployeeActivity extends AppCompatActivity {
         protected void onPostExecute(Response<Session> result) {
             super.onPostExecute(result);
             loginStateSaver.update(false);
-            if (result == null || result.code() == HttpStatus.SC_INTERNAL_SERVER_ERROR) {
+            if (result == null || result.code() == HttpStatusKt.INTERNAL_SERVER_ERROR) {
                 Toast.makeText(getApplicationContext(), getText(R.string.server_connect_error),
                         Toast.LENGTH_SHORT).show();
                 Log.e(LOGIN_EMPLOYEE_TAG, getString(R.string.server_connect_error));
@@ -267,7 +265,7 @@ public class LoginEmployeeActivity extends AppCompatActivity {
             }
 
             switch (result.code()) {
-                case HttpStatus.SC_UNAUTHORIZED:
+                case HttpStatusKt.UNAUTHORIZED:
                     Animation animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
                     pinView.startAnimation(animShake);
                     pinView.setItemBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
@@ -275,7 +273,7 @@ public class LoginEmployeeActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                     Log.i(LOGIN_EMPLOYEE_TAG, getString(R.string.correct_data));
                     break;
-                case HttpStatus.SC_OK:
+                case HttpStatusKt.OK:
                     storage.setUserEmployeeSession(result.body());
                     startActivity(new Intent(getApplicationContext(), BetweenLoginScreen.class));
                     finishAffinity();

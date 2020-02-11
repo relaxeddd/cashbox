@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/navigation_login_terminal">
+
+    <fragment
+        android:id="@id/navigation_login_terminal"
+        android:name="ru.cashbox.android.refactor.login_terminal.FragmentLoginTerminal"
+        android:label="@string/label_fragment_login_terminal"
+        tools:layout="@layout/refactor_fragment_login_terminal">
+
+        <action
+            android:id="@+id/action_navigation_login_terminal_to_navigation_login_employee"
+            app:destination="@id/navigation_login_employee"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_exit_anim"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@id/navigation_login_employee"
+        android:name="ru.cashbox.android.refactor.login_employee.FragmentLoginEmployee"
+        android:label="@string/label_fragment_login_employee"
+        tools:layout="@layout/refactor_fragment_login_employee"/>
+
+</navigation>
