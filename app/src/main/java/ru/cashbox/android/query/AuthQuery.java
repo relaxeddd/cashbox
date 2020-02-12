@@ -26,6 +26,6 @@ public interface AuthQuery {
 
     @POST("users/terminal/login")
     Call<Session> loginEmployee(@Header("Authorization") String token,
-                                            @Body Map<String, Object> payload);
+                                @Body Map<String, Object> payload);
 
 }

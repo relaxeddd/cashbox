@@ -2,24 +2,25 @@ package ru.cashbox.android.model
 
 import android.os.Bundle
 import androidx.annotation.Keep
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 import ru.cashbox.android.common.*
 import java.util.UUID
 
+@Keep
 @Entity(tableName = USERS)
-@Keep
 data class User(@PrimaryKey val id: Long, val username: String, val fullname: String, val activate: Boolean,
-                val pin: String)
+                val pin: String?, val roles: List<String>, val created: Date, val lastVisited: Date)
 
+@SuppressWarnings(RoomWarnings.PRIMARY_KEY_FROM_EMBEDDED_IS_DROPPED)
 @Keep
-data class Session(val token: String, val user: User)
+@Entity(tableName = SESSIONS)
+data class Session(@PrimaryKey var innerId: String, val token: String, @Embedded val user: User)
 
 @Keep
 data class BillModificatorWrapper(val id: Long, val count: Int, val price: Double)
 
 @Keep
-data class BillResponseNumberWrapper(val id: Int)
+data class BillResponseNumberWrapper(val id: Long)
 
 @Keep
 data class TechMapModificator(val id: Long, val imageUrl: String, val name: String)
@@ -81,6 +82,30 @@ data class Printer(val name: String, val connectionType: PrinterConnectionType, 
 
 @Keep
 data class PrinterQueueWrapper(val action: PrinterAction, val params: List<Any>)
+
+@Keep
+data class Date(val date: Int, val day: Int, val hours: Int, val minutes: Int, val month: Int, val nanos: Long,
+                val seconds: Long, val time: Long, val timezoneOffset: Int, val year: Int)
+
+@Keep
+data class Cashsession(val id: Long, val openCashBalance: Long, val closedCashBalance: Long, val closed: Boolean,
+                       val openTime: Date, val closeTime: Date, val buys: List<Buy>)
+
+@Keep
+data class Buy(val account: BuyAccount, val comment: String, val date: Date, val fullName: String, val id: Long,
+               val records: List<BuyRecord>, val userId: String, val vendor: BuyVendor)
+
+@Keep
+data class BuyAccount(val id: Long, val balance: Int, val currency: String, val defaultAccount: Boolean,
+                      val name: String, val type: String)
+
+@Keep
+data class BuyRecord(val id: Long, val count: Int, val itemId: Int, val name: String, val price: Int, val type: String,
+                     val unit: String)
+
+@Keep
+data class BuyVendor(val id: Long, val comment: String, val created: Date, val name: String, val phone: String,
+                     val shipmentCount: Int, val totalShipmentCount: Double)
 
 @Keep
 open class NavigationEvent(private val type: EventType, var args: Bundle? = null) {
@@ -171,5 +196,12 @@ enum class EventType {
     PRESS_BACK,
     EXIT,
 
-    NAVIGATION_LOGIN_TERMINAL_TO_LOGIN_EMPLOYEE
+    NAVIGATION_LOGIN_TERMINAL_TO_LOGIN_EMPLOYEE,
+
+    NAVIGATION_LOGIN_EMPLOYEE_TO_LOGIN_TERMINAL,
+
+    NAVIGATION_PREVIEW_TO_LOGIN_TERMINAL,
+    NAVIGATION_PREVIEW_TO_LOGIN_EMPLOYEE,
+
+    FRAGMENT_LOGIN_EMPLOYEE_PIN_ERROR
 }

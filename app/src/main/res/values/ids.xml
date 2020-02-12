@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <item name="navigation_preview" type="id" />
     <item name="navigation_login_terminal" type="id" />
     <item name="navigation_login_employee" type="id" />
+    <item name="navigation_employee_room" type="id" />
 
 </resources>

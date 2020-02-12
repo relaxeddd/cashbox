@@ -2,9 +2,7 @@ package ru.cashbox.android.auth;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,7 +10,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
@@ -28,21 +25,17 @@ import com.mancj.slideup.SlideUpBuilder;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.yarolegovich.lovelydialog.LovelyStandardDialog;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import mehdi.sakout.fancybuttons.FancyButton;
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 import ru.cashbox.android.R;
 import ru.cashbox.android.common.HttpStatusKt;
 import ru.cashbox.android.model.Session;
 import ru.cashbox.android.query.AuthQuery;
 import ru.cashbox.android.saver.LoginStateSaver;
-import ru.cashbox.android.utils.PrinterHelper;
 import ru.cashbox.android.utils.RetrofitInstance;
 import ru.cashbox.android.utils.Storage;
 

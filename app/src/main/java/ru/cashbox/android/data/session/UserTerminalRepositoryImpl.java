@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import retrofit2.Response;
+import ru.cashbox.android.common.ConstKt;
 import ru.cashbox.android.common.HttpStatusKt;
 import ru.cashbox.android.domain.session.UserTerminalRepository;
 import ru.cashbox.android.model.Session;
@@ -91,7 +92,7 @@ public class UserTerminalRepositoryImpl implements UserTerminalRepository {
 				Response<User> response = new TerminalAuthTask().execute(token).get(5, TimeUnit.SECONDS);
 				User user = response != null ? response.body() : null;
 				if (user != null) {
-					userTerminalSession = new Session(token, user);
+					userTerminalSession = new Session(ConstKt.CURRENT_ID_TERMINAL, token, user);
 				}
 			} catch (ExecutionException | InterruptedException | TimeoutException e) {
 				e.printStackTrace();

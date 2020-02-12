@@ -47,7 +47,9 @@
     <string name="cashbox_domain">Поддомен Cashbox</string>
 
     <!--=============================================================================================================-->
+    <string name="label_fragment_preview" translatable="false">LabelFragmentPreview</string>
     <string name="label_fragment_login_terminal" translatable="false">LabelFragmentLoginTerminal</string>
     <string name="label_fragment_login_employee" translatable="false">LabelFragmentLoginEmployee</string>
+    <string name="label_fragment_employee_room" translatable="false">LabelFragmentEmployeeRoom</string>
 
 </resources>

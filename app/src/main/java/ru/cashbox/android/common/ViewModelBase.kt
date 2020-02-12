@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 import retrofit2.Response
 import ru.cashbox.android.App
 import ru.cashbox.android.R
@@ -14,6 +15,7 @@ import ru.cashbox.android.model.NavigationEvent
 
 abstract class ViewModelBase(app: App) : AndroidViewModel(app) {
 
+    val isLoadingVisible = MutableLiveData(false)
     val navigateEvent = MutableLiveData<NavigationEvent>()
     protected val uiScope = CoroutineScope(Dispatchers.Main)
     protected val ioScope = CoroutineScope(Dispatchers.IO)
@@ -22,7 +24,16 @@ abstract class ViewModelBase(app: App) : AndroidViewModel(app) {
 
     protected fun showErrorIfIncorrect(response: Response<*>) {
         if (!response.isSuccessful) {
-            val errorStr = response.errorBody()?.string() ?: getErrorStringByCode(response.code())
+            val errorStr: String
+            val serverStr = response.errorBody()?.string()
+
+            if (serverStr?.isNotEmpty() == true) {
+                val errorJson = JSONObject(serverStr)
+                errorStr = errorJson.optString(MESSAGE)
+            } else {
+                errorStr = getErrorStringByCode(response.code())
+            }
+
             showToast(errorStr)
         }
     }
@@ -38,22 +49,30 @@ abstract class ViewModelBase(app: App) : AndroidViewModel(app) {
         return if (resId != 0) getString(resId) else resName
     }
 
-    protected fun showToast(string: String) {
+    fun showToast(string: String) {
         uiScope.launch {
             Toast.makeText(getApplication<App>(), string, Toast.LENGTH_SHORT).show()
         }
     }
 
-    protected fun showToast(@StringRes resId: Int) {
+    fun showToast(@StringRes resId: Int) {
         uiScope.launch {
             Toast.makeText(getApplication<App>(), resId, Toast.LENGTH_SHORT).show()
         }
     }
 
-    protected fun showToastLong(@StringRes resId: Int) {
+    fun showToastLong(@StringRes resId: Int) {
         uiScope.launch {
             Toast.makeText(getApplication<App>(), resId, Toast.LENGTH_LONG).show()
         }
+    }
+
+    fun onShowLoadingAction() {
+        isLoadingVisible.value = true
+    }
+
+    fun onHideLoadingAction() {
+        isLoadingVisible.value = false
     }
 
     private fun getErrorStringByCode(code: Int) : String {

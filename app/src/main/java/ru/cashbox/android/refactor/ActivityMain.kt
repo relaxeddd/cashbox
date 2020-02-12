@@ -40,31 +40,19 @@ class ActivityMain : ActivityBase<ViewModelMain, RefactorActivityMainBinding>() 
             currentNavId = destination.id
         }
 
-        if (savedInstanceState == null) {
+        /*if (savedInstanceState == null) {
             val initialNavId = intent.getIntExtra(EXTRA_NAVIGATION_ID, R.id.navigation_login_terminal)
             navigateTo(initialNavId)
-        }
+        }*/
 
         viewModel.onViewCreate()
     }
 
     override fun onBackPressed() {
-        if (viewModel.isShowLoading.value == true) {
-            viewModel.isShowLoading.value = false
+        if (viewModel.isLoadingVisible.value == true) {
+            viewModel.isLoadingVisible.value = false
         } else {
             super.onBackPressed()
-        }
-    }
-
-    override fun onNavigationEvent(type: EventType, args: Bundle?) {
-        when (type) {
-            EventType.LOADING_SHOW -> viewModel.onShowLoadingAction()
-            EventType.LOADING_HIDE -> viewModel.onHideLoadingAction()
-            EventType.EXIT -> {
-                finishAffinity()
-                exitProcess(0)
-            }
-            else -> super.onNavigationEvent(type, args)
         }
     }
 

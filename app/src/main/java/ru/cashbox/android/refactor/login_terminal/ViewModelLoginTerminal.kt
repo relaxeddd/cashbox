@@ -1,17 +1,17 @@
 package ru.cashbox.android.refactor.login_terminal
 
-import android.view.View
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.launch
+import retrofit2.Response
 import ru.cashbox.android.App
-import ru.cashbox.android.R
 import ru.cashbox.android.common.ViewModelBase
 import ru.cashbox.android.model.EventType
 import ru.cashbox.android.model.NavigationEvent
+import ru.cashbox.android.model.Session
 import ru.cashbox.android.model.repositories.RepositorySettings
-import ru.cashbox.android.model.repositories.RepositoryUser
+import ru.cashbox.android.model.repositories.RepositoryUsers
 
-class ViewModelLoginTerminal(app: App, val settings: RepositorySettings, val repositoryUser: RepositoryUser) : ViewModelBase(app) {
+class ViewModelLoginTerminal(app: App, val settings: RepositorySettings, val repositoryUsers: RepositoryUsers) : ViewModelBase(app) {
 
     enum class EditFields {
         DOMAIN, LOGIN, PASSWORD
@@ -34,11 +34,21 @@ class ViewModelLoginTerminal(app: App, val settings: RepositorySettings, val rep
 
         settings.setDomain(domain)
 
-        uiScope.launch {
-            navigateEvent.value = NavigationEvent(EventType.LOADING_SHOW)
-            //repositoryUser.loginTerminal(login, password)
-            navigateEvent.value = NavigationEvent(EventType.LOADING_HIDE)
-            navigateEvent.value = NavigationEvent(EventType.NAVIGATION_LOGIN_TERMINAL_TO_LOGIN_EMPLOYEE)
+        navigateEvent.value = NavigationEvent(EventType.LOADING_SHOW)
+
+        ioScope.launch {
+            val response = repositoryUsers.loginTerminal(login, password)
+
+            uiScope.launch {
+                navigateEvent.value = NavigationEvent(EventType.LOADING_HIDE)
+
+                if (response.isSuccessful) {
+                    navigateEvent.value = NavigationEvent(EventType.NAVIGATION_LOGIN_TERMINAL_TO_LOGIN_EMPLOYEE)
+                } else {
+                    showErrorIfIncorrect(response)
+                    textPassword.value = ""
+                }
+            }
         }
     }
 

@@ -4,7 +4,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/navigation_login_terminal">
+    app:startDestination="@id/navigation_preview">
+
+    <fragment
+        android:id="@id/navigation_preview"
+        android:name="ru.cashbox.android.refactor.preview.FragmentPreview"
+        android:label="@string/label_fragment_preview"
+        tools:layout="@layout/refactor_fragment_preview">
+
+        <action
+            android:id="@+id/action_navigation_preview_to_navigation_login_terminal"
+            app:destination="@id/navigation_login_terminal"
+            app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_enter_anim" app:popExitAnim="@anim/nav_default_exit_anim"/>
+
+        <action
+            android:id="@+id/action_navigation_preview_to_navigation_login_employee"
+            app:destination="@id/navigation_login_employee"
+            app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_enter_anim" app:popExitAnim="@anim/nav_default_exit_anim"/>
+
+    </fragment>
 
     <fragment
         android:id="@id/navigation_login_terminal"
@@ -15,10 +35,8 @@
         <action
             android:id="@+id/action_navigation_login_terminal_to_navigation_login_employee"
             app:destination="@id/navigation_login_employee"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_enter_anim"
-            app:popExitAnim="@anim/nav_default_exit_anim"/>
+            app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_enter_anim" app:popExitAnim="@anim/nav_default_exit_anim"/>
 
     </fragment>
 
@@ -26,6 +44,14 @@
         android:id="@id/navigation_login_employee"
         android:name="ru.cashbox.android.refactor.login_employee.FragmentLoginEmployee"
         android:label="@string/label_fragment_login_employee"
-        tools:layout="@layout/refactor_fragment_login_employee"/>
+        tools:layout="@layout/refactor_fragment_login_employee">
+
+        <action
+            android:id="@+id/action_navigation_login_employee_to_navigation_login_terminal"
+            app:destination="@id/navigation_login_terminal"
+            app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_enter_anim" app:popExitAnim="@anim/nav_default_exit_anim"/>
+
+    </fragment>
 
 </navigation>

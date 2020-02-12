@@ -11,4 +11,10 @@ class SharedHelper(val context: Context) {
 
     fun getDomain() = prefs.getString(DOMAIN, "") ?: ""
     fun setDomain(value : String) = prefs.edit().putString(DOMAIN, value).apply()
+
+    fun getTokenTerminal() = prefs.getString(TOKEN_TERMINAL, "") ?: ""
+    fun setTokenTerminal(value : String) = prefs.edit().putString(TOKEN_TERMINAL, value).apply()
+
+    fun getTokenEmployee() = prefs.getString(TOKEN_EMPLOYEE, "") ?: ""
+    fun setTokenEmployee(value : String) = prefs.edit().putString(TOKEN_EMPLOYEE, value).apply()
 }

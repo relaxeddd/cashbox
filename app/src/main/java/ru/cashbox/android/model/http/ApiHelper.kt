@@ -9,6 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import ru.cashbox.android.common.*
 import ru.cashbox.android.model.NetworkHelper
 import ru.cashbox.android.model.Session
+import ru.cashbox.android.model.User
 import ru.cashbox.android.model.repositories.RepositorySettings
 import java.util.concurrent.TimeUnit
 
@@ -25,15 +26,53 @@ class ApiHelper(settings: RepositorySettings, private val networkHelper: Network
         }
     }
 
-    suspend fun requestLoginTerminal(username: String, password: String, logoutAll: Boolean = true) : Response<Session?> {
+    suspend fun requestLoginTerminal(username: String, password: String, rememberMe: Boolean = true) : Response<Session?> {
         val api = apiHelper
+
         if (!networkHelper.isNetworkAvailable() || api == null) {
             return Response.error(INTERNET_ERROR, ResponseBody.create(null, ""))
         }
 
-        return api.loginTerminal(buildJsonBody(Pair(USERNAME, username), Pair(PASSWORD, password), Pair(LOGOUT_ALL, logoutAll)))
+        return api.loginTerminal(buildMapBody(Pair(USERNAME, username), Pair(PASSWORD, password), Pair(REMEMBER_ME, rememberMe.toString())))
     }
 
+    suspend fun requestLoginEmployee(token: String, pin: String) : Response<Session?> {
+        val api = apiHelper
+
+        if (!networkHelper.isNetworkAvailable() || api == null) {
+            return Response.error(INTERNET_ERROR, ResponseBody.create(null, ""))
+        }
+
+        return api.loginEmployee(buildJsonBody(Pair(TOKEN, token), Pair(PIN, pin)))
+    }
+
+    suspend fun requestCurrentUser(token: String?) : Response<User?> {
+        val api = apiHelper
+
+        if (!networkHelper.isNetworkAvailable() || api == null) {
+            return Response.error(INTERNET_ERROR, ResponseBody.create(null, ""))
+        }
+        if (token == null || token.isEmpty()) {
+            return Response.error(ARGS_ERROR, ResponseBody.create(null, ""))
+        }
+
+        return api.currentUser(token)
+    }
+
+    suspend fun requestLogout(token: String?) : Response<Void> {
+        val api = apiHelper
+
+        if (!networkHelper.isNetworkAvailable() || api == null) {
+            return Response.error(INTERNET_ERROR, ResponseBody.create(null, ""))
+        }
+        if (token == null || token.isEmpty()) {
+            return Response.error(ARGS_ERROR, ResponseBody.create(null, ""))
+        }
+
+        return api.logout(token, false)
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
     private fun initApi(domain: String?) {
         if (domain?.isNotEmpty() == true) {
             val localRetrofit = ApiHelper@this.retrofit
@@ -61,6 +100,12 @@ class ApiHelper(settings: RepositorySettings, private val networkHelper: Network
                 apiHelper = retrofit.create(IApi::class.java)
             }
         }
+    }
+
+    private fun buildMapBody(vararg args: Pair<String, String>) : Map<String, String> {
+        val map = HashMap<String, String>()
+        args.forEach { map[it.first] = it.second }
+        return map
     }
 
     private fun buildJsonBody(vararg args: Pair<String, Any>) : JSONObject {

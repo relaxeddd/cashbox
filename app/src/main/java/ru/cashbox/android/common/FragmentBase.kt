@@ -47,9 +47,15 @@ abstract class FragmentBase<VM : ViewModelBase, B : ViewDataBinding> : Fragment(
         viewModel.onViewResume()
     }
 
-    protected open fun onNavigationEvent(type: EventType, args: Bundle? = null) {
-        if (activity is ActivityMain) {
-            (activity as ActivityMain).onNavigationEvent(type, args)
+    protected open fun onNavigationEvent(type: EventType, args: Bundle?) {
+        when (type) {
+            EventType.LOADING_SHOW -> viewModel.onShowLoadingAction()
+            EventType.LOADING_HIDE -> viewModel.onHideLoadingAction()
+            else -> {
+                if (activity is ActivityMain) {
+                    (activity as ActivityMain).onNavigationEvent(type, args)
+                }
+            }
         }
     }
 
@@ -66,10 +72,10 @@ abstract class FragmentBase<VM : ViewModelBase, B : ViewDataBinding> : Fragment(
 
     @CallSuper
     protected open fun configureBinding() {
-        /*viewModel.navigateEvent.observe(viewLifecycleOwner, Observer {
+        viewModel.navigateEvent.observe(viewLifecycleOwner, Observer {
             it.getTypeIfNotHandled()?.let {type ->
                 onNavigationEvent(type, it?.args)
             }
-        })*/
+        })
     }
 }

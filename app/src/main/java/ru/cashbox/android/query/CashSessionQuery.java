@@ -9,6 +9,7 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 public interface CashSessionQuery {
+
     @POST("api/v1/cashsession/open")
     Call<ResponseBody> openSession(@Header("Authorization") String token, @Body Map<String, Object> payload);
 

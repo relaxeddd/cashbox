@@ -13,8 +13,8 @@ class FragmentLoginTerminal : FragmentBase<ViewModelLoginTerminal, RefactorFragm
 
     private val clickListenerLogin = View.OnClickListener {
         val domain = text_login_terminal_domain.text.toString()
-        val login = text_login_terminal_domain.text.toString()
-        val password = text_login_terminal_domain.text.toString()
+        val login = text_login_terminal_login.text.toString()
+        val password = text_login_terminal_password.text.toString()
 
         viewModel.login(domain, login, password)
     }

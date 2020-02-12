@@ -19,10 +19,11 @@ import ru.cashbox.android.model.db.AppDatabase
 import ru.cashbox.android.model.http.ApiHelper
 import ru.cashbox.android.model.prefs.SharedHelper
 import ru.cashbox.android.model.repositories.RepositorySettings
-import ru.cashbox.android.model.repositories.RepositoryUser
+import ru.cashbox.android.model.repositories.RepositoryUsers
 import ru.cashbox.android.refactor.ViewModelMain
 import ru.cashbox.android.refactor.login_employee.ViewModelLoginEmployee
 import ru.cashbox.android.refactor.login_terminal.ViewModelLoginTerminal
+import ru.cashbox.android.refactor.preview.ViewModelPreview
 import ru.cashbox.android.saver.CheckStateSaver
 import ru.cashbox.android.saver.SlideViewSaver
 import ru.cashbox.android.utils.Storage
@@ -71,9 +72,10 @@ class App : MultiDexApplication() {
                 single { RepositorySettings(get()) }
                 single { ApiHelper(get(), get()) }
 
-                single { RepositoryUser(get()) }
+                single { RepositoryUsers(get(), get()) }
 
                 viewModel { ViewModelMain(this@App, get()) }
+                viewModel { ViewModelPreview(this@App, get(), get()) }
                 viewModel { ViewModelLoginTerminal(this@App, get(), get()) }
                 viewModel { ViewModelLoginEmployee(this@App, get(), get()) }
             })

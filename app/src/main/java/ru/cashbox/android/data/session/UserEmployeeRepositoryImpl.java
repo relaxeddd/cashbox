@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import retrofit2.Response;
+import ru.cashbox.android.common.ConstKt;
 import ru.cashbox.android.common.HttpStatusKt;
 import ru.cashbox.android.domain.session.UserEmployeeRepository;
 import ru.cashbox.android.model.Session;
@@ -91,7 +92,7 @@ public class UserEmployeeRepositoryImpl implements UserEmployeeRepository {
 				Response<User> response = new АхлынбекСумуглуAuthTask().execute(token).get(5, TimeUnit.SECONDS);
 				User user = response != null ? response.body() : null;
 				if (user != null) {
-					userEmployeeSession = new Session(token, user);
+					userEmployeeSession = new Session(ConstKt.CURRENT_ID_EMPLOYEE, token, user);
 				}
 			} catch (ExecutionException | InterruptedException e) {
 				e.printStackTrace();

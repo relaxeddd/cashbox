@@ -19,11 +19,9 @@ import com.mancj.slideup.SlideUpBuilder;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import mehdi.sakout.fancybuttons.FancyButton;
-import ru.cashbox.android.MainActivity;
 import ru.cashbox.android.R;
 import ru.cashbox.android.auth.BetweenLoginScreen;
 import ru.cashbox.android.auth.LoginEmployeeActivity;
-import ru.cashbox.android.auth.LoginTerminalActivity;
 import ru.cashbox.android.auth.Logout;
 import ru.cashbox.android.auth.LogoutExecutor;
 import ru.cashbox.android.model.Session;

@@ -14,6 +14,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import ru.cashbox.android.model.EventType
+import kotlin.system.exitProcess
 
 abstract class ActivityBase<VM : ViewModelBase, B : ViewDataBinding> : AppCompatActivity(), LifecycleOwner {
 
@@ -54,9 +55,15 @@ abstract class ActivityBase<VM : ViewModelBase, B : ViewDataBinding> : AppCompat
         else -> super.onOptionsItemSelected(item)
     }
 
-    open fun onNavigationEvent(type: EventType, args: Bundle? = null) {
-        if (type == EventType.PRESS_BACK) {
-            onBackPressed()
+    open fun onNavigationEvent(type: EventType, args: Bundle?) {
+        when (type) {
+            EventType.PRESS_BACK -> onBackPressed()
+            EventType.LOADING_SHOW -> viewModel.onShowLoadingAction()
+            EventType.LOADING_HIDE -> viewModel.onHideLoadingAction()
+            EventType.EXIT -> {
+                finishAffinity()
+                exitProcess(0)
+            }
         }
     }
 
