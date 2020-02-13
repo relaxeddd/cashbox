@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@id/navigation_preview"
-        android:name="ru.cashbox.android.refactor.preview.FragmentPreview"
+        android:name="ru.cashbox.android.ui.preview.FragmentPreview"
         android:label="@string/label_fragment_preview"
         tools:layout="@layout/refactor_fragment_preview">
 
@@ -28,7 +28,7 @@
 
     <fragment
         android:id="@id/navigation_login_terminal"
-        android:name="ru.cashbox.android.refactor.login_terminal.FragmentLoginTerminal"
+        android:name="ru.cashbox.android.ui.login_terminal.FragmentLoginTerminal"
         android:label="@string/label_fragment_login_terminal"
         tools:layout="@layout/refactor_fragment_login_terminal">
 
@@ -42,7 +42,7 @@
 
     <fragment
         android:id="@id/navigation_login_employee"
-        android:name="ru.cashbox.android.refactor.login_employee.FragmentLoginEmployee"
+        android:name="ru.cashbox.android.ui.login_employee.FragmentLoginEmployee"
         android:label="@string/label_fragment_login_employee"
         tools:layout="@layout/refactor_fragment_login_employee">
 
@@ -62,7 +62,7 @@
 
     <fragment
         android:id="@id/navigation_employee_room"
-        android:name="ru.cashbox.android.refactor.employee_room.FragmentEmployeeRoom"
+        android:name="ru.cashbox.android.ui.employee_room.FragmentEmployeeRoom"
         android:label="@string/label_fragment_employee_room"
         tools:layout="@layout/refactor_fragment_employee_room">
 

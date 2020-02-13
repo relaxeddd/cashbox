@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fancy="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".refactor.ActivityMain">
+    tools:context=".ui.ActivityMain">
 
     <data>
 
         <import type="android.view.View"/>
-        <import type="ru.cashbox.android.refactor.login_terminal.ViewModelLoginTerminal.EditFields"/>
+        <import type="ru.cashbox.android.ui.login_terminal.ViewModelLoginTerminal.EditFields"/>
         <variable
             name="viewModel"
-            type="ru.cashbox.android.refactor.login_terminal.ViewModelLoginTerminal" />
+            type="ru.cashbox.android.ui.login_terminal.ViewModelLoginTerminal" />
         <variable
             name="clickListenerLogin"
             type="android.view.View.OnClickListener"/>
@@ -25,43 +25,48 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container_login_terminal_toolbar"
             android:layout_width="0dp"
-            android:layout_height="@dimen/size_50"
-            android:background="@color/colorPrimary"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/image_login_terminal_logo"
-                android:layout_width="@dimen/size_30"
-                android:layout_height="@dimen/size_30"
-                android:layout_marginStart="@dimen/size_16"
-                app:layout_constraintBottom_toBottomOf="parent"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/container_login_terminal_toolbar_inner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_56"
+                android:background="@color/colorPrimary"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/logo" />
-
-            <ImageView
-                android:layout_width="@dimen/size_1"
-                android:layout_height="@dimen/size_30"
-                android:layout_marginStart="@dimen/size_16"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/image_login_terminal_logo"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@android:color/darker_gray" />
-
-            <!--<ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="@dimen/size_8"
-                android:adjustViewBounds="true"
-                android:background="?selectableItemBackgroundBorderless"
-                android:padding="@dimen/size_5"
-                android:scaleType="fitXY"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/settings" />-->
+                android:elevation="@dimen/size_8">
+
+                <ImageView
+                    android:id="@+id/image_login_terminal_logo"
+                    android:layout_width="@dimen/size_30"
+                    android:layout_height="@dimen/size_30"
+                    android:layout_marginStart="@dimen/size_16"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/logo" />
+
+                <ImageView
+                    android:layout_width="@dimen/size_1"
+                    android:layout_height="@dimen/size_30"
+                    android:layout_marginStart="@dimen/size_16"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_login_terminal_logo"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@android:color/darker_gray" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/container_login_terminal_toolbar_inner"/>
 
             <ProgressBar
                 android:id="@+id/progress_bar_login_employee"
@@ -72,7 +77,7 @@
                 android:visibility="@{safeUnbox(viewModel.isLoadingVisible) ? View.VISIBLE : View.GONE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintEnd_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/container_login_terminal_toolbar_inner"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -84,35 +89,48 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:ignore="ContentDescription">
+                tools:ignore="ContentDescription"
+                android:paddingBottom="@dimen/size_80">
 
-                <FrameLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/container_login_terminal_domain"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/size_50"
                     android:layout_marginStart="@dimen/size_150"
-                    android:layout_marginTop="@dimen/size_16"
+                    android:layout_marginTop="@dimen/size_12"
                     android:layout_marginEnd="@dimen/size_150"
                     android:background="@{safeUnbox(viewModel.isSelectedFieldDomain) ? @drawable/edit_text_border_selected : @drawable/edit_text_border}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <com.rengwuxian.materialedittext.MaterialEditText
+                    <ImageView
+                        android:id="@+id/image_login_terminal_domain"
+                        android:layout_width="@dimen/size_32"
+                        android:layout_height="@dimen/size_32"
+                        android:layout_marginStart="@dimen/size_8"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_domain" />
+
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/text_login_terminal_domain"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="@dimen/size_8"
+                        android:layout_marginStart="@dimen/size_8"
+                        android:background="@android:color/transparent"
+                        android:focusable="false"
                         android:hint="@string/cashbox_domain"
+                        android:singleLine="true"
                         android:onClick="@{(view) -> viewModel.selectField(EditFields.DOMAIN)}"
                         android:text="@{viewModel.textDomain}"
-                        android:singleLine="true"
-                        android:focusable="false"
-                        app:met_hideUnderline="true"
-                        app:met_iconLeft="@drawable/username_icon"
-                        app:met_iconPadding="0dp" />
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/image_login_terminal_domain"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                </FrameLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/container_login_terminal_login_password"
@@ -125,7 +143,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/container_login_terminal_domain">
 
-                    <FrameLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/container_login_terminal_login"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/size_50"
@@ -137,23 +155,35 @@
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent">
 
-                        <com.rengwuxian.materialedittext.MaterialEditText
+                        <ImageView
+                            android:id="@+id/image_login_terminal_login"
+                            android:layout_width="@dimen/size_32"
+                            android:layout_height="@dimen/size_32"
+                            android:layout_marginStart="@dimen/size_8"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_user" />
+
+                        <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/text_login_terminal_login"
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_marginBottom="@dimen/size_8"
+                            android:layout_marginStart="@dimen/size_8"
+                            android:background="@android:color/transparent"
+                            android:focusable="false"
                             android:hint="@string/login"
+                            android:singleLine="true"
                             android:text="@{viewModel.textLogin}"
                             android:onClick="@{(view) -> viewModel.selectField(EditFields.LOGIN)}"
-                            android:focusable="false"
-                            android:singleLine="true"
-                            app:met_hideUnderline="true"
-                            app:met_iconLeft="@drawable/username_icon"
-                            app:met_iconPadding="0dp" />
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/image_login_terminal_login"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                    </FrameLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <FrameLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/container_login_terminal_password"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/size_50"
@@ -165,22 +195,34 @@
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/container_login_terminal_login">
 
-                        <com.rengwuxian.materialedittext.MaterialEditText
+                        <ImageView
+                            android:id="@+id/image_login_terminal_password"
+                            android:layout_width="@dimen/size_32"
+                            android:layout_height="@dimen/size_32"
+                            android:layout_marginStart="@dimen/size_8"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_lock" />
+
+                        <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/text_login_terminal_password"
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_marginBottom="@dimen/size_8"
+                            android:layout_marginStart="@dimen/size_8"
+                            android:background="@android:color/transparent"
+                            android:focusable="false"
                             android:hint="@string/password"
+                            android:singleLine="true"
                             android:inputType="textPassword"
                             android:text="@{viewModel.textPassword}"
                             android:onClick="@{(view) -> viewModel.selectField(EditFields.PASSWORD)}"
-                            android:focusable="false"
-                            android:singleLine="true"
-                            app:met_hideUnderline="true"
-                            app:met_iconLeft="@drawable/password_icon"
-                            app:met_iconPadding="0dp" />
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/image_login_terminal_password"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                    </FrameLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

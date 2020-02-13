@@ -9,7 +9,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="ru.cashbox.android.refactor.employee_room.ViewModelEmployeeRoom" />
+            type="ru.cashbox.android.ui.employee_room.ViewModelEmployeeRoom" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,72 +20,92 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container_employee_room_toolbar"
             android:layout_width="0dp"
-            android:layout_height="@dimen/size_52"
-            android:background="@color/colorPrimary"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/image_employee_room_logo"
-                android:layout_width="@dimen/size_30"
-                android:layout_height="@dimen/size_30"
-                android:layout_marginStart="@dimen/size_16"
-                app:layout_constraintBottom_toBottomOf="parent"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/container_employee_room_toolbar_inner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_56"
+                android:background="@color/colorPrimary"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/logo" />
-
-            <ImageView
-                android:id="@+id/image_employee_room_logo_separator"
-                android:layout_width="@dimen/size_1"
-                android:layout_height="@dimen/size_30"
-                android:layout_marginStart="@dimen/size_16"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/image_employee_room_logo"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@android:color/darker_gray" />
-
-            <ImageButton
-                android:id="@+id/button_employee_room_logout"
-                android:layout_width="@dimen/size_46"
-                android:layout_height="@dimen/size_46"
-                android:layout_marginEnd="@dimen/size_16"
-                android:adjustViewBounds="true"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:padding="@dimen/size_8"
-                android:onClick="@{(view) -> viewModel.logout()}"
-                android:scaleType="fitCenter"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/exit_icon" />
+                android:elevation="@dimen/size_8">
 
-            <ImageView
-                android:id="@+id/image_employee_room_logout_separator"
-                android:layout_width="@dimen/size_1"
-                android:layout_height="@dimen/size_32"
-                app:layout_constraintBottom_toBottomOf="parent"
+                <ImageView
+                    android:id="@+id/image_employee_room_logo"
+                    android:layout_width="@dimen/size_30"
+                    android:layout_height="@dimen/size_30"
+                    android:layout_marginStart="@dimen/size_16"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/logo" />
+
+                <ImageView
+                    android:id="@+id/image_employee_room_logo_separator"
+                    android:layout_width="@dimen/size_1"
+                    android:layout_height="@dimen/size_30"
+                    android:layout_marginStart="@dimen/size_16"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_employee_room_logo"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@android:color/darker_gray" />
+
+                <ImageButton
+                    android:id="@+id/button_employee_room_logout"
+                    android:layout_width="@dimen/size_46"
+                    android:layout_height="@dimen/size_46"
+                    android:layout_marginEnd="@dimen/size_16"
+                    android:adjustViewBounds="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="@dimen/size_8"
+                    android:onClick="@{(view) -> viewModel.logout()}"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_exit"/>
+
+                <ImageView
+                    android:id="@+id/image_employee_room_logout_separator"
+                    android:layout_width="@dimen/size_1"
+                    android:layout_height="@dimen/size_32"
+                    android:layout_marginEnd="@dimen/size_6"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/button_employee_room_logout"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@android:color/darker_gray" />
+
+                <TextView
+                    android:id="@+id/text_employee_room_terminal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_16"
+                    android:layout_marginEnd="@dimen/size_16"
+                    android:gravity="end"
+                    android:singleLine="true"
+                    android:layout_marginBottom="@dimen/size_3"
+                    android:text="@{viewModel.textEmployeeName}"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/font_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/image_employee_room_logout_separator"
+                    app:layout_constraintStart_toEndOf="@+id/image_employee_room_logo_separator"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_6"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/button_employee_room_logout"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@android:color/darker_gray" />
-
-            <TextView
-                android:id="@+id/text_employee_room_terminal"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/size_16"
-                android:layout_marginEnd="@dimen/size_16"
-                android:gravity="end"
-                android:singleLine="true"
-                android:text="@{viewModel.textEmployeeName}"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/font_24"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/image_employee_room_logout_separator"
-                app:layout_constraintStart_toEndOf="@+id/image_employee_room_logo_separator"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/container_employee_room_toolbar_inner"/>
 
             <ProgressBar
                 android:id="@+id/progress_bar_employee_room"
@@ -96,7 +116,7 @@
                 android:visibility="@{safeUnbox(viewModel.isLoadingVisible) ? View.VISIBLE : View.GONE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintEnd_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@+id/container_employee_room_toolbar_inner"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -130,7 +150,7 @@
                     android:id="@+id/container_employee_room_balance"
                     android:layout_width="@dimen/size_280"
                     android:layout_height="@dimen/size_50"
-                    android:layout_marginTop="@dimen/size_24"
+                    android:layout_marginTop="@dimen/size_18"
                     android:background="@{viewModel.isErrorPinView ? @drawable/edit_text_border_error : @drawable/edit_text_border_selected}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

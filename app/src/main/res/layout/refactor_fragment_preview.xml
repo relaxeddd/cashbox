@@ -2,14 +2,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".refactor.ActivityMain">
+    tools:context=".ui.ActivityMain">
 
     <data>
 
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="ru.cashbox.android.refactor.preview.ViewModelPreview" />
+            type="ru.cashbox.android.ui.preview.ViewModelPreview" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,13 +20,15 @@
 
         <ImageView
             android:id="@+id/image_preview_logo"
-            android:layout_width="@dimen/size_80"
-            android:layout_height="@dimen/size_80"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_6"
             android:src="@drawable/logo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="@dimen/size_32"/>
 
         <TextView
             android:layout_width="wrap_content"
