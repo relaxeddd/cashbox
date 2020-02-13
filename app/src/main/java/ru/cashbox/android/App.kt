@@ -18,9 +18,11 @@ import ru.cashbox.android.model.NetworkHelper
 import ru.cashbox.android.model.db.AppDatabase
 import ru.cashbox.android.model.http.ApiHelper
 import ru.cashbox.android.model.prefs.SharedHelper
+import ru.cashbox.android.model.repositories.RepositoryCashsessions
 import ru.cashbox.android.model.repositories.RepositorySettings
 import ru.cashbox.android.model.repositories.RepositoryUsers
 import ru.cashbox.android.refactor.ViewModelMain
+import ru.cashbox.android.refactor.employee_room.ViewModelEmployeeRoom
 import ru.cashbox.android.refactor.login_employee.ViewModelLoginEmployee
 import ru.cashbox.android.refactor.login_terminal.ViewModelLoginTerminal
 import ru.cashbox.android.refactor.preview.ViewModelPreview
@@ -73,11 +75,13 @@ class App : MultiDexApplication() {
                 single { ApiHelper(get(), get()) }
 
                 single { RepositoryUsers(get(), get()) }
+                single { RepositoryCashsessions(get(), get(), get()) }
 
                 viewModel { ViewModelMain(this@App, get()) }
                 viewModel { ViewModelPreview(this@App, get(), get()) }
                 viewModel { ViewModelLoginTerminal(this@App, get(), get()) }
                 viewModel { ViewModelLoginEmployee(this@App, get(), get()) }
+                viewModel { ViewModelEmployeeRoom(this@App, get(), get()) }
             })
         }
     }

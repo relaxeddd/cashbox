@@ -52,7 +52,7 @@ public class BetweenLoginScreen extends AppCompatActivity implements Logout {
         printerHelper = PrinterHelper.getInstance();
         btnLogout = findViewById(R.id.btn_between_logout);
         slideView = findViewById(R.id.shift_balance_slide_view);
-        dim = findViewById(R.id.dim_between_screen);
+        //dim = findViewById(R.id.dim_between_screen);
         slideUp = new SlideUpBuilder(slideView)
                 .withListeners(new SlideUp.Listener.Events() {
                     @Override
@@ -77,14 +77,14 @@ public class BetweenLoginScreen extends AppCompatActivity implements Logout {
                 .build();
         balance = findViewById(R.id.shift_balance_field);
         save = findViewById(R.id.btn_shift_balance_save);
-        dim.setOnClickListener(new View.OnClickListener() {
+        /*dim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (slideUp.isVisible()) {
                     slideUp.hide();
                 }
             }
-        });
+        });*/
 
         employeeName.setText(storage.getUserEmployeeSession().getUser().getFullname());
         btnOpenShift.setOnClickListener(new View.OnClickListener() {

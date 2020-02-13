@@ -5,10 +5,13 @@ const val DATABASE_NAME = "database_cashbox"
 
 const val CURRENT_ID_TERMINAL = "currentIdTerminal"
 const val CURRENT_ID_EMPLOYEE = "currentIdEmployee"
+const val CURRENT_ID_CASHSESSION = "currentIdCashsession"
 
 const val INTERNET_ERROR = 12053
 const val ARGS_ERROR = 12054
 
+const val CASH_BALANCE = "cashBalance"
+const val CASHSESSIONS = "cashsessions"
 const val CODE = "code"
 const val DOMAIN = "domain"
 const val LOGOUT_ALL = "logoutAll"

@@ -24,6 +24,9 @@ class FragmentLoginEmployee : FragmentBase<ViewModelLoginEmployee, RefactorFragm
 
     override fun onNavigationEvent(type: EventType, args: Bundle?) {
         when (type) {
+            EventType.NAVIGATION_LOGIN_EMPLOYEE_TO_EMPLOYEE_ROOM -> {
+                navigationController.navigate(R.id.action_navigation_login_employee_to_navigation_employee_room)
+            }
             EventType.NAVIGATION_LOGIN_EMPLOYEE_TO_LOGIN_TERMINAL -> {
                 navigationController.navigate(R.id.action_navigation_login_employee_to_navigation_login_terminal)
             }

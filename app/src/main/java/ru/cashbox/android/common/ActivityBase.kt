@@ -55,6 +55,8 @@ abstract class ActivityBase<VM : ViewModelBase, B : ViewDataBinding> : AppCompat
         else -> super.onOptionsItemSelected(item)
     }
 
+    override fun onBackPressed() {}
+
     open fun onNavigationEvent(type: EventType, args: Bundle?) {
         when (type) {
             EventType.PRESS_BACK -> onBackPressed()

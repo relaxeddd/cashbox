@@ -5,7 +5,8 @@
     <string name="title_home">Главный экран</string>
     <string name="title_settings">Настройки</string>
 
-    <string name="clear">Очистить</string>
+    <string name="cash_balance">Остаток в кассе</string>
+    <string name="clear">Clear</string>
     <string name="enter_pin">Введите PIN-код</string>
     <string name="error_forbidden">Доступ запрещен</string>
     <string name="error_undefined">Неизвестная ошибка</string>

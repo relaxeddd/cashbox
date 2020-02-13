@@ -52,6 +52,26 @@
             app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_enter_anim" app:popExitAnim="@anim/nav_default_exit_anim"/>
 
+        <action
+            android:id="@+id/action_navigation_login_employee_to_navigation_employee_room"
+            app:destination="@id/navigation_employee_room"
+            app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_enter_anim" app:popExitAnim="@anim/nav_default_exit_anim"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@id/navigation_employee_room"
+        android:name="ru.cashbox.android.refactor.employee_room.FragmentEmployeeRoom"
+        android:label="@string/label_fragment_employee_room"
+        tools:layout="@layout/refactor_fragment_employee_room">
+
+        <action
+            android:id="@+id/action_navigation_employee_room_to_navigation_login_employee"
+            app:destination="@id/navigation_login_employee"
+            app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_enter_anim" app:popExitAnim="@anim/nav_default_exit_anim"/>
+
     </fragment>
 
 </navigation>

@@ -11,7 +11,8 @@ import ru.cashbox.android.model.Session
 import ru.cashbox.android.model.repositories.RepositorySettings
 import ru.cashbox.android.model.repositories.RepositoryUsers
 
-class ViewModelLoginTerminal(app: App, val settings: RepositorySettings, val repositoryUsers: RepositoryUsers) : ViewModelBase(app) {
+class ViewModelLoginTerminal(app: App, private val settings: RepositorySettings,
+                             private val repositoryUsers: RepositoryUsers) : ViewModelBase(app) {
 
     enum class EditFields {
         DOMAIN, LOGIN, PASSWORD

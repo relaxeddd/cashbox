@@ -1,26 +1,33 @@
 package ru.cashbox.android.refactor.login_employee
 
 import android.os.Bundle
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import kotlinx.coroutines.launch
 import ru.cashbox.android.App
 import ru.cashbox.android.common.CODE
-import ru.cashbox.android.common.INTERNET_ERROR
 import ru.cashbox.android.common.ViewModelBase
 import ru.cashbox.android.model.EventType
 import ru.cashbox.android.model.NavigationEvent
+import ru.cashbox.android.model.Session
 import ru.cashbox.android.model.repositories.RepositorySettings
 import ru.cashbox.android.model.repositories.RepositoryUsers
 
-class ViewModelLoginEmployee(app: App, val settings: RepositorySettings, val repositoryUsers: RepositoryUsers) : ViewModelBase(app) {
+class ViewModelLoginEmployee(app: App, private val settings: RepositorySettings,
+                             private val repositoryUsers: RepositoryUsers) : ViewModelBase(app) {
 
     companion object {
         private const val PIN_SIZE = 4
     }
 
     val textPin = MutableLiveData<String>("")
+    val textTerminalName = MutableLiveData<String>("")
     val isErrorPinView = MutableLiveData(false)
+
+    private val sessionTerminalObserver = Observer<Session?> { session ->
+        textTerminalName.value = session?.user?.fullname ?: ""
+    }
 
     private val pinObserver = Observer<String?> {
         if (it != null && it.length >= PIN_SIZE) {
@@ -30,11 +37,13 @@ class ViewModelLoginEmployee(app: App, val settings: RepositorySettings, val rep
 
     init {
         textPin.observeForever(pinObserver)
+        repositoryUsers.sessionTerminal.observeForever(sessionTerminalObserver)
     }
 
     override fun onCleared() {
         super.onCleared()
         textPin.removeObserver(pinObserver)
+        repositoryUsers.sessionTerminal.removeObserver(sessionTerminalObserver)
     }
 
     fun enterNumber(symbol: Char) {
@@ -71,7 +80,7 @@ class ViewModelLoginEmployee(app: App, val settings: RepositorySettings, val rep
                 navigateEvent.value = NavigationEvent(EventType.LOADING_HIDE)
 
                 if (response.isSuccessful) {
-                    navigateEvent.value = NavigationEvent(EventType.NAVIGATION_LOGIN_EMPLOYEE_TO_LOGIN_TERMINAL)
+                    navigateEvent.value = NavigationEvent(EventType.NAVIGATION_LOGIN_EMPLOYEE_TO_EMPLOYEE_ROOM)
                 } else {
                     showErrorIfIncorrect(response)
                 }
@@ -80,9 +89,23 @@ class ViewModelLoginEmployee(app: App, val settings: RepositorySettings, val rep
     }
 
     private fun loginEmployee(pin: String) {
-        val args = Bundle()
-        args.putInt(CODE, INTERNET_ERROR)
-        navigateEvent.value = NavigationEvent(EventType.FRAGMENT_LOGIN_EMPLOYEE_PIN_ERROR, args)
-        isErrorPinView.value = true
+        navigateEvent.value = NavigationEvent(EventType.LOADING_SHOW)
+
+        ioScope.launch {
+            val response = repositoryUsers.loginEmployee(pin)
+
+            uiScope.launch {
+                navigateEvent.value = NavigationEvent(EventType.LOADING_HIDE)
+
+                if (response.isSuccessful) {
+                    navigateEvent.value = NavigationEvent(EventType.NAVIGATION_LOGIN_EMPLOYEE_TO_EMPLOYEE_ROOM)
+                } else {
+                    val args = Bundle()
+                    args.putInt(CODE, response.code())
+                    navigateEvent.value = NavigationEvent(EventType.FRAGMENT_LOGIN_EMPLOYEE_PIN_ERROR, args)
+                    isErrorPinView.value = true
+                }
+            }
+        }
     }
 }

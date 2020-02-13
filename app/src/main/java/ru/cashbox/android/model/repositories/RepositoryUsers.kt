@@ -13,9 +13,7 @@ class RepositoryUsers(private val apiHelper: ApiHelper, private val appDatabase:
     val sessionEmployee = appDatabase.daoSession().getSession(CURRENT_ID_EMPLOYEE)
 
     init {
-        sessionTerminal.observeForever {
-            //To init live data updates when db change
-        }
+        sessionTerminal.observeForever { /*To init live data updates when db change*/ }
         sessionEmployee.observeForever {}
     }
 
@@ -25,6 +23,18 @@ class RepositoryUsers(private val apiHelper: ApiHelper, private val appDatabase:
 
         if (response.isSuccessful && session != null) {
             session.innerId = CURRENT_ID_TERMINAL
+            appDatabase.daoSession().insertSession(session)
+        }
+
+        return response
+    }
+
+    suspend fun loginEmployee(pin: String) : Response<Session?> {
+        val response = apiHelper.requestLoginEmployee(sessionTerminal.value?.token, pin)
+        val session = response.body()
+
+        if (response.isSuccessful && session != null) {
+            session.innerId = CURRENT_ID_EMPLOYEE
             appDatabase.daoSession().insertSession(session)
         }
 

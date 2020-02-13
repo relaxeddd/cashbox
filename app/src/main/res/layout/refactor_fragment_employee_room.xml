@@ -9,7 +9,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="ru.cashbox.android.refactor.login_employee.ViewModelLoginEmployee" />
+            type="ru.cashbox.android.refactor.employee_room.ViewModelEmployeeRoom" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +18,7 @@
         tools:ignore="ContentDescription">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/container_login_employee_toolbar"
+            android:id="@+id/container_employee_room_toolbar"
             android:layout_width="0dp"
             android:layout_height="@dimen/size_52"
             android:background="@color/colorPrimary"
@@ -27,7 +27,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/image_login_employee_logo"
+                android:id="@+id/image_employee_room_logo"
                 android:layout_width="@dimen/size_30"
                 android:layout_height="@dimen/size_30"
                 android:layout_marginStart="@dimen/size_16"
@@ -37,17 +37,17 @@
                 app:srcCompat="@drawable/logo" />
 
             <ImageView
-                android:id="@+id/image_login_employee_logo_separator"
+                android:id="@+id/image_employee_room_logo_separator"
                 android:layout_width="@dimen/size_1"
                 android:layout_height="@dimen/size_30"
                 android:layout_marginStart="@dimen/size_16"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/image_login_employee_logo"
+                app:layout_constraintStart_toEndOf="@+id/image_employee_room_logo"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@android:color/darker_gray" />
 
             <ImageButton
-                android:id="@+id/button_login_employee_logout"
+                android:id="@+id/button_employee_room_logout"
                 android:layout_width="@dimen/size_46"
                 android:layout_height="@dimen/size_46"
                 android:layout_marginEnd="@dimen/size_16"
@@ -62,33 +62,33 @@
                 app:srcCompat="@drawable/exit_icon" />
 
             <ImageView
-                android:id="@+id/image_login_employee_logout_separator"
+                android:id="@+id/image_employee_room_logout_separator"
                 android:layout_width="@dimen/size_1"
                 android:layout_height="@dimen/size_32"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/button_login_employee_logout"
+                app:layout_constraintEnd_toStartOf="@+id/button_employee_room_logout"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@android:color/darker_gray" />
 
             <TextView
-                android:id="@+id/text_login_employee_terminal"
+                android:id="@+id/text_employee_room_terminal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/size_16"
                 android:layout_marginEnd="@dimen/size_16"
                 android:gravity="end"
                 android:singleLine="true"
-                android:text="@{viewModel.textTerminalName}"
+                android:text="@{viewModel.textEmployeeName}"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/font_24"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/image_login_employee_logout_separator"
-                app:layout_constraintStart_toEndOf="@+id/image_login_employee_logo_separator"
+                app:layout_constraintEnd_toStartOf="@+id/image_employee_room_logout_separator"
+                app:layout_constraintStart_toEndOf="@+id/image_employee_room_logo_separator"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ProgressBar
-                android:id="@+id/progress_bar_login_employee"
+                android:id="@+id/progress_bar_employee_room"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_6"
@@ -103,62 +103,73 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/container_login_employee_toolbar">
+            app:layout_constraintTop_toBottomOf="@+id/container_employee_room_toolbar">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:ignore="ContentDescription">
+                tools:ignore="ContentDescription"
+                android:paddingBottom="@dimen/size_80">
 
                 <TextView
-                    android:id="@+id/text_login_employee_enter_pin"
+                    android:id="@+id/text_employee_room_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/size_24"
                     android:singleLine="true"
-                    android:text="@string/enter_pin"
                     android:textColor="@android:color/black"
-                    android:textSize="@dimen/font_18"
+                    android:textSize="@dimen/font_38"
+                    android:layout_marginTop="@dimen/size_28"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:text="@{viewModel.textEmployeeName}"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintStart_toStartOf="parent" />
 
-                <com.chaos.view.PinView
-                    android:id="@+id/pin_view_login_employee"
-                    style="@style/PinWidget.PinView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/container_employee_room_balance"
+                    android:layout_width="@dimen/size_280"
+                    android:layout_height="@dimen/size_50"
                     android:layout_marginTop="@dimen/size_24"
-                    android:background="@{viewModel.isErrorPinView ? @android:color/holo_red_light : @color/colorPrimary}"
-                    android:text="@{viewModel.textPin}"
-                    android:cursorVisible="true"
-                    android:focusable="false"
-                    android:inputType="number"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/font_18"
-                    android:textStyle="bold"
-                    app:cursorColor="@color/colorAccent"
-                    app:cursorWidth="@dimen/size_2"
-                    app:hideLineWhenFilled="true"
-                    app:itemCount="4"
-                    app:itemHeight="@dimen/size_48"
-                    app:itemRadius="@dimen/size_4"
-                    app:itemSpacing="0dp"
-                    app:itemWidth="@dimen/size_48"
+                    android:background="@{viewModel.isErrorPinView ? @drawable/edit_text_border_error : @drawable/edit_text_border_selected}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_login_employee_enter_pin"
-                    app:lineColor="@color/colorPrimaryDark"
-                    app:lineWidth="@dimen/size_2"
-                    app:viewType="rectangle" />
+                    app:layout_constraintTop_toBottomOf="@+id/text_employee_room_name">
+
+                    <ImageView
+                        android:id="@+id/image_employee_room_money"
+                        android:layout_width="@dimen/size_32"
+                        android:layout_height="@dimen/size_32"
+                        android:layout_marginStart="@dimen/size_16"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_money" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/text_employee_room_balance"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/size_8"
+                        android:focusable="false"
+                        android:hint="@string/cash_balance"
+                        android:singleLine="true"
+                        android:background="@android:color/transparent"
+                        android:text="@{viewModel.textBalance}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/image_employee_room_money"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <mehdi.sakout.fancybuttons.FancyButton
-                    android:id="@+id/button_login_employee_one"
+                    android:id="@+id/button_employee_room_one"
                     android:layout_width="@dimen/size_60"
                     android:layout_height="@dimen/size_60"
                     android:onClick="@{(view) -> viewModel.enterNumber('1')}"
-                    app:layout_constraintEnd_toStartOf="@+id/button_login_employee_two"
-                    app:layout_constraintTop_toTopOf="@+id/button_login_employee_two"
+                    app:layout_constraintEnd_toStartOf="@+id/button_employee_room_two"
+                    app:layout_constraintTop_toTopOf="@+id/button_employee_room_two"
                     android:layout_marginEnd="@dimen/size_16"
                     fancy:fb_borderColor="@color/colorPrimaryDark"
                     fancy:fb_borderWidth="@dimen/size_1"
@@ -170,14 +181,14 @@
                     fancy:fb_textSize="@dimen/font_32" />
 
                 <mehdi.sakout.fancybuttons.FancyButton
-                    android:id="@+id/button_login_employee_two"
+                    android:id="@+id/button_employee_room_two"
                     android:layout_width="@dimen/size_60"
                     android:layout_height="@dimen/size_60"
                     android:onClick="@{(view) -> viewModel.enterNumber('2')}"
                     android:layout_marginTop="@dimen/size_16"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/pin_view_login_employee"
+                    app:layout_constraintTop_toBottomOf="@+id/container_employee_room_balance"
                     fancy:fb_borderColor="@color/colorPrimaryDark"
                     fancy:fb_borderWidth="@dimen/size_1"
                     fancy:fb_defaultColor="@color/colorPrimary"
@@ -188,13 +199,13 @@
                     fancy:fb_textSize="@dimen/font_32" />
 
                 <mehdi.sakout.fancybuttons.FancyButton
-                    android:id="@+id/button_login_employee_three"
+                    android:id="@+id/button_employee_room_three"
                     android:layout_width="@dimen/size_60"
                     android:layout_height="@dimen/size_60"
                     android:layout_marginStart="@dimen/size_16"
                     android:onClick="@{(view) -> viewModel.enterNumber('3')}"
-                    app:layout_constraintStart_toEndOf="@+id/button_login_employee_two"
-                    app:layout_constraintTop_toTopOf="@+id/button_login_employee_two"
+                    app:layout_constraintStart_toEndOf="@+id/button_employee_room_two"
+                    app:layout_constraintTop_toTopOf="@+id/button_employee_room_two"
                     fancy:fb_borderColor="@color/colorPrimaryDark"
                     fancy:fb_borderWidth="@dimen/size_1"
                     fancy:fb_defaultColor="@color/colorPrimary"
@@ -205,13 +216,13 @@
                     fancy:fb_textSize="@dimen/font_32" />
 
                 <mehdi.sakout.fancybuttons.FancyButton
-                    android:id="@+id/button_login_employee_four"
+                    android:id="@+id/button_employee_room_four"
                     android:layout_width="@dimen/size_60"
                     android:layout_height="@dimen/size_60"
                     android:onClick="@{(view) -> viewModel.enterNumber('4')}"
-                    app:layout_constraintEnd_toEndOf="@+id/button_login_employee_one"
-                    app:layout_constraintStart_toStartOf="@+id/button_login_employee_one"
-                    app:layout_constraintTop_toTopOf="@+id/button_login_employee_five"
+                    app:layout_constraintEnd_toEndOf="@+id/button_employee_room_one"
+                    app:layout_constraintStart_toStartOf="@+id/button_employee_room_one"
+                    app:layout_constraintTop_toTopOf="@+id/button_employee_room_five"
                     fancy:fb_borderColor="@color/colorPrimaryDark"
                     fancy:fb_borderWidth="@dimen/size_1"
                     fancy:fb_defaultColor="@color/colorPrimary"
@@ -222,14 +233,14 @@
                     fancy:fb_textSize="@dimen/font_32" />
 
                 <mehdi.sakout.fancybuttons.FancyButton
-                    android:id="@+id/button_login_employee_five"
+                    android:id="@+id/button_employee_room_five"
                     android:layout_width="@dimen/size_60"
                     android:layout_height="@dimen/size_60"
                     android:layout_marginTop="@dimen/size_12"
                     android:onClick="@{(view) -> viewModel.enterNumber('5')}"
-                    app:layout_constraintEnd_toEndOf="@+id/button_login_employee_two"
-                    app:layout_constraintStart_toStartOf="@+id/button_login_employee_two"
-                    app:layout_constraintTop_toBottomOf="@+id/button_login_employee_two"
+                    app:layout_constraintEnd_toEndOf="@+id/button_employee_room_two"
+                    app:layout_constraintStart_toStartOf="@+id/button_employee_room_two"
+                    app:layout_constraintTop_toBottomOf="@+id/button_employee_room_two"
                     fancy:fb_borderColor="@color/colorPrimaryDark"
                     fancy:fb_borderWidth="@dimen/size_1"
                     fancy:fb_defaultColor="@color/colorPrimary"
@@ -240,13 +251,13 @@
                     fancy:fb_textSize="@dimen/font_32" />
 
                 <mehdi.sakout.fancybuttons.FancyButton
-                    android:id="@+id/button_login_employee_six"
+                    android:id="@+id/button_employee_room_six"
                     android:layout_width="@dimen/size_60"
                     android:layout_height="@dimen/size_60"
                     android:onClick="@{(view) -> viewModel.enterNumber('6')}"
-                    app:layout_constraintEnd_toEndOf="@+id/button_login_employee_three"
-                    app:layout_constraintStart_toStartOf="@+id/button_login_employee_three"
-                    app:layout_constraintTop_toTopOf="@+id/button_login_employee_five"
+                    app:layout_constraintEnd_toEndOf="@+id/button_employee_room_three"
+                    app:layout_constraintStart_toStartOf="@+id/button_employee_room_three"
+                    app:layout_constraintTop_toTopOf="@+id/button_employee_room_five"
                     fancy:fb_borderColor="@color/colorPrimaryDark"
                     fancy:fb_borderWidth="@dimen/size_1"
                     fancy:fb_defaultColor="@color/colorPrimary"
@@ -257,13 +268,13 @@
                     fancy:fb_textSize="@dimen/font_32" />
 
                 <mehdi.sakout.fancybuttons.FancyButton
-                    android:id="@+id/button_login_employee_seven"
+                    android:id="@+id/button_employee_room_seven"
                     android:layout_width="@dimen/size_60"
                     android:layout_height="@dimen/size_60"
                     android:onClick="@{(view) -> viewModel.enterNumber('7')}"
-                    app:layout_constraintEnd_toEndOf="@+id/button_login_employee_four"
-                    app:layout_constraintStart_toStartOf="@+id/button_login_employee_four"
-                    app:layout_constraintTop_toTopOf="@+id/button_login_employee_eight"
+                    app:layout_constraintEnd_toEndOf="@+id/button_employee_room_four"
+                    app:layout_constraintStart_toStartOf="@+id/button_employee_room_four"
+                    app:layout_constraintTop_toTopOf="@+id/button_employee_room_eight"
                     fancy:fb_borderColor="@color/colorPrimaryDark"
                     fancy:fb_borderWidth="@dimen/size_1"
                     fancy:fb_defaultColor="@color/colorPrimary"
@@ -274,14 +285,14 @@
                     fancy:fb_textSize="@dimen/font_32" />
 
                 <mehdi.sakout.fancybuttons.FancyButton
-                    android:id="@+id/button_login_employee_eight"
+                    android:id="@+id/button_employee_room_eight"
                     android:layout_width="@dimen/size_60"
                     android:layout_height="@dimen/size_60"
                     android:onClick="@{(view) -> viewModel.enterNumber('8')}"
                     android:layout_marginTop="@dimen/size_12"
-                    app:layout_constraintEnd_toEndOf="@+id/button_login_employee_five"
-                    app:layout_constraintStart_toStartOf="@+id/button_login_employee_five"
-                    app:layout_constraintTop_toBottomOf="@+id/button_login_employee_five"
+                    app:layout_constraintEnd_toEndOf="@+id/button_employee_room_five"
+                    app:layout_constraintStart_toStartOf="@+id/button_employee_room_five"
+                    app:layout_constraintTop_toBottomOf="@+id/button_employee_room_five"
                     fancy:fb_borderColor="@color/colorPrimaryDark"
                     fancy:fb_borderWidth="@dimen/size_1"
                     fancy:fb_defaultColor="@color/colorPrimary"
@@ -292,13 +303,13 @@
                     fancy:fb_textSize="@dimen/font_32" />
 
                 <mehdi.sakout.fancybuttons.FancyButton
-                    android:id="@+id/button_login_employee_nine"
+                    android:id="@+id/button_employee_room_nine"
                     android:layout_width="@dimen/size_60"
                     android:layout_height="@dimen/size_60"
                     android:onClick="@{(view) -> viewModel.enterNumber('9')}"
-                    app:layout_constraintEnd_toEndOf="@+id/button_login_employee_six"
-                    app:layout_constraintStart_toStartOf="@+id/button_login_employee_six"
-                    app:layout_constraintTop_toTopOf="@+id/button_login_employee_eight"
+                    app:layout_constraintEnd_toEndOf="@+id/button_employee_room_six"
+                    app:layout_constraintStart_toStartOf="@+id/button_employee_room_six"
+                    app:layout_constraintTop_toTopOf="@+id/button_employee_room_eight"
                     fancy:fb_borderColor="@color/colorPrimaryDark"
                     fancy:fb_borderWidth="@dimen/size_1"
                     fancy:fb_defaultColor="@color/colorPrimary"
@@ -309,12 +320,12 @@
                     fancy:fb_textSize="@dimen/font_32" />
 
                 <mehdi.sakout.fancybuttons.FancyButton
-                    android:id="@+id/button_login_employee_clear"
+                    android:id="@+id/button_employee_room_clear"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/size_60"
-                    app:layout_constraintEnd_toEndOf="@+id/button_login_employee_seven"
-                    app:layout_constraintStart_toStartOf="@+id/button_login_employee_seven"
-                    app:layout_constraintTop_toTopOf="@+id/button_login_employee_zero"
+                    app:layout_constraintEnd_toEndOf="@+id/button_employee_room_seven"
+                    app:layout_constraintStart_toStartOf="@+id/button_employee_room_seven"
+                    app:layout_constraintTop_toTopOf="@+id/button_employee_room_zero"
                     fancy:fb_defaultColor="@color/colorTransparent"
                     android:onClick="@{(view) -> viewModel.deleteNumbers()}"
                     fancy:fb_text="@string/clear"
@@ -322,13 +333,13 @@
                     fancy:fb_textSize="@dimen/font_18" />
 
                 <mehdi.sakout.fancybuttons.FancyButton
-                    android:id="@+id/button_login_employee_zero"
+                    android:id="@+id/button_employee_room_zero"
                     android:layout_width="@dimen/size_60"
                     android:layout_height="@dimen/size_60"
                     android:layout_marginTop="@dimen/size_12"
-                    app:layout_constraintEnd_toEndOf="@+id/button_login_employee_eight"
-                    app:layout_constraintStart_toStartOf="@+id/button_login_employee_eight"
-                    app:layout_constraintTop_toBottomOf="@+id/button_login_employee_eight"
+                    app:layout_constraintEnd_toEndOf="@+id/button_employee_room_eight"
+                    app:layout_constraintStart_toStartOf="@+id/button_employee_room_eight"
+                    app:layout_constraintTop_toBottomOf="@+id/button_employee_room_eight"
                     fancy:fb_borderColor="@color/colorPrimaryDark"
                     android:onClick="@{(view) -> viewModel.enterNumber('0')}"
                     fancy:fb_borderWidth="@dimen/size_1"
@@ -340,16 +351,44 @@
                     fancy:fb_textColor="@android:color/black"
                     fancy:fb_textSize="@dimen/font_32" />
 
-                <ImageButton
-                    android:id="@+id/button_login_employee_delete"
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/button_employee_room_dot"
                     android:layout_width="@dimen/size_60"
                     android:layout_height="@dimen/size_60"
-                    android:onClick="@{(view) -> viewModel.deleteLastNumber()}"
-                    android:background="?selectableItemBackgroundBorderless"
-                    app:layout_constraintEnd_toEndOf="@+id/button_login_employee_nine"
-                    app:layout_constraintStart_toStartOf="@+id/button_login_employee_nine"
-                    app:layout_constraintTop_toTopOf="@+id/button_login_employee_zero"
-                    app:srcCompat="@drawable/ic_back" />
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintEnd_toEndOf="@+id/button_employee_room_nine"
+                    app:layout_constraintStart_toStartOf="@+id/button_employee_room_nine"
+                    app:layout_constraintTop_toTopOf="@+id/button_employee_room_zero"
+                    fancy:fb_borderColor="@color/colorPrimaryDark"
+                    android:onClick="@{(view) -> viewModel.enterNumber('.')}"
+                    fancy:fb_borderWidth="@dimen/size_1"
+                    fancy:fb_defaultColor="@color/colorPrimary"
+                    fancy:fb_focusColor="@color/colorButtonFocused"
+                    fancy:fb_radius="@dimen/size_5"
+                    fancy:fb_text="."
+                    fancy:fb_textColor="@android:color/black"
+                    fancy:fb_textSize="@dimen/font_32"/>
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/button_employee_room_open_cashsession"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/size_6"
+                    android:layout_marginTop="@dimen/size_32"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/button_employee_room_zero"
+                    android:onClick="@{(view) -> viewModel.openCashsession()}"
+                    fancy:fb_borderColor="@android:color/black"
+                    fancy:fb_borderWidth="@dimen/size_1"
+                    fancy:fb_defaultColor="@color/colorTransparent"
+                    fancy:fb_focusColor="@color/colorButtonFocused"
+                    fancy:fb_iconPaddingLeft="0dp"
+                    fancy:fb_iconPaddingRight="0dp"
+                    fancy:fb_radius="@dimen/size_60"
+                    fancy:fb_text="Открыть кассовую смену"
+                    fancy:fb_textColor="@android:color/black"
+                    fancy:fb_textSize="@dimen/font_20" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

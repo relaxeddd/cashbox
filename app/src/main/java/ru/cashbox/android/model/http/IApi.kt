@@ -1,6 +1,5 @@
 package ru.cashbox.android.model.http
 
-import org.json.JSONObject
 import retrofit2.Response
 import retrofit2.http.*
 import ru.cashbox.android.model.Cashsession
@@ -13,7 +12,7 @@ interface IApi {
     suspend fun loginTerminal(@Body body: Map<String, String>) : Response<Session?>
 
     @POST("users/terminal/login")
-    suspend fun loginEmployee(@Body jsonBody: JSONObject) : Response<Session?>
+    suspend fun loginEmployee(@Header("Authorization") token: String, @Body jsonBody: Map<String, String>) : Response<Session?>
 
     @GET("users/current")
     suspend fun currentUser(@Header("Authorization") token: String) : Response<User?>
@@ -33,7 +32,7 @@ interface IApi {
     suspend fun closeSession(@Header("Authorization") token: String, @Body body: Map<String, String>) : Response<Cashsession?>
 
     @POST("api/v1/cashsession/current")
-    suspend fun currentSession(@Header("Authorization") token: String, @Body body: Map<String, String>) : Response<Cashsession?>
+    suspend fun currentSession(@Header("Authorization") token: String) : Response<Cashsession?>
 
 
 }

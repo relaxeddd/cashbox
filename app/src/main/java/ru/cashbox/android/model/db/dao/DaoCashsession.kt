@@ -5,29 +5,29 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import ru.cashbox.android.common.SESSIONS
-import ru.cashbox.android.model.Session
+import ru.cashbox.android.common.CASHSESSIONS
+import ru.cashbox.android.model.Cashsession
 
 @Dao
-interface DaoSession {
+interface DaoCashsession {
 
     companion object {
 
-        private const val COLLECTION = SESSIONS
+        private const val COLLECTION = CASHSESSIONS
     }
 
     @Query("SELECT * FROM $COLLECTION WHERE innerId LIKE :innerId LIMIT 1")
-    fun getSession(innerId: String): LiveData<Session?>
+    fun getCashsession(innerId: String): LiveData<Cashsession?>
 
     @Query("SELECT * FROM $COLLECTION WHERE innerId LIKE :innerId LIMIT 1")
-    fun getSessionById(innerId: String): Session?
+    fun getCashsessionById(innerId: String): Cashsession?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertSession(item: Session)
+    fun insertCashsession(item: Cashsession)
 
     @Query("DELETE FROM $COLLECTION WHERE innerId = :innerId")
-    fun deleteSession(innerId: String)
+    fun deleteCashsession(innerId: String)
 
     @Query("SELECT * FROM $COLLECTION")
-    fun getAll(): List<Session>
+    fun getAll(): List<Cashsession>
 }

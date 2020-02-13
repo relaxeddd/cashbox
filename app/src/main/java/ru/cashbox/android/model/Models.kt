@@ -9,7 +9,7 @@ import java.util.UUID
 @Keep
 @Entity(tableName = USERS)
 data class User(@PrimaryKey val id: Long, val username: String, val fullname: String, val activate: Boolean,
-                val pin: String?, val roles: List<String>, val created: Date, val lastVisited: Date)
+                val pin: String?, val roles: List<String>)
 
 @SuppressWarnings(RoomWarnings.PRIMARY_KEY_FROM_EMBEDDED_IS_DROPPED)
 @Keep
@@ -84,16 +84,18 @@ data class Printer(val name: String, val connectionType: PrinterConnectionType, 
 data class PrinterQueueWrapper(val action: PrinterAction, val params: List<Any>)
 
 @Keep
-data class Date(val date: Int, val day: Int, val hours: Int, val minutes: Int, val month: Int, val nanos: Long,
-                val seconds: Long, val time: Long, val timezoneOffset: Int, val year: Int)
+data class Date(val date: Int = 0, val day: Int = 0, val hours: Int = 0, val minutes: Int = 0, val month: Int = 0,
+                val nanos: Long = 0, val seconds: Long = 0, val time: Long = 0, val timezoneOffset: Int = 0,
+                val year: Int = 0)
 
 @Keep
-data class Cashsession(val id: Long, val openCashBalance: Long, val closedCashBalance: Long, val closed: Boolean,
-                       val openTime: Date, val closeTime: Date, val buys: List<Buy>)
+@Entity(tableName = CASHSESSIONS)
+data class Cashsession(@PrimaryKey var innerId: String, val id: Long, val openCashBalance: Long,
+                       val closedCashBalance: Long, val closed: Boolean, val buys: List<Buy>)
 
 @Keep
-data class Buy(val account: BuyAccount, val comment: String, val date: Date, val fullName: String, val id: Long,
-               val records: List<BuyRecord>, val userId: String, val vendor: BuyVendor)
+data class Buy(@Embedded val account: BuyAccount, val comment: String, val fullName: String,
+               val id: Long, val records: List<BuyRecord>, val userId: String, @Embedded val vendor: BuyVendor)
 
 @Keep
 data class BuyAccount(val id: Long, val balance: Int, val currency: String, val defaultAccount: Boolean,
@@ -104,7 +106,7 @@ data class BuyRecord(val id: Long, val count: Int, val itemId: Int, val name: St
                      val unit: String)
 
 @Keep
-data class BuyVendor(val id: Long, val comment: String, val created: Date, val name: String, val phone: String,
+data class BuyVendor(val id: Long, val comment: String, val name: String, val phone: String,
                      val shipmentCount: Int, val totalShipmentCount: Double)
 
 @Keep
@@ -199,9 +201,13 @@ enum class EventType {
     NAVIGATION_LOGIN_TERMINAL_TO_LOGIN_EMPLOYEE,
 
     NAVIGATION_LOGIN_EMPLOYEE_TO_LOGIN_TERMINAL,
+    NAVIGATION_LOGIN_EMPLOYEE_TO_EMPLOYEE_ROOM,
 
     NAVIGATION_PREVIEW_TO_LOGIN_TERMINAL,
     NAVIGATION_PREVIEW_TO_LOGIN_EMPLOYEE,
+
+    NAVIGATION_EMPLOYEE_ROOM_TO_LOGIN_EMPLOYEE,
+    NAVIGATION_EMPLOYEE_ROOM_TO_CASH,
 
     FRAGMENT_LOGIN_EMPLOYEE_PIN_ERROR
 }

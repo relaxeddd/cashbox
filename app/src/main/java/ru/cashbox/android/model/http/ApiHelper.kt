@@ -26,51 +26,25 @@ class ApiHelper(settings: RepositorySettings, private val networkHelper: Network
         }
     }
 
-    suspend fun requestLoginTerminal(username: String, password: String, rememberMe: Boolean = true) : Response<Session?> {
-        val api = apiHelper
+    suspend fun requestLoginTerminal(username: String?, password: String?, rememberMe: Boolean = true)
+            = executeRequest({ api -> api.loginTerminal(buildMapBody(Pair(USERNAME, username), Pair(PASSWORD, password),
+                Pair(REMEMBER_ME, rememberMe.toString()))) }, username, password)
 
-        if (!networkHelper.isNetworkAvailable() || api == null) {
-            return Response.error(INTERNET_ERROR, ResponseBody.create(null, ""))
-        }
+    suspend fun requestLoginEmployee(token: String?, pin: String?) = executeRequest({ api ->
+        api.loginEmployee(token!!, buildMapBody(Pair(PIN, pin))) }, token, pin)
 
-        return api.loginTerminal(buildMapBody(Pair(USERNAME, username), Pair(PASSWORD, password), Pair(REMEMBER_ME, rememberMe.toString())))
-    }
+    suspend fun requestCurrentUser(token: String?) = executeRequest({ api -> api.currentUser(token!!) }, token)
 
-    suspend fun requestLoginEmployee(token: String, pin: String) : Response<Session?> {
-        val api = apiHelper
+    suspend fun requestLogout(token: String?) = executeRequest({ api -> api.logout(token!!, false) }, token)
 
-        if (!networkHelper.isNetworkAvailable() || api == null) {
-            return Response.error(INTERNET_ERROR, ResponseBody.create(null, ""))
-        }
+    //------------------------------------------------------------------------------------------------------------------
+    suspend fun requestOpenCashsession(token: String?, balance: Double?) = executeRequest({ api ->
+        api.openSession(token!!, buildMapBody(Pair(CASH_BALANCE, balance!!.toString()))) }, token, balance.toString())
 
-        return api.loginEmployee(buildJsonBody(Pair(TOKEN, token), Pair(PIN, pin)))
-    }
+    suspend fun requestCloseCashsession(token: String?, balance: Double?) = executeRequest({ api ->
+        api.closeSession(token!!, buildMapBody(Pair(CASH_BALANCE, balance!!.toString()))) }, token, balance.toString())
 
-    suspend fun requestCurrentUser(token: String?) : Response<User?> {
-        val api = apiHelper
-
-        if (!networkHelper.isNetworkAvailable() || api == null) {
-            return Response.error(INTERNET_ERROR, ResponseBody.create(null, ""))
-        }
-        if (token == null || token.isEmpty()) {
-            return Response.error(ARGS_ERROR, ResponseBody.create(null, ""))
-        }
-
-        return api.currentUser(token)
-    }
-
-    suspend fun requestLogout(token: String?) : Response<Void> {
-        val api = apiHelper
-
-        if (!networkHelper.isNetworkAvailable() || api == null) {
-            return Response.error(INTERNET_ERROR, ResponseBody.create(null, ""))
-        }
-        if (token == null || token.isEmpty()) {
-            return Response.error(ARGS_ERROR, ResponseBody.create(null, ""))
-        }
-
-        return api.logout(token, false)
-    }
+    suspend fun requestCurrentCashsession(token: String?) = executeRequest({ api -> api.currentSession(token!!) }, token)
 
     //------------------------------------------------------------------------------------------------------------------
     private fun initApi(domain: String?) {
@@ -102,9 +76,12 @@ class ApiHelper(settings: RepositorySettings, private val networkHelper: Network
         }
     }
 
-    private fun buildMapBody(vararg args: Pair<String, String>) : Map<String, String> {
+    private fun buildMapBody(vararg args: Pair<String, String?>) : Map<String, String> {
         val map = HashMap<String, String>()
-        args.forEach { map[it.first] = it.second }
+        args.forEach {
+            val value = it.second
+            if (value != null) map[it.first] = value
+        }
         return map
     }
 
@@ -112,5 +89,20 @@ class ApiHelper(settings: RepositorySettings, private val networkHelper: Network
         val json = JSONObject()
         args.forEach { json.put(it.first, it.second) }
         return json
+    }
+
+    private suspend fun <T> executeRequest(request: suspend (IApi) -> Response<T>, vararg args: String?) : Response<T> {
+        val api = apiHelper
+
+        if (!networkHelper.isNetworkAvailable() || api == null) {
+            return Response.error(INTERNET_ERROR, ResponseBody.create(null, ""))
+        }
+        for (arg in args) {
+            if (arg == null || arg.isEmpty()) {
+                return Response.error(ARGS_ERROR, ResponseBody.create(null, ""))
+            }
+        }
+
+        return request(api)
     }
 }

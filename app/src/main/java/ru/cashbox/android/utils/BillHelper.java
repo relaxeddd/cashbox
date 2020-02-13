@@ -63,7 +63,7 @@ public class BillHelper {
                 }
                 if (response.code() == HttpStatusKt.OK) {
                     BillResponseNumberWrapper body = response.body();
-                    Check check = checkStateSaver.createCheck(body.getId());
+                    Check check = checkStateSaver.createCheck((int) body.getId());
                     checkStateSaver.setCheckTitle(check.getNumber());
                     checkStateSaver.setCurrentCheck(check.getHash());
                     checkStateSaver.visibleCheck(true);
@@ -93,7 +93,7 @@ public class BillHelper {
             public void onResponse(Call<BillResponseNumberWrapper> call, Response<BillResponseNumberWrapper> response) {
                 if (response.code() == HttpStatusKt.OK) {
                     BillResponseNumberWrapper body = response.body();
-                    Check check = checkStateSaver.createCheck(body.getId());
+                    Check check = checkStateSaver.createCheck((int) body.getId());
                     checkStateSaver.setCheckTitle(check.getNumber());
                     checkStateSaver.setCurrentCheck(check.getHash());
                     checkStateSaver.visibleCheck(true);
