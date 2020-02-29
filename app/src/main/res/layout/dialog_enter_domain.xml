@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/size_16">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/edit_text_enter_domain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_16"
+        android:hint="@string/cashbox_domain"/>
+
+    <mehdi.sakout.fancybuttons.FancyButton
+        android:id="@+id/button_enter_domain_apply"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50"
+        android:layout_marginTop="@dimen/size_16"
+        android:padding="@dimen/size_5"
+        android:text="@string/apply"
+        fancy:fb_defaultColor="@color/colorAccent"
+        fancy:fb_focusColor="@color/colorButtonFocused"
+        fancy:fb_radius="@dimen/size_5"
+        fancy:fb_textColor="#FFFFFF"
+        fancy:fb_textSize="@dimen/font_30" />
+
+</LinearLayout>

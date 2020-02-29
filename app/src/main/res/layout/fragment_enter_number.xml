@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="ru.cashbox.android.ui.enter_number.ViewModelEnterNumber" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="ContentDescription">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_enter_number_toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/container_enter_number_toolbar_inner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_56"
+                android:background="@color/colorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:elevation="@dimen/size_8">
+
+                <ImageView
+                    android:id="@+id/image_enter_number_logo"
+                    android:layout_width="@dimen/size_30"
+                    android:layout_height="@dimen/size_30"
+                    android:layout_marginStart="@dimen/size_16"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/logo" />
+
+                <ImageView
+                    android:id="@+id/image_enter_number_logo_separator"
+                    android:layout_width="@dimen/size_1"
+                    android:layout_height="@dimen/size_30"
+                    android:layout_marginStart="@dimen/size_16"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_enter_number_logo"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@android:color/darker_gray" />
+
+                <ImageButton
+                    android:id="@+id/button_enter_number_logout"
+                    android:layout_width="@dimen/size_46"
+                    android:layout_height="@dimen/size_46"
+                    android:layout_marginEnd="@dimen/size_16"
+                    android:adjustViewBounds="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="@dimen/size_8"
+                    android:onClick="@{(view) -> viewModel.clickClose()}"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_close_gray"/>
+
+                <ImageView
+                    android:id="@+id/image_enter_number_close_separator"
+                    android:layout_width="@dimen/size_1"
+                    android:layout_height="@dimen/size_32"
+                    android:layout_marginEnd="@dimen/size_6"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/button_enter_number_logout"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@android:color/darker_gray" />
+
+                <TextView
+                    android:id="@+id/text_enter_number_terminal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_16"
+                    android:layout_marginEnd="@dimen/size_16"
+                    android:gravity="end"
+                    android:singleLine="true"
+                    android:layout_marginBottom="@dimen/size_3"
+                    android:text="@{viewModel.textEmployeeName}"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/font_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/image_enter_number_close_separator"
+                    app:layout_constraintStart_toEndOf="@+id/image_enter_number_logo_separator"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/container_enter_number_toolbar_inner"/>
+
+            <ProgressBar
+                android:id="@+id/progress_bar_enter_number"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_6"
+                android:indeterminate="true"
+                android:visibility="@{safeUnbox(viewModel.isLoadingVisible) ? View.VISIBLE : View.GONE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/container_enter_number_toolbar_inner"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/container_enter_number_toolbar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:ignore="ContentDescription"
+                android:paddingBottom="@dimen/size_80">
+
+                <TextView
+                    android:id="@+id/text_enter_number_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/font_38"
+                    android:layout_marginTop="@dimen/size_28"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:text="@{viewModel.textEmployeeName}"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/container_enter_number_balance"
+                    android:layout_width="@dimen/size_280"
+                    android:layout_height="@dimen/size_50"
+                    android:layout_marginTop="@dimen/size_18"
+                    android:background="@{viewModel.isErrorBalance ? @drawable/edit_text_border_error : @drawable/edit_text_border_selected}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_enter_number_name">
+
+                    <ImageView
+                        android:id="@+id/image_enter_number_money"
+                        android:layout_width="@dimen/size_32"
+                        android:layout_height="@dimen/size_32"
+                        android:layout_marginStart="@dimen/size_16"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_money" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/text_enter_number_balance"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/size_8"
+                        android:focusable="false"
+                        android:hint="@string/cash_balance"
+                        android:singleLine="true"
+                        android:background="@android:color/transparent"
+                        android:text="@{viewModel.textBalance}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/image_enter_number_money"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/button_enter_number_one"
+                    android:layout_width="@dimen/size_60"
+                    android:layout_height="@dimen/size_60"
+                    android:onClick="@{(view) -> viewModel.enterNumber('1')}"
+                    app:layout_constraintEnd_toStartOf="@+id/button_enter_number_two"
+                    app:layout_constraintTop_toTopOf="@+id/button_enter_number_two"
+                    android:layout_marginEnd="@dimen/size_16"
+                    fancy:fb_borderColor="@color/colorPrimaryDark"
+                    fancy:fb_borderWidth="@dimen/size_1"
+                    fancy:fb_defaultColor="@color/colorPrimary"
+                    fancy:fb_focusColor="@color/colorButtonFocused"
+                    fancy:fb_radius="@dimen/size_5"
+                    fancy:fb_text="1"
+                    fancy:fb_textColor="@android:color/black"
+                    fancy:fb_textSize="@dimen/font_32" />
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/button_enter_number_two"
+                    android:layout_width="@dimen/size_60"
+                    android:layout_height="@dimen/size_60"
+                    android:onClick="@{(view) -> viewModel.enterNumber('2')}"
+                    android:layout_marginTop="@dimen/size_16"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/container_enter_number_balance"
+                    fancy:fb_borderColor="@color/colorPrimaryDark"
+                    fancy:fb_borderWidth="@dimen/size_1"
+                    fancy:fb_defaultColor="@color/colorPrimary"
+                    fancy:fb_focusColor="@color/colorButtonFocused"
+                    fancy:fb_radius="@dimen/size_5"
+                    fancy:fb_text="2"
+                    fancy:fb_textColor="@android:color/black"
+                    fancy:fb_textSize="@dimen/font_32" />
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/button_enter_number_three"
+                    android:layout_width="@dimen/size_60"
+                    android:layout_height="@dimen/size_60"
+                    android:layout_marginStart="@dimen/size_16"
+                    android:onClick="@{(view) -> viewModel.enterNumber('3')}"
+                    app:layout_constraintStart_toEndOf="@+id/button_enter_number_two"
+                    app:layout_constraintTop_toTopOf="@+id/button_enter_number_two"
+                    fancy:fb_borderColor="@color/colorPrimaryDark"
+                    fancy:fb_borderWidth="@dimen/size_1"
+                    fancy:fb_defaultColor="@color/colorPrimary"
+                    fancy:fb_focusColor="@color/colorButtonFocused"
+                    fancy:fb_radius="@dimen/size_5"
+                    fancy:fb_text="3"
+                    fancy:fb_textColor="@android:color/black"
+                    fancy:fb_textSize="@dimen/font_32" />
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/button_enter_number_four"
+                    android:layout_width="@dimen/size_60"
+                    android:layout_height="@dimen/size_60"
+                    android:onClick="@{(view) -> viewModel.enterNumber('4')}"
+                    app:layout_constraintEnd_toEndOf="@+id/button_enter_number_one"
+                    app:layout_constraintStart_toStartOf="@+id/button_enter_number_one"
+                    app:layout_constraintTop_toTopOf="@+id/button_enter_number_five"
+                    fancy:fb_borderColor="@color/colorPrimaryDark"
+                    fancy:fb_borderWidth="@dimen/size_1"
+                    fancy:fb_defaultColor="@color/colorPrimary"
+                    fancy:fb_focusColor="@color/colorButtonFocused"
+                    fancy:fb_radius="@dimen/size_5"
+                    fancy:fb_text="4"
+                    fancy:fb_textColor="@android:color/black"
+                    fancy:fb_textSize="@dimen/font_32" />
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/button_enter_number_five"
+                    android:layout_width="@dimen/size_60"
+                    android:layout_height="@dimen/size_60"
+                    android:layout_marginTop="@dimen/size_12"
+                    android:onClick="@{(view) -> viewModel.enterNumber('5')}"
+                    app:layout_constraintEnd_toEndOf="@+id/button_enter_number_two"
+                    app:layout_constraintStart_toStartOf="@+id/button_enter_number_two"
+                    app:layout_constraintTop_toBottomOf="@+id/button_enter_number_two"
+                    fancy:fb_borderColor="@color/colorPrimaryDark"
+                    fancy:fb_borderWidth="@dimen/size_1"
+                    fancy:fb_defaultColor="@color/colorPrimary"
+                    fancy:fb_focusColor="@color/colorButtonFocused"
+                    fancy:fb_radius="@dimen/size_5"
+                    fancy:fb_text="5"
+                    fancy:fb_textColor="@android:color/black"
+                    fancy:fb_textSize="@dimen/font_32" />
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/button_enter_number_six"
+                    android:layout_width="@dimen/size_60"
+                    android:layout_height="@dimen/size_60"
+                    android:onClick="@{(view) -> viewModel.enterNumber('6')}"
+                    app:layout_constraintEnd_toEndOf="@+id/button_enter_number_three"
+                    app:layout_constraintStart_toStartOf="@+id/button_enter_number_three"
+                    app:layout_constraintTop_toTopOf="@+id/button_enter_number_five"
+                    fancy:fb_borderColor="@color/colorPrimaryDark"
+                    fancy:fb_borderWidth="@dimen/size_1"
+                    fancy:fb_defaultColor="@color/colorPrimary"
+                    fancy:fb_focusColor="@color/colorButtonFocused"
+                    fancy:fb_radius="@dimen/size_5"
+                    fancy:fb_text="6"
+                    fancy:fb_textColor="@android:color/black"
+                    fancy:fb_textSize="@dimen/font_32" />
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/button_enter_number_seven"
+                    android:layout_width="@dimen/size_60"
+                    android:layout_height="@dimen/size_60"
+                    android:onClick="@{(view) -> viewModel.enterNumber('7')}"
+                    app:layout_constraintEnd_toEndOf="@+id/button_enter_number_four"
+                    app:layout_constraintStart_toStartOf="@+id/button_enter_number_four"
+                    app:layout_constraintTop_toTopOf="@+id/button_enter_number_eight"
+                    fancy:fb_borderColor="@color/colorPrimaryDark"
+                    fancy:fb_borderWidth="@dimen/size_1"
+                    fancy:fb_defaultColor="@color/colorPrimary"
+                    fancy:fb_focusColor="@color/colorButtonFocused"
+                    fancy:fb_radius="@dimen/size_5"
+                    fancy:fb_text="7"
+                    fancy:fb_textColor="@android:color/black"
+                    fancy:fb_textSize="@dimen/font_32" />
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/button_enter_number_eight"
+                    android:layout_width="@dimen/size_60"
+                    android:layout_height="@dimen/size_60"
+                    android:onClick="@{(view) -> viewModel.enterNumber('8')}"
+                    android:layout_marginTop="@dimen/size_12"
+                    app:layout_constraintEnd_toEndOf="@+id/button_enter_number_five"
+                    app:layout_constraintStart_toStartOf="@+id/button_enter_number_five"
+                    app:layout_constraintTop_toBottomOf="@+id/button_enter_number_five"
+                    fancy:fb_borderColor="@color/colorPrimaryDark"
+                    fancy:fb_borderWidth="@dimen/size_1"
+                    fancy:fb_defaultColor="@color/colorPrimary"
+                    fancy:fb_focusColor="@color/colorButtonFocused"
+                    fancy:fb_radius="@dimen/size_5"
+                    fancy:fb_text="8"
+                    fancy:fb_textColor="@android:color/black"
+                    fancy:fb_textSize="@dimen/font_32" />
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/button_enter_number_nine"
+                    android:layout_width="@dimen/size_60"
+                    android:layout_height="@dimen/size_60"
+                    android:onClick="@{(view) -> viewModel.enterNumber('9')}"
+                    app:layout_constraintEnd_toEndOf="@+id/button_enter_number_six"
+                    app:layout_constraintStart_toStartOf="@+id/button_enter_number_six"
+                    app:layout_constraintTop_toTopOf="@+id/button_enter_number_eight"
+                    fancy:fb_borderColor="@color/colorPrimaryDark"
+                    fancy:fb_borderWidth="@dimen/size_1"
+                    fancy:fb_defaultColor="@color/colorPrimary"
+                    fancy:fb_focusColor="@color/colorButtonFocused"
+                    fancy:fb_radius="@dimen/size_5"
+                    fancy:fb_text="9"
+                    fancy:fb_textColor="@android:color/black"
+                    fancy:fb_textSize="@dimen/font_32" />
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/button_enter_number_clear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/size_60"
+                    app:layout_constraintEnd_toEndOf="@+id/button_enter_number_seven"
+                    app:layout_constraintStart_toStartOf="@+id/button_enter_number_seven"
+                    app:layout_constraintTop_toTopOf="@+id/button_enter_number_zero"
+                    fancy:fb_defaultColor="@color/colorTransparent"
+                    android:onClick="@{(view) -> viewModel.deleteNumbers()}"
+                    fancy:fb_text="@string/clear"
+                    fancy:fb_textColor="@android:color/black"
+                    fancy:fb_textSize="@dimen/font_18" />
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/button_enter_number_zero"
+                    android:layout_width="@dimen/size_60"
+                    android:layout_height="@dimen/size_60"
+                    android:layout_marginTop="@dimen/size_12"
+                    app:layout_constraintEnd_toEndOf="@+id/button_enter_number_eight"
+                    app:layout_constraintStart_toStartOf="@+id/button_enter_number_eight"
+                    app:layout_constraintTop_toBottomOf="@+id/button_enter_number_eight"
+                    fancy:fb_borderColor="@color/colorPrimaryDark"
+                    android:onClick="@{(view) -> viewModel.enterNumber('0')}"
+                    fancy:fb_borderWidth="@dimen/size_1"
+                    fancy:fb_defaultColor="@color/colorPrimary"
+                    fancy:fb_focusColor="@color/colorButtonFocused"
+                    fancy:fb_radius="@dimen/size_5"
+                    fancy:fb_text="0"
+                    android:layout_marginBottom="@dimen/size_60"
+                    fancy:fb_textColor="@android:color/black"
+                    fancy:fb_textSize="@dimen/font_32" />
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/button_enter_number_dot"
+                    android:layout_width="@dimen/size_60"
+                    android:layout_height="@dimen/size_60"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintEnd_toEndOf="@+id/button_enter_number_nine"
+                    app:layout_constraintStart_toStartOf="@+id/button_enter_number_nine"
+                    app:layout_constraintTop_toTopOf="@+id/button_enter_number_zero"
+                    fancy:fb_borderColor="@color/colorPrimaryDark"
+                    android:onClick="@{(view) -> viewModel.enterNumber('.')}"
+                    fancy:fb_borderWidth="@dimen/size_1"
+                    fancy:fb_defaultColor="@color/colorPrimary"
+                    fancy:fb_focusColor="@color/colorButtonFocused"
+                    fancy:fb_radius="@dimen/size_5"
+                    fancy:fb_text="."
+                    fancy:fb_textColor="@android:color/black"
+                    fancy:fb_textSize="@dimen/font_32"/>
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/button_enter_number_open_cashsession"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/size_6"
+                    android:layout_marginTop="@dimen/size_32"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/button_enter_number_zero"
+                    android:text="@{viewModel.textMainButton}"
+                    android:onClick="@{(view) -> viewModel.clickButtonCashsession()}"
+                    fancy:fb_borderColor="@android:color/black"
+                    fancy:fb_borderWidth="@dimen/size_1"
+                    fancy:fb_defaultColor="@color/colorTransparent"
+                    fancy:fb_focusColor="@color/colorButtonFocused"
+                    fancy:fb_iconPaddingLeft="0dp"
+                    fancy:fb_iconPaddingRight="0dp"
+                    fancy:fb_radius="@dimen/size_60"
+                    fancy:fb_textColor="@android:color/black"
+                    fancy:fb_textSize="@dimen/font_20" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+        <RelativeLayout
+            android:id="@+id/container_main_progress_bar"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:elevation="@dimen/size_16"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="@{safeUnbox(viewModel.isLoadingVisible) ? View.VISIBLE : View.GONE}"
+            android:clickable="@{viewModel.isLoadingVisible}"
+            android:focusable="@{viewModel.isLoadingVisible}"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

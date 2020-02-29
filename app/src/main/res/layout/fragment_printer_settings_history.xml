@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,18 +13,19 @@
         android:id="@+id/btn_printer_settings_history_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="@dimen/size_32"
+        android:layout_marginBottom="@dimen/size_32"
         android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        fancy:srcCompat="@drawable/plus" />
+        fancy:srcCompat="@drawable/ic_plus" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/action_bar_printer_history"
         android:background="?selectableItemBackground"
         android:layout_width="0dp"
-        android:layout_height="@dimen/action_bar_main_height"
+        android:layout_height="@dimen/size_52"
         app:layout_constraintEnd_toStartOf="@+id/space9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -32,30 +34,31 @@
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="@dimen/size_8"
             android:rotation="180"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            fancy:srcCompat="@drawable/ic_chevron_right_black_24dp" />
+            fancy:srcCompat="@drawable/ic_arrow_right_black" />
 
         <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="Назад"
+            android:text="@string/back"
             android:textColor="@android:color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Space
         android:id="@+id/space9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="60dp"
+        android:layout_marginEnd="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -92,12 +95,12 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/printer_settings_history_checkbox_layout"
-                    android:background="?selectableItemBackground"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
+                    android:background="?selectableItemBackground"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -236,7 +239,9 @@
                     fancy:fb_textSize="14sp" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </LinearLayout>
+
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

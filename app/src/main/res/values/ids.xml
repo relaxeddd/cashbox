@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="navigation_preview" type="id" />
+    <item name="navigation_login_terminal" type="id" />
+    <item name="navigation_login_employee" type="id" />
+    <item name="navigation_employee_room" type="id" />
+    <item name="navigation_cash" type="id" />
+    <item name="navigation_checks_archive" type="id" />
+    <item name="navigation_discount" type="id" />
+    <item name="navigation_enter_number" type="id" />
+    <item name="navigation_create_supply" type="id" />
+
+</resources>

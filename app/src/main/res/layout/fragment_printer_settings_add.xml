@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fancy="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,10 +9,11 @@
     android:background="@android:color/white"
     tools:context=".printer.PrinterSettingsActivity">
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/action_bar_printer_add"
         android:layout_width="0dp"
-        android:layout_height="@dimen/action_bar_main_height"
+        android:layout_height="@dimen/size_52"
         android:background="?selectableItemBackground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -25,7 +27,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            fancy:srcCompat="@drawable/ic_chevron_right_black_24dp" />
+            fancy:srcCompat="@drawable/ic_arrow_right_black" />
 
         <TextView
             android:id="@+id/textView6"
@@ -44,22 +46,20 @@
     <ProgressBar
         android:id="@+id/progress_bar_printer_add"
         style="?android:attr/progressBarStyle"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/space9"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/printer_settings_printer_name" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <mehdi.sakout.fancybuttons.FancyButton
         android:id="@+id/btn_printer_scan"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:padding="5dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/progress_bar_printer_add"
         app:layout_constraintEnd_toEndOf="@+id/progress_bar_printer_add"
         app:layout_constraintStart_toStartOf="@+id/progress_bar_printer_add"
@@ -100,6 +100,10 @@
                     android:layout_marginEnd="32dp"
                     app:met_primaryColor="?colorAccent"
                     android:hint="IP Адрес (Необязательно)"
+                    android:nextFocusForward="@+id/printer_settings_port"
+                    android:nextFocusDown="@+id/printer_settings_port"
+                    android:nextFocusRight="@+id/printer_settings_port"
+                    android:nextFocusUp="@+id/printer_settings_port"
                     android:maxLines="1"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="@+id/space12"
@@ -193,8 +197,11 @@
                     app:layout_constraintEnd_toStartOf="@+id/space11"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </LinearLayout>
+
     </ScrollView>
 
     <Space
@@ -211,11 +218,13 @@
         android:id="@+id/printer_settings_printer_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="@font/ubuntu"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/progress_bar_printer_add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/container_check"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/text_check_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="№202"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/size_12"
+        android:layout_marginTop="@dimen/size_12"
+        android:textSize="@dimen/font_20"/>
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/image_check_status"
+        android:layout_width="@dimen/size_16"
+        android:layout_height="@dimen/size_16"
+        android:scaleType="centerCrop"
+        android:src="@color/colorAccent"
+        android:layout_marginStart="@dimen/size_12"
+        app:layout_constraintBottom_toBottomOf="@+id/text_check_number"
+        app:layout_constraintStart_toEndOf="@+id/text_check_number"
+        app:layout_constraintTop_toTopOf="@+id/text_check_number"
+        app:riv_border_color="@color/black"
+        app:riv_border_width="@dimen/size_1"
+        app:riv_oval="true" />
+
+    <TextView
+        android:id="@+id/text_check_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/size_12"
+        android:text="270 руб."
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_check_number"
+        android:textSize="@dimen/font_18"/>
+
+    <TextView
+        android:id="@+id/text_check_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_12"
+        android:layout_marginEnd="@dimen/size_12"
+        android:layout_marginTop="@dimen/size_24"
+        android:lines="1"
+        android:ellipsize="end"
+        android:text="Минералка 0.5 фывфы вфыв фывфыв фыв фв"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_check_number"
+        android:textSize="@dimen/font_18"/>
+
+    <ImageView
+        android:id="@+id/image_check_separator"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/size_1"
+        android:layout_marginTop="@dimen/size_12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_check_description"
+        app:srcCompat="@android:color/darker_gray" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

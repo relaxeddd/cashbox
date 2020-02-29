@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/text_modificators_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_choose_modificators"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_20"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/size_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_modificators_close"
+        android:layout_width="@dimen/size_48"
+        android:layout_height="@dimen/size_48"
+        android:padding="@dimen/size_8"
+        android:layout_marginTop="@dimen/size_16"
+        android:layout_marginEnd="@dimen/size_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_close" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_modificators"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/size_16"
+        android:layout_marginEnd="@dimen/size_16"
+        android:paddingBottom="@dimen/size_32"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toBottomOf="@+id/image_modificators_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/button_modificators_add_to_check"/>
+
+    <TextView
+        android:id="@+id/text_modificators_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/total"
+        android:textColor="@color/black"
+        android:textSize="@dimen/font_20"
+        android:textStyle="bold"
+        android:layout_marginBottom="@dimen/size_24"
+        android:layout_marginStart="@dimen/size_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <mehdi.sakout.fancybuttons.FancyButton
+        android:id="@+id/button_modificators_add_to_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/size_24"
+        android:layout_marginBottom="@dimen/size_24"
+        android:padding="@dimen/size_5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        fancy:fb_defaultColor="@color/colorAccent"
+        fancy:fb_focusColor="@color/colorButtonFocused"
+        fancy:fb_radius="@dimen/size_5"
+        fancy:fb_text="@string/add_to_check"
+        fancy:fb_textColor="@color/white"
+        fancy:fb_textSize="@dimen/font_20" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

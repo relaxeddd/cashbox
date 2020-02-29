@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/item_change_status_pay"
+        android:title="@string/pay"/>
+    <item
+        android:id="@+id/item_change_status_close"
+        android:title="@string/close"/>
+    <item
+        android:id="@+id/item_change_status_return"
+        android:title="@string/returning"/>
+    <item
+        android:id="@+id/item_change_status_open"
+        android:title="@string/open"/>
+
+</menu>

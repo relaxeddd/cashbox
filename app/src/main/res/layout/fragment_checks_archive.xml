@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="ru.cashbox.android.ui.checks_archive.ViewModelChecksArchive" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container_checks_archive"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_checks_archive_toolbar_inner"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_56"
+            android:background="@color/colorPrimary"
+            android:elevation="@dimen/size_8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_checks_archive_logo"
+                android:layout_width="@dimen/size_30"
+                android:layout_height="@dimen/size_30"
+                android:layout_marginStart="@dimen/size_16"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/logo" />
+
+            <ImageView
+                android:id="@+id/image_checks_archive_logo_separator"
+                android:layout_width="@dimen/size_1"
+                android:layout_height="@dimen/size_30"
+                android:layout_marginStart="@dimen/size_16"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/image_checks_archive_logo"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@android:color/darker_gray" />
+
+            <ImageButton
+                android:id="@+id/button_checks_archive_logout"
+                android:layout_width="@dimen/size_46"
+                android:layout_height="@dimen/size_46"
+                android:layout_marginEnd="@dimen/size_16"
+                android:adjustViewBounds="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:onClick="@{(view) -> viewModel.closeArchive()}"
+                android:padding="@dimen/size_8"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_close_gray" />
+
+            <TextView
+                android:id="@+id/text_checks_archive_terminal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_16"
+                android:layout_marginEnd="@dimen/size_16"
+                android:layout_marginBottom="@dimen/size_3"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@string/checks_archive"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/font_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/button_checks_archive_logout"
+                app:layout_constraintStart_toEndOf="@+id/image_checks_archive_logo_separator"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/size_6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/container_checks_archive_toolbar_inner" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar_checks_archive"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_6"
+            android:indeterminate="true"
+            android:visibility="@{safeUnbox(viewModel.isLoadingVisible) ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/container_checks_archive_toolbar_inner" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_checks_archive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <ImageView
+            android:id="@+id/image_checks_archive_separator"
+            android:layout_width="@dimen/size_2"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/container_checks_archive_toolbar_inner"
+            app:srcCompat="@android:color/darker_gray" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_checks_archive"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_checks_archive"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/container_checks_archive_toolbar_inner" />
+
+        <TextView
+            android:id="@+id/text_checks_archive_check_number_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_16"
+            android:layout_marginTop="@dimen/size_16"
+            android:text="@string/check_number_title"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_18"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/text_checks_archive_check_number"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/guideline_checks_archive"
+            app:layout_constraintTop_toBottomOf="@+id/container_checks_archive_toolbar_inner" />
+
+        <TextView
+            android:id="@+id/text_checks_archive_check_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.textCheckNumber}"
+            android:lines="1"
+            android:ellipsize="end"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_18"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/text_checks_archive_check_number_title"
+            app:layout_constraintTop_toTopOf="@+id/text_checks_archive_check_number_title" />
+
+        <TextView
+            android:id="@+id/text_checks_archive_waiter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_16"
+            android:layout_marginTop="@dimen/size_16"
+            android:text="@string/waiter"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_18"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/text_checks_archive_check_number"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/guideline_checks_archive"
+            app:layout_constraintTop_toBottomOf="@+id/text_checks_archive_check_number_title" />
+
+        <TextView
+            android:id="@+id/text_checks_archive_waiter_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.textWaiterName}"
+            android:textColor="@color/black"
+            android:lines="1"
+            android:ellipsize="end"
+            android:textSize="@dimen/font_18"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/text_checks_archive_waiter"
+            app:layout_constraintTop_toTopOf="@+id/text_checks_archive_waiter" />
+
+        <TextView
+            android:id="@+id/text_checks_archive_opened"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_16"
+            android:layout_marginTop="@dimen/size_16"
+            android:text="@string/opened"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_18"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/text_checks_archive_check_number"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/guideline_checks_archive"
+            app:layout_constraintTop_toBottomOf="@+id/text_checks_archive_waiter" />
+
+        <TextView
+            android:id="@+id/text_checks_archive_opened_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.textCheckOpenTime}"
+            android:lines="1"
+            android:ellipsize="end"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_18"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/text_checks_archive_opened"
+            app:layout_constraintTop_toTopOf="@+id/text_checks_archive_opened" />
+
+        <TextView
+            android:id="@+id/text_checks_archive_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_16"
+            android:layout_marginTop="@dimen/size_16"
+            android:text="@string/status"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_18"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/text_checks_archive_check_number"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/guideline_checks_archive"
+            app:layout_constraintTop_toBottomOf="@+id/text_checks_archive_opened" />
+
+        <TextView
+            android:id="@+id/text_checks_archive_status_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.textCheckStatus}"
+            android:lines="1"
+            android:ellipsize="end"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_18"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/text_checks_archive_status"
+            app:layout_constraintTop_toTopOf="@+id/text_checks_archive_status" />
+
+        <TextView
+            android:id="@+id/text_checks_archive_pay_type"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_16"
+            android:layout_marginTop="@dimen/size_16"
+            android:text="@string/account"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_18"
+            android:textStyle="bold"
+            android:visibility="@{viewModel.isVisiblePayType ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toStartOf="@+id/text_checks_archive_check_number"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/guideline_checks_archive"
+            app:layout_constraintTop_toBottomOf="@+id/text_checks_archive_status" />
+
+        <TextView
+            android:id="@+id/text_checks_archive_status_pay_type"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.textCheckPayType}"
+            android:lines="1"
+            android:ellipsize="end"
+            android:visibility="@{viewModel.isVisiblePayType ? View.VISIBLE : View.GONE}"
+            android:textColor="@color/black"
+            android:textSize="@dimen/font_18"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/text_checks_archive_pay_type"
+            app:layout_constraintTop_toTopOf="@+id/text_checks_archive_pay_type" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/size_12"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline_checks_archive"
+            app:layout_constraintTop_toBottomOf="@+id/text_checks_archive_pay_type">
+
+            <ImageView
+                android:id="@+id/image_checks_archive_top_separator"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/size_2"
+                android:layout_marginTop="@dimen/size_12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/text_checks_archive_good_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_8"
+                android:layout_marginTop="@dimen/size_8"
+                android:text="@string/name"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/text_checks_archive_good_amount"
+                app:layout_constraintStart_toStartOf="@+id/image_checks_archive_top_separator"
+                app:layout_constraintTop_toBottomOf="@+id/image_checks_archive_top_separator" />
+
+            <TextView
+                android:id="@+id/text_checks_archive_good_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/size_72"
+                android:text="@string/amount"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/text_checks_archive_good_title" />
+
+            <TextView
+                android:id="@+id/text_checks_archive_good_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_48"
+                android:text="@string/price"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/guideline_checks_archive_list"
+                app:layout_constraintTop_toTopOf="@+id/text_checks_archive_good_title" />
+
+            <TextView
+                android:id="@+id/tex_checks_discount_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/discount"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/text_checks_archive_good_total"
+                app:layout_constraintStart_toEndOf="@+id/text_checks_archive_good_price"
+                app:layout_constraintTop_toTopOf="@+id/text_checks_archive_good_title" />
+
+            <TextView
+                android:id="@+id/text_checks_archive_good_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/size_12"
+                android:text="@string/total"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/text_checks_archive_good_title" />
+
+            <ImageView
+                android:id="@+id/image_checks_archive_good_separator"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_2"
+                android:layout_marginTop="@dimen/size_8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_checks_archive_good_title"
+                app:srcCompat="@android:color/darker_gray" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_checks_archive_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_checks_archive_goods"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:paddingBottom="@dimen/size_80"
+                android:clipToPadding="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image_checks_archive_good_separator"/>
+
+            <mehdi.sakout.fancybuttons.FancyButton
+                android:id="@+id/button_checks_archive_print"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_24"
+                android:layout_marginBottom="@dimen/size_24"
+                android:padding="@dimen/size_5"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:onClick="@{(view) -> viewModel.print()}"
+                fancy:fb_defaultColor="@color/colorAccent"
+                fancy:fb_focusColor="@color/colorButtonFocused"
+                fancy:fb_radius="@dimen/size_5"
+                fancy:fb_text="@string/print"
+                fancy:fb_textColor="@color/white"
+                fancy:fb_textSize="@dimen/font_20" />
+
+            <mehdi.sakout.fancybuttons.FancyButton
+                android:id="@+id/button_checks_archive_change_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/size_5"
+                android:layout_marginStart="@dimen/size_24"
+                android:enabled="@{viewModel.isEnabledChangeStatusButton}"
+                app:layout_constraintBottom_toBottomOf="@+id/button_checks_archive_print"
+                app:layout_constraintStart_toEndOf="@+id/button_checks_archive_print"
+                fancy:fb_defaultColor="@android:color/transparent"
+                fancy:fb_focusColor="@color/colorButtonFocused"
+                fancy:fb_borderColor="@android:color/black"
+                fancy:fb_borderWidth="@dimen/size_2"
+                fancy:fb_radius="@dimen/size_5"
+                fancy:fb_text="@string/change_status"
+                fancy:fb_textColor="@color/black"
+                fancy:fb_textSize="@dimen/font_20" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -1,44 +1,130 @@
 <resources>
-    <string name="app_name">Cashbox</string>
-    <string name="app_center_key">454791d5-90ba-4b4a-9555-758ebbeb0e07</string>
-    <string name="title_home">Главный экран</string>
-    <string name="title_settings">Настройки</string>
 
-    <string name="internal_error">Внутренняя ошибка</string>
-    <string name="server_connect_error">Ошибка при подключение к серверу</string>
-    <string name="correct_data">Проверьте правильность введенных данных</string>
-    <string name="token_outdated">Токен устрален</string>
-    <string name="price">Цена:</string>
-    <string name="amount">Кол-во:</string>
-    <string name="enter">Войти</string>
-    <string name="login">Логин</string>
-    <string name="password">Пароль</string>
-    <string name="price_for_one">Цена за штуку</string>
-    <string name="full_price">Полная цена</string>
-    <string name="pay">Оплатить</string>
-    <string name="to_pay">К оплате</string>
-    <string name="back">Назад</string>
+    <string name="app_name">Cashbox</string>
+
+    <string name="account">Счёт</string>
     <string name="add">Добавить</string>
-    <string name="exit_title">Выход из приложения</string>
-    <string name="exit_msg">Вы действительно хотите выйти?</string>
-    <string name="yes">Да</string>
-    <string name="no">Нет</string>
-    <string name="remove_item_title">Удаление товара</string>
-    <string name="remove_item_msg">Вы действительно хотите удалить этот товар из списка?</string>
-    <string name="current_check">Текущий чек</string>
-    <string name="check_settings">Настройки чека</string>
-    <string name="check">Чек</string>
-    <string name="check_created">Создан чек №%s</string>
-    <string name="check_close">Чек был закрыт</string>
-    <string name="create_check">Создать новый чек ▼</string>
-    <string name="new_check">Новый чек</string>
-    <string name="discount">Скидка</string>
-    <string name="total">Итого</string>
-    <string name="close_shift">Закрыть смену</string>
-    <string name="settings_connect_printer">Подключение и настройка принтеров</string>
-    <string name="choose_connect_type">Выбрать способ подключения</string>
-    <string name="delete_printer_title">Удаление принтера</string>
-    <string name="delete_printer_msg">Вы действительно хотите удалить этот принтер?</string>
+    <string name="add_check">Добавить еще чек</string>
+    <string name="add_position">Добавить позицию</string>
+    <string name="add_to_check">Добавить в чек</string>
+    <string name="amount">Кол-во</string>
+    <string name="apply">Применить</string>
+    <string name="back">Назад</string>
+    <string name="card">Карта</string>
+    <string name="cash">Наличные</string>
+    <string name="cash_balance">Остаток в кассе</string>
+    <string name="cashbox_closed">Кассовая смена закрыта</string>
     <string name="cashbox_domain">Поддомен Cashbox</string>
+    <string name="change_status">Смена статуса</string>
+    <string name="check">Чек</string>
+    <string name="check_closed">Чек был закрыт</string>
+    <string name="check_created">Создан чек №%s</string>
+    <string name="check_data_is_correct">Проверьте правильность введенных данных</string>
+    <string name="check_history_empty">История чеков пуста</string>
+    <string name="check_number">Чек №%s</string>
+    <string name="check_number_title">Чек №</string>
+    <string name="check_opened">Чек открыт</string>
+    <string name="check_paid">Чек оплачен</string>
+    <string name="check_returned">Произведен возврат чека</string>
+    <string name="check_settings">Настройки чека</string>
+    <string name="checks_archive">Архив чеков</string>
+    <string name="choose_connect_type">Выбрать способ подключения</string>
+    <string name="choose_vendor">Выберите поставщика</string>
+    <string name="clear">Clear</string>
+    <string name="close">Закрыть</string>
+    <string name="close_cashbox">Закрыть кассу</string>
+    <string name="close_cashsession">Закрыть кассовую смену</string>
+    <string name="clear_check">Очистить чек</string>
+    <string name="close_check">Закрыть чек</string>
+    <string name="close_shift">Закрыть смену</string>
+    <string name="closed">Закрыт</string>
+    <string name="comment">Комментарий</string>
+    <string name="connect_and_printer_settings">Подключение и настройка принтеров</string>
+    <string name="count">Количество</string>
+    <string name="create_new_check">Создать новый чек ▼</string>
+    <string name="create_supply">Создать поставку</string>
+    <string name="current_check">Текущий чек</string>
+    <string name="delete_printer">Удаление принтера</string>
+    <string name="discount">Скидка</string>
+    <string name="enter">Войти</string>
+    <string name="enter_balance">Введите остаток в кассе</string>
+    <string name="enter_pin">Введите PIN-код</string>
+    <string name="error_check_data">Ошибка данных чека</string>
+    <string name="error_сheck_change">Ошибка изменения чека</string>
+    <string name="error_сheck_item">Ошибка: позиция не найдена</string>
+    <string name="error_сheck_print">Ошибка печати чека</string>
+    <string name="error_close_cashsession">Ошибка закрытия кассы</string>
+    <string name="error_close_employee_session">Ошибка закрытия сессии сотрудника</string>
+    <string name="error_create_check">Ошибка создания чека</string>
+    <string name="error_forbidden">Доступ запрещен</string>
+    <string name="error_ingredient">Заполните поля для добавление ингредиента</string>
+    <string name="error_internal">Внутренняя ошибка</string>
+    <string name="error_modificators">У этого продукта не найдены модификаторы</string>
+    <string name="error_server_connect">Ошибка при подключение к серверу</string>
+    <string name="error_supply">Ошибка создания поставки</string>
+    <string name="error_supply_validation">Заполните поля для добавление поставки</string>
+    <string name="error_text">Поле не может быть пустым</string>
+    <string name="error_unauthorized">Кто-то зашел под вашим аккаунтом</string>
+    <string name="error_undefined">Неизвестная ошибка</string>
+    <string name="exit">Выйти</string>
+    <string name="exit_app">Выход из приложения</string>
+    <string name="full_price">Полная цена</string>
+    <string name="history">История</string>
+    <string name="item_removing">Удаление товара</string>
+    <string name="login">Логин</string>
+    <string name="main_screen">Главный экран</string>
+    <string name="make_discount">Сделать скидку %d%%</string>
+    <string name="modificators_title">%s - модификаторы</string>
+    <string name="name">Наименование</string>
+    <string name="new_check">Новый чек</string>
+    <string name="no">Нет</string>
+    <string name="not_paid">Не оплачен</string>
+    <string name="open_cashsession">Открыть кассовую смену</string>
+    <string name="opened">Открыт</string>
+    <string name="open">Открыть</string>
+    <string name="paid">Оплачен</string>
+    <string name="password">Пароль</string>
+    <string name="pay">Оплатить</string>
+    <string name="pay_cash">Наличный расчет</string>
+    <string name="pay_cashless">Безналичный расчет</string>
+    <string name="position">Позиция</string>
+    <string name="price">Цена</string>
+    <string name="price_for_one">Цена за штуку</string>
+    <string name="print">Печать</string>
+    <string name="printers">Принтеры</string>
+    <string name="push_back_another_one_to_exit">Нажмите еще раз назад для выхода</string>
+    <string name="removed">Удалён</string>
+    <string name="returning">Возврат</string>
+    <string name="settings">Настройки</string>
+    <string name="status">Статус</string>
+    <string name="supply_created">Поставка создана</string>
+    <string name="to_pay">К оплате</string>
+    <string name="token_outdated">Токен устрален</string>
+    <string name="total">Итого</string>
+    <string name="unknown">Неизвестно</string>
+    <string name="vendor">Поставщик</string>
+    <string name="waiter">Официант</string>
+    <string name="yes">Да</string>
+
+    <string name="question_delete_printer">Вы действительно хотите удалить этот принтер?</string>
+    <string name="question_exit_app">Вы действительно хотите выйти?</string>
+    <string name="question_remove_item">Вы действительно хотите удалить этот товар из списка?</string>
+    <string name="question_close_cashbox">Вы действительно хотите закрыть кассовую смену?</string>
+    <string name="question_close_employee_session">Вы действительно хотите закрыть смену сотрудника?</string>
+    <string name="title_choose_modificators">Собери сам - модификаторы</string>
+    <string name="rule_discount">Скидка должна быть меньше 100%</string>
+    <string name="rub">\u0020руб.</string>
+    <string name="number">№%s</string>
+
+    <!--=============================================================================================================-->
+    <string name="label_fragment_preview" translatable="false">LabelFragmentPreview</string>
+    <string name="label_fragment_login_terminal" translatable="false">LabelFragmentLoginTerminal</string>
+    <string name="label_fragment_login_employee" translatable="false">LabelFragmentLoginEmployee</string>
+    <string name="label_fragment_employee_room" translatable="false">LabelFragmentEmployeeRoom</string>
+    <string name="label_fragment_cash" translatable="false">LabelFragmentCash</string>
+    <string name="label_fragment_checks_archive" translatable="false">LabelFragmentChecksArchive</string>
+    <string name="label_fragment_discount" translatable="false">LabelFragmentDiscount</string>
+    <string name="label_fragment_enter_number" translatable="false">LabelFragmentEnterNumber</string>
+    <string name="label_fragment_create_supply" translatable="false">LabelFragmentCreateSupply</string>
 
 </resources>

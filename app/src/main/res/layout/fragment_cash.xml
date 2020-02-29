@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+        <import type="java.util.Locale"/>
+        <variable
+            name="viewModel"
+            type="ru.cashbox.android.ui.cash.ViewModelCash" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="ContentDescription">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_cash_toolbar_inner"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/size_56"
+            android:background="@color/colorPrimary"
+            android:elevation="@dimen/size_8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_cash_toolbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <ImageView
+                android:id="@+id/image_cash_logo"
+                android:layout_width="@dimen/size_30"
+                android:layout_height="@dimen/size_30"
+                android:layout_marginStart="@dimen/size_16"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/logo" />
+
+            <ImageView
+                android:id="@+id/image_cash_logo_separator"
+                android:layout_width="@dimen/size_2"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/size_6"
+                android:layout_marginBottom="@dimen/size_6"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginEnd="@dimen/size_52"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_cash_toolbar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@android:color/darker_gray" />
+
+            <ImageButton
+                android:id="@+id/button_cash_menu_checks"
+                android:layout_width="@dimen/size_46"
+                android:layout_height="@dimen/size_46"
+                android:adjustViewBounds="true"
+                android:layout_marginStart="@dimen/size_32"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:onClick="@{(view) -> viewModel.showCheckHistory()}"
+                android:padding="@dimen/size_8"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline_cash_toolbar"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_history" />
+
+            <ImageButton
+                android:id="@+id/button_cash_menu"
+                android:layout_width="@dimen/size_46"
+                android:layout_height="@dimen/size_46"
+                android:adjustViewBounds="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:onClick="@{(view) -> viewModel.clickMenu()}"
+                android:padding="@dimen/size_8"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/button_cash_menu_home"
+                app:layout_constraintStart_toEndOf="@+id/button_cash_menu_checks"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_burger" />
+
+            <ImageButton
+                android:id="@+id/button_cash_menu_home"
+                android:layout_width="@dimen/size_46"
+                android:layout_height="@dimen/size_46"
+                android:layout_marginEnd="@dimen/size_32"
+                android:adjustViewBounds="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:onClick="@{(view) -> viewModel.clickHome()}"
+                android:padding="@dimen/size_8"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_home_gray" />
+
+            <TextView
+                android:id="@+id/text_cash_employee_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_16"
+                android:layout_marginEnd="@dimen/size_16"
+                android:layout_marginBottom="@dimen/size_3"
+                android:gravity="start"
+                android:singleLine="true"
+                android:text="@{viewModel.textEmployeeName}"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/font_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/image_cash_logo_separator"
+                app:layout_constraintStart_toEndOf="@+id/image_cash_logo"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Space
+            android:id="@+id/space_cash_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/size_6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/container_cash_toolbar_inner" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar_cash"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_6"
+            android:indeterminate="true"
+            android:visibility="@{safeUnbox(viewModel.isLoadingVisible) ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/container_cash_toolbar_inner" />
+
+        <ImageView
+            android:id="@+id/image_cash_main_separator"
+            android:layout_width="@dimen/size_2"
+            android:layout_height="0dp"
+            android:elevation="@dimen/size_8"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/container_cash_toolbar_inner"
+            app:srcCompat="@android:color/darker_gray" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_cash_check"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_cash"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/space_cash_progress_bar"
+            android:background="@color/white">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_cash_checks"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_48"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <ImageView
+                android:id="@+id/image_cash_goods_top_separator"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recycler_view_cash_checks"
+                app:srcCompat="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/text_cash_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_8"
+                android:layout_marginTop="@dimen/size_8"
+                android:text="@string/name"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/text_cash_amount"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image_cash_goods_top_separator"/>
+
+            <TextView
+                android:id="@+id/text_cash_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/amount"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_marginEnd="@dimen/size_72"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/text_cash_name"/>
+
+            <TextView
+                android:id="@+id/text_cash_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/price"
+                android:layout_marginStart="@dimen/size_48"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/guideline_cash_check"
+                app:layout_constraintTop_toTopOf="@+id/text_cash_name" />
+
+            <TextView
+                android:id="@+id/text_cash_discount_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/discount"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/text_cash_total_title"
+                app:layout_constraintStart_toEndOf="@+id/text_cash_price"
+                app:layout_constraintTop_toTopOf="@+id/text_cash_name" />
+
+            <TextView
+                android:id="@+id/text_cash_total_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/size_12"
+                android:textColor="@color/black"
+                android:text="@string/total"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/text_cash_name" />
+
+            <ImageView
+                android:id="@+id/image_cash_goods_separator"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_2"
+                android:layout_marginTop="@dimen/size_8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_cash_name"
+                app:srcCompat="@android:color/darker_gray" />
+
+            <mehdi.sakout.fancybuttons.FancyButton
+                android:id="@+id/button_cash_dots"
+                android:layout_width="@dimen/size_50"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/size_16"
+                android:layout_marginStart="@dimen/size_16"
+                android:padding="@dimen/size_5"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                fancy:fb_defaultColor="@color/colorAccent"
+                fancy:fb_focusColor="@color/colorButtonFocused"
+                fancy:fb_iconPaddingLeft="@dimen/size_0"
+                fancy:fb_iconPaddingRight="@dimen/size_0"
+                fancy:fb_iconResource="@drawable/ic_dots"
+                fancy:fb_radius="@dimen/size_5"
+                fancy:fb_text=""
+                fancy:fb_textColor="@color/white" />
+
+            <mehdi.sakout.fancybuttons.FancyButton
+                android:id="@+id/button_cash_pay"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/size_16"
+                android:layout_marginEnd="@dimen/size_16"
+                android:padding="@dimen/size_5"
+                android:enabled="@{viewModel.isEnabledButtonPay}"
+                app:layout_constraintBottom_toBottomOf="@+id/button_cash_dots"
+                app:layout_constraintEnd_toStartOf="@+id/button_cash_new_check"
+                app:layout_constraintStart_toEndOf="@+id/button_cash_dots"
+                app:layout_constraintTop_toTopOf="@+id/button_cash_dots"
+                fancy:fb_defaultColor="@color/colorAccent"
+                fancy:fb_focusColor="@color/colorButtonFocused"
+                fancy:fb_iconPaddingLeft="@dimen/size_0"
+                fancy:fb_iconPaddingRight="@dimen/size_0"
+                fancy:fb_radius="@dimen/size_5"
+                fancy:fb_text="@string/pay"
+                fancy:fb_textColor="@color/white" />
+
+            <mehdi.sakout.fancybuttons.FancyButton
+                android:id="@+id/button_cash_new_check"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="@dimen/size_16"
+                android:padding="@dimen/size_5"
+                android:onClick="@{(view) -> viewModel.newCheck()}"
+                app:layout_constraintBottom_toBottomOf="@+id/button_cash_pay"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/button_cash_pay"
+                fancy:fb_defaultColor="@color/colorAccent"
+                fancy:fb_focusColor="@color/colorButtonFocused"
+                fancy:fb_radius="@dimen/size_5"
+                fancy:fb_text="@string/add_check"
+                fancy:fb_textColor="@color/white" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_cash_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/total"
+                android:textStyle="bold"
+                android:layout_marginBottom="@dimen/size_16"
+                app:layout_constraintBottom_toTopOf="@+id/button_cash_dots"
+                app:layout_constraintStart_toStartOf="@+id/button_cash_dots" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_cash_total_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.format(Locale.getDefault(), `%,.2f`, viewModel.textTotal).concat(` руб.`)}"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/text_cash_total"
+                app:layout_constraintEnd_toEndOf="@+id/text_cash_discount_number"
+                app:layout_constraintTop_toTopOf="@+id/text_cash_total" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_cash_discount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/discount"
+                android:layout_marginBottom="@dimen/size_16"
+                app:layout_constraintBottom_toTopOf="@+id/text_cash_total"
+                app:layout_constraintStart_toStartOf="@+id/text_cash_total" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_cash_discount_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.format(Locale.getDefault(), `%,.2f`, viewModel.textDiscount).concat(` руб.`)}"
+                android:layout_marginStart="@dimen/size_52"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/text_cash_discount"
+                app:layout_constraintStart_toEndOf="@+id/text_cash_discount"
+                app:layout_constraintTop_toTopOf="@+id/text_cash_discount" />
+
+            <TextView
+                android:id="@+id/text_cash_to_pay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/to_pay"
+                android:layout_marginEnd="@dimen/size_16"
+                app:layout_constraintTop_toTopOf="@+id/text_cash_discount"
+                app:layout_constraintBottom_toBottomOf="@+id/text_cash_discount"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/text_cash_to_pay_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/size_16"
+                android:text="@{String.format(Locale.getDefault(), `%,.2f`, viewModel.textToPay).concat(` руб.`)}"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/text_cash_total"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/text_cash_total" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_good_check"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toBottomOf="@+id/image_cash_goods_separator"
+                app:layout_constraintBottom_toTopOf="@+id/text_cash_discount"
+                android:layout_marginBottom="@dimen/size_16"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <ImageView
+                android:id="@+id/image_cash_good_separator"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_1"
+                app:layout_constraintTop_toBottomOf="@+id/recycler_view_good_check"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@android:color/darker_gray" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:visibility="@{viewModel.isVisibleButtonNewCheck() ? View.VISIBLE : View.INVISIBLE}">
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/btn_new_check_center"
+                    android:layout_width="@dimen/size_150"
+                    android:layout_height="@dimen/size_150"
+                    android:padding="5dp"
+                    android:layout_centerInParent="true"
+                    android:onClick="@{(view) -> viewModel.newCheck()}"
+                    fancy:fb_defaultColor="@color/colorAccent"
+                    fancy:fb_focusColor="@color/colorButtonFocused"
+                    fancy:fb_radius="@dimen/size_100"
+                    fancy:fb_text="@string/new_check"
+                    fancy:fb_textColor="@color/white"
+                    fancy:fb_textSize="@dimen/font_28" />
+
+            </RelativeLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_cash_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_cash_goods"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/guideline_cash"
+            app:layout_constraintTop_toBottomOf="@+id/space_cash_progress_bar"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:id="@+id/image_cash_icon_home"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_width="@dimen/size_48"
+                android:layout_height="@dimen/size_48"
+                android:layout_marginStart="@dimen/size_18"
+                android:layout_marginTop="@dimen/size_8"
+                android:onClick="@{(view) -> viewModel.homeGoodsNavigation()}"
+                app:srcCompat="@drawable/ic_home_black"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_cash_goods_navigation"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                android:layout_marginEnd="@dimen/size_18"
+                app:layout_constraintBottom_toBottomOf="@+id/image_cash_icon_home"
+                app:layout_constraintTop_toTopOf="@+id/image_cash_icon_home"
+                app:layout_constraintStart_toEndOf="@+id/image_cash_icon_home"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_cash_goods"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="@dimen/size_18"
+                android:layout_marginStart="@dimen/size_8"
+                android:layout_marginTop="@dimen/size_8"
+                android:paddingBottom="@dimen/size_16"
+                android:clipToPadding="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recycler_view_cash_goods_navigation"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_cash_modificators"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            android:visibility="@{viewModel.isVisibleContainerModificators ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/guideline_cash"
+            app:layout_constraintTop_toBottomOf="@+id/space_cash_progress_bar"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/text_cash_modificators_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.textModificatorsTitle}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_20"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/size_12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/image_cash_modificators_close"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_width="@dimen/size_48"
+                android:layout_height="@dimen/size_48"
+                android:padding="@dimen/size_8"
+                android:onClick="@{(view) -> viewModel.closeModificators()}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_close" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_cash_modificators"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scrollbars="vertical"
+                android:layout_marginEnd="@dimen/size_18"
+                android:layout_marginStart="@dimen/size_8"
+                android:layout_marginTop="@dimen/size_8"
+                android:paddingBottom="@dimen/size_90"
+                android:clipToPadding="false"
+                app:layout_constraintTop_toBottomOf="@+id/image_cash_modificators_close"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/text_cash_modificators_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/total"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_20"
+                android:textStyle="bold"
+                android:layout_marginBottom="@dimen/size_24"
+                android:layout_marginStart="@dimen/size_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/text_cash_modificators_total_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(viewModel.textModificatorsTotal)}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_20"
+                android:textStyle="bold"
+                android:layout_marginStart="@dimen/size_8"
+                app:layout_constraintBottom_toBottomOf="@+id/text_cash_modificators_total"
+                app:layout_constraintStart_toEndOf="@+id/text_cash_modificators_total" />
+
+            <mehdi.sakout.fancybuttons.FancyButton
+                android:id="@+id/button_cash_modificators_add_to_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/size_24"
+                android:layout_marginBottom="@dimen/size_24"
+                android:padding="@dimen/size_5"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                fancy:fb_defaultColor="@color/colorAccent"
+                fancy:fb_focusColor="@color/colorButtonFocused"
+                fancy:fb_radius="@dimen/size_5"
+                fancy:fb_text="@string/add_to_check"
+                fancy:fb_textColor="@color/white"
+                fancy:fb_textSize="@dimen/font_20" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container_cash_menu"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:visibility="@{viewModel.isVisibleContainerMenu ? View.VISIBLE : View.INVISIBLE}"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/guideline_cash"
+        app:layout_constraintTop_toBottomOf="@+id/space_cash_progress_bar"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_cash_menu_create_supply"
+            android:layout_width="@dimen/size_300"
+            android:layout_height="wrap_content"
+            android:onClick="@{(view) -> viewModel.clickCreateSupply()}"
+            android:padding="@dimen/size_12"
+            android:layout_marginTop="@dimen/size_100"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            fancy:fb_defaultColor="@color/colorAccent"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="@string/create_supply"
+            fancy:fb_textColor="@color/white"
+            fancy:fb_textSize="@dimen/font_14" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_cash_menu_printers"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_32"
+            android:onClick="@{(view) -> viewModel.showPrinters()}"
+            android:padding="@dimen/size_12"
+            app:layout_constraintEnd_toEndOf="@+id/button_cash_menu_create_supply"
+            app:layout_constraintStart_toStartOf="@+id/button_cash_menu_create_supply"
+            app:layout_constraintTop_toBottomOf="@+id/button_cash_menu_create_supply"
+            fancy:fb_defaultColor="@color/colorAccent"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_iconPaddingLeft="@dimen/size_0"
+            fancy:fb_iconPaddingRight="@dimen/size_0"
+            fancy:fb_iconResource="@drawable/ic_printer"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="@string/printers"
+            fancy:fb_textColor="@color/white"
+            fancy:fb_textSize="@dimen/font_14" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_cash_menu_close_cashbox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_32"
+            android:onClick="@{(view) -> viewModel.onClickCloseCashsession()}"
+            android:padding="@dimen/size_12"
+            app:layout_constraintEnd_toEndOf="@+id/button_cash_menu_printers"
+            app:layout_constraintStart_toStartOf="@+id/button_cash_menu_printers"
+            app:layout_constraintTop_toBottomOf="@+id/button_cash_menu_printers"
+            fancy:fb_defaultColor="@color/colorAccent"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_iconPaddingLeft="@dimen/size_0"
+            fancy:fb_iconPaddingRight="@dimen/size_0"
+            fancy:fb_iconResource="@drawable/ic_cashsession"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="@string/close_cashsession"
+            fancy:fb_textColor="@color/white"
+            fancy:fb_textSize="@dimen/font_14" />
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/button_cash_menu_close_shift"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_32"
+            android:onClick="@{(view) -> viewModel.onClickCloseEmployeeSession()}"
+            android:padding="@dimen/size_12"
+            app:layout_constraintEnd_toEndOf="@+id/button_cash_menu_close_cashbox"
+            app:layout_constraintStart_toStartOf="@+id/button_cash_menu_close_cashbox"
+            app:layout_constraintTop_toBottomOf="@+id/button_cash_menu_close_cashbox"
+            fancy:fb_defaultColor="@color/colorAccent"
+            fancy:fb_focusColor="@color/colorButtonFocused"
+            fancy:fb_iconPaddingLeft="@dimen/size_0"
+            fancy:fb_iconPaddingRight="@dimen/size_0"
+            fancy:fb_iconResource="@drawable/ic_exit_white"
+            fancy:fb_radius="@dimen/size_5"
+            fancy:fb_text="@string/exit"
+            fancy:fb_textColor="@color/white"
+            fancy:fb_textSize="@dimen/font_14" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_cash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5"/>
+
+        <RelativeLayout
+            android:id="@+id/container_main_progress_bar"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clickable="@{viewModel.isLoadingVisible}"
+            android:elevation="@dimen/size_16"
+            android:focusable="@{viewModel.isLoadingVisible}"
+            android:visibility="@{safeUnbox(viewModel.isLoadingVisible) ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

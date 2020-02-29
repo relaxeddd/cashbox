@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="ru.cashbox.android.ui.create_supply.ViewModelCreateSupply" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="ContentDescription">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_create_supply_toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/container_create_supply_toolbar_inner"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_56"
+                android:background="@color/colorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:elevation="@dimen/size_8">
+
+                <ImageView
+                    android:id="@+id/image_create_supply_logo"
+                    android:layout_width="@dimen/size_30"
+                    android:layout_height="@dimen/size_30"
+                    android:layout_marginStart="@dimen/size_16"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/logo" />
+
+                <ImageView
+                    android:id="@+id/image_create_supply_logo_separator"
+                    android:layout_width="@dimen/size_1"
+                    android:layout_height="@dimen/size_30"
+                    android:layout_marginStart="@dimen/size_16"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_create_supply_logo"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@android:color/darker_gray" />
+
+                <ImageButton
+                    android:id="@+id/button_create_supply_close"
+                    android:layout_width="@dimen/size_46"
+                    android:layout_height="@dimen/size_46"
+                    android:layout_marginEnd="@dimen/size_16"
+                    android:adjustViewBounds="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="@dimen/size_8"
+                    android:onClick="@{(view) -> viewModel.clickClose()}"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_close_gray"/>
+
+                <ImageView
+                    android:id="@+id/image_create_supply_close_separator"
+                    android:layout_width="@dimen/size_1"
+                    android:layout_height="@dimen/size_32"
+                    android:layout_marginEnd="@dimen/size_6"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/button_create_supply_close"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@android:color/darker_gray" />
+
+                <TextView
+                    android:id="@+id/text_create_supply_terminal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_16"
+                    android:layout_marginEnd="@dimen/size_16"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:layout_marginBottom="@dimen/size_3"
+                    android:text="@string/create_supply"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/font_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/image_create_supply_close_separator"
+                    app:layout_constraintStart_toEndOf="@+id/image_create_supply_logo_separator"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/container_create_supply_toolbar_inner"/>
+
+            <ProgressBar
+                android:id="@+id/progress_bar_create_supply"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_6"
+                android:indeterminate="true"
+                android:visibility="@{safeUnbox(viewModel.isLoadingVisible) ? View.VISIBLE : View.GONE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/container_create_supply_toolbar_inner"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/container_create_supply_toolbar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/container_create_supply_toolbar"
+                tools:ignore="ContentDescription">
+
+                <TextView
+                    android:id="@+id/text_create_supply_vendor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/size_8"
+                    android:layout_marginStart="@dimen/size_16"
+                    android:text="@string/vendor"
+                    app:layout_constraintBottom_toBottomOf="@+id/spinner_create_supply_vendor"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/spinner_create_supply_vendor" />
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spinner_create_supply_vendor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_16"
+                    android:layout_marginStart="@dimen/size_24"
+                    android:layout_marginEnd="@dimen/size_24"
+                    app:layout_constraintEnd_toStartOf="@+id/image_create_supply_separator"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/text_create_supply_vendor"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/text_create_supply_account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/account"
+                    app:layout_constraintBottom_toBottomOf="@+id/spinner_create_supply_account"
+                    app:layout_constraintStart_toStartOf="@+id/text_create_supply_vendor"
+                    app:layout_constraintTop_toTopOf="@+id/spinner_create_supply_account" />
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spinner_create_supply_account"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_16"
+                    android:layout_marginEnd="@dimen/size_24"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toStartOf="@+id/image_create_supply_separator"
+                    app:layout_constraintStart_toStartOf="@+id/spinner_create_supply_vendor"
+                    app:layout_constraintTop_toBottomOf="@+id/spinner_create_supply_vendor" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/container_text_create_supply_comment"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_32"
+                    android:layout_marginTop="@dimen/size_16"
+                    android:layout_marginEnd="@dimen/size_32"
+                    app:boxStrokeColor="@color/colorAccent"
+                    app:hintTextColor="@color/colorAccent"
+                    app:layout_constraintEnd_toStartOf="@+id/image_create_supply_separator"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/spinner_create_supply_account">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/text_create_supply_comment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/comment"
+                        android:singleLine="true" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/image_create_supply_add_separator"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/size_2"
+                    android:layout_marginTop="@dimen/size_12"
+                    app:layout_constraintEnd_toEndOf="@+id/image_create_supply_separator"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/container_text_create_supply_comment"
+                    app:srcCompat="@android:color/darker_gray" />
+
+                <TextView
+                    android:id="@+id/text_create_supply_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/position"
+                    app:layout_constraintBottom_toBottomOf="@+id/spinner_create_supply_name"
+                    app:layout_constraintStart_toStartOf="@+id/text_create_supply_vendor"
+                    app:layout_constraintTop_toTopOf="@+id/spinner_create_supply_name" />
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spinner_create_supply_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_8"
+                    android:layout_marginEnd="@dimen/size_24"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toStartOf="@+id/image_create_supply_separator"
+                    app:layout_constraintStart_toStartOf="@+id/spinner_create_supply_account"
+                    app:layout_constraintTop_toBottomOf="@+id/image_create_supply_add_separator" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/container_text_create_supply_amount"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_8"
+                    android:layout_marginTop="@dimen/size_16"
+                    app:boxStrokeColor="@color/colorAccent"
+                    app:hintTextColor="@color/colorAccent"
+                    app:layout_constraintEnd_toStartOf="@+id/container_text_create_supply_price"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:nextFocusForward="@+id/container_text_create_supply_price"
+                    app:layout_constraintTop_toBottomOf="@+id/spinner_create_supply_name">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/text_create_supply_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:digits="0123456789."
+                        android:hint="@string/amount"
+                        android:inputType="number"
+                        android:singleLine="true"
+                        android:text="@{viewModel.textAmount}" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/container_text_create_supply_price"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_8"
+                    app:boxStrokeColor="@color/colorAccent"
+                    app:hintTextColor="@color/colorAccent"
+                    app:layout_constraintBottom_toBottomOf="@+id/container_text_create_supply_amount"
+                    app:layout_constraintEnd_toStartOf="@+id/text_create_supply_total"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/container_text_create_supply_amount"
+                    app:layout_constraintTop_toTopOf="@+id/container_text_create_supply_amount">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/text_create_supply_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:digits="0123456789."
+                        android:hint="@string/price"
+                        android:inputType="numberDecimal"
+                        android:singleLine="true"
+                        android:text="@{viewModel.textPrice}" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/text_create_supply_total"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_8"
+                    android:layout_marginEnd="@dimen/size_8"
+                    android:gravity="center"
+                    android:text="@{viewModel.textTotalPrice}"
+                    app:layout_constraintBottom_toBottomOf="@+id/container_text_create_supply_amount"
+                    app:layout_constraintEnd_toStartOf="@+id/image_create_supply_separator"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/container_text_create_supply_price"
+                    app:layout_constraintTop_toTopOf="@+id/container_text_create_supply_amount" />
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/button_create_supply_add_position"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_16"
+                    android:layout_marginTop="@dimen/size_16"
+                    android:padding="@dimen/size_6"
+                    android:text="@string/add_position"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/container_text_create_supply_amount"
+                    fancy:fb_borderColor="@android:color/black"
+                    fancy:fb_borderWidth="@dimen/size_1"
+                    fancy:fb_defaultColor="@color/colorTransparent"
+                    fancy:fb_focusColor="@color/colorButtonFocused"
+                    fancy:fb_iconPaddingLeft="0dp"
+                    fancy:fb_iconPaddingRight="0dp"
+                    fancy:fb_radius="@dimen/size_60"
+                    fancy:fb_textColor="@android:color/black"
+                    fancy:fb_textSize="@dimen/font_20" />
+
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:id="@+id/button_create_supply"
+                    android:layout_width="@dimen/size_200"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/size_5"
+                    app:layout_constraintBottom_toBottomOf="@+id/button_create_supply_add_position"
+                    app:layout_constraintEnd_toStartOf="@+id/image_create_supply_separator"
+                    app:layout_constraintTop_toTopOf="@+id/button_create_supply_add_position"
+                    fancy:fb_defaultColor="@android:color/holo_green_light"
+                    android:layout_marginEnd="@dimen/size_12"
+                    fancy:fb_focusColor="@color/colorButtonFocused"
+                    fancy:fb_radius="@dimen/size_5"
+                    fancy:fb_text="@string/create_supply"
+                    fancy:fb_textColor="@color/white"
+                    fancy:fb_textSize="@dimen/font_20" />
+
+                <ImageView
+                    android:id="@+id/image_create_supply_separator"
+                    android:layout_width="@dimen/size_2"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@android:color/transparent" />
+
+                <TextView
+                    android:id="@+id/text_create_supply_good_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/size_8"
+                    android:layout_marginTop="@dimen/size_8"
+                    android:text="@string/name"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/text_create_supply_good_amount"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/image_create_supply_separator"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/text_create_supply_good_amount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/amount"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/text_create_supply_good_price"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/text_create_supply_good_title"
+                    app:layout_constraintTop_toTopOf="@+id/text_create_supply_good_title" />
+
+                <TextView
+                    android:id="@+id/text_create_supply_good_price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/price"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/text_create_supply_good_total"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/text_create_supply_good_amount"
+                    app:layout_constraintTop_toTopOf="@+id/text_create_supply_good_title" />
+
+                <TextView
+                    android:id="@+id/text_create_supply_good_total"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/size_8"
+                    android:gravity="end"
+                    android:text="@string/total"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/text_create_supply_good_price"
+                    app:layout_constraintTop_toTopOf="@+id/text_create_supply_good_title" />
+
+                <ImageView
+                    android:id="@+id/image_create_supply_good_separator"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/size_2"
+                    android:layout_marginTop="@dimen/size_8"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_create_supply_separator"
+                    app:layout_constraintTop_toBottomOf="@+id/text_create_supply_good_title"
+                    app:srcCompat="@android:color/darker_gray" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_create_supply"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:paddingBottom="@dimen/size_60"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/image_create_supply_separator"
+                    app:layout_constraintTop_toBottomOf="@+id/image_create_supply_good_separator" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+        <ImageView
+            android:id="@+id/image_create_supply_separator_visible"
+            android:layout_width="@dimen/size_2"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/container_create_supply_toolbar"
+            app:srcCompat="@android:color/darker_gray" />
+
+        <RelativeLayout
+            android:id="@+id/container_main_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="@{viewModel.isLoadingVisible}"
+            android:elevation="@dimen/size_16"
+            android:focusable="@{viewModel.isLoadingVisible}"
+            android:visibility="@{safeUnbox(viewModel.isLoadingVisible) ? View.VISIBLE : View.GONE}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

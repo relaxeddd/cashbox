@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/image_good_category_arrow"
+        android:layout_width="@dimen/size_20"
+        android:layout_height="@dimen/size_20"
+        app:srcCompat="@drawable/ic_arrow_right"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/button_good_category"
+        android:layout_width="@dimen/size_150"
+        android:layout_height="wrap_content"
+        app:chipBackgroundColor="@color/colorPrimary"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/image_good_category_arrow"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

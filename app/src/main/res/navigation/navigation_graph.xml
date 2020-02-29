@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/navigation_preview">
+
+    <fragment
+        android:id="@id/navigation_preview"
+        android:name="ru.cashbox.android.ui.preview.FragmentPreview"
+        android:label="@string/label_fragment_preview"
+        tools:layout="@layout/fragment_preview">
+
+        <action
+            android:id="@+id/action_navigation_preview_to_navigation_login_terminal"
+            app:destination="@id/navigation_login_terminal"
+            app:enterAnim="@anim/nav_enter_anim" app:exitAnim="@anim/nav_exit_anim"
+            app:popEnterAnim="@anim/nav_enter_anim" app:popExitAnim="@anim/nav_exit_anim"/>
+
+        <action
+            android:id="@+id/action_navigation_preview_to_navigation_login_employee"
+            app:destination="@id/navigation_login_employee"
+            app:enterAnim="@anim/nav_enter_anim" app:exitAnim="@anim/nav_exit_anim"
+            app:popEnterAnim="@anim/nav_enter_anim" app:popExitAnim="@anim/nav_exit_anim"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@id/navigation_login_terminal"
+        android:name="ru.cashbox.android.ui.login_terminal.FragmentLoginTerminal"
+        android:label="@string/label_fragment_login_terminal"
+        tools:layout="@layout/fragment_login_terminal">
+
+        <action
+            android:id="@+id/action_navigation_login_terminal_to_navigation_login_employee"
+            app:destination="@id/navigation_login_employee"
+            app:enterAnim="@anim/nav_enter_anim" app:exitAnim="@anim/nav_exit_anim"
+            app:popEnterAnim="@anim/nav_enter_anim" app:popExitAnim="@anim/nav_exit_anim"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@id/navigation_login_employee"
+        android:name="ru.cashbox.android.ui.login_employee.FragmentLoginEmployee"
+        android:label="@string/label_fragment_login_employee"
+        tools:layout="@layout/fragment_login_employee">
+
+        <action
+            android:id="@+id/action_navigation_login_employee_to_navigation_login_terminal"
+            app:destination="@id/navigation_login_terminal"
+            app:enterAnim="@anim/nav_enter_anim" app:exitAnim="@anim/nav_exit_anim"
+            app:popEnterAnim="@anim/nav_enter_anim" app:popExitAnim="@anim/nav_exit_anim"/>
+
+        <action
+            android:id="@+id/action_navigation_login_employee_to_navigation_employee_room"
+            app:destination="@id/navigation_employee_room"
+            app:enterAnim="@anim/nav_enter_anim" app:exitAnim="@anim/nav_exit_anim"
+            app:popEnterAnim="@anim/nav_enter_anim" app:popExitAnim="@anim/nav_exit_anim"/>
+        <action
+            android:id="@+id/action_navigation_login_employee_to_navigation_cash"
+            app:destination="@id/navigation_cash"
+            app:enterAnim="@anim/nav_enter_anim" app:exitAnim="@anim/nav_exit_anim"
+            app:popEnterAnim="@anim/nav_enter_anim" app:popExitAnim="@anim/nav_exit_anim"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@id/navigation_employee_room"
+        android:name="ru.cashbox.android.ui.employee_room.FragmentEmployeeRoom"
+        android:label="@string/label_fragment_employee_room"
+        tools:layout="@layout/fragment_employee_room">
+
+        <action
+            android:id="@+id/action_navigation_employee_room_to_navigation_login_employee"
+            app:destination="@id/navigation_login_employee"
+            app:enterAnim="@anim/nav_enter_anim" app:exitAnim="@anim/nav_exit_anim"
+            app:popEnterAnim="@anim/nav_enter_anim" app:popExitAnim="@anim/nav_exit_anim"/>
+        <action
+            android:id="@+id/action_navigation_employee_room_to_navigation_enter_number"
+            app:destination="@id/navigation_enter_number"
+            app:enterAnim="@anim/nav_enter_anim" app:exitAnim="@anim/nav_exit_anim"
+            app:popEnterAnim="@anim/nav_enter_anim" app:popExitAnim="@anim/nav_exit_anim"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@id/navigation_cash"
+        android:name="ru.cashbox.android.ui.cash.FragmentCash"
+        android:label="@string/label_fragment_cash"
+        tools:layout="@layout/fragment_cash">
+        <action
+            android:id="@+id/action_navigation_cash_to_navigation_login_employee"
+            app:destination="@id/navigation_login_employee"
+            app:enterAnim="@anim/nav_enter_anim" app:exitAnim="@anim/nav_exit_anim"
+            app:popEnterAnim="@anim/nav_enter_anim" app:popExitAnim="@anim/nav_exit_anim"/>
+        <action
+            android:id="@+id/action_navigation_cash_to_navigation_checks_archive"
+            app:destination="@id/navigation_checks_archive"
+            app:enterAnim="@anim/nav_enter_anim" app:exitAnim="@anim/nav_exit_anim"
+            app:popEnterAnim="@anim/nav_enter_anim" app:popExitAnim="@anim/nav_exit_anim"/>
+        <action
+            android:id="@+id/action_navigation_cash_to_navigation_discount"
+            app:destination="@id/navigation_discount"
+            app:enterAnim="@anim/nav_enter_anim" app:exitAnim="@anim/nav_exit_anim"
+            app:popEnterAnim="@anim/nav_enter_anim" app:popExitAnim="@anim/nav_exit_anim"/>
+        <action
+            android:id="@+id/action_navigation_cash_to_navigation_enter_number"
+            app:destination="@id/navigation_enter_number"
+            app:enterAnim="@anim/nav_enter_anim" app:exitAnim="@anim/nav_exit_anim"
+            app:popEnterAnim="@anim/nav_enter_anim" app:popExitAnim="@anim/nav_exit_anim"/>
+        <action
+            android:id="@+id/action_navigation_cash_to_navigation_create_supply"
+            app:destination="@id/navigation_create_supply"
+            app:enterAnim="@anim/nav_enter_anim" app:exitAnim="@anim/nav_exit_anim"
+            app:popEnterAnim="@anim/nav_enter_anim" app:popExitAnim="@anim/nav_exit_anim"/>
+    </fragment>
+
+    <fragment
+        android:id="@id/navigation_checks_archive"
+        android:name="ru.cashbox.android.ui.checks_archive.FragmentChecksArchive"
+        android:label="@string/label_fragment_checks_archive"
+        tools:layout="@layout/fragment_checks_archive">
+        <action
+            android:id="@+id/action_navigation_checks_archive_to_navigation_cash"
+            app:destination="@id/navigation_cash"
+            app:enterAnim="@anim/nav_enter_anim" app:exitAnim="@anim/nav_exit_anim"
+            app:popEnterAnim="@anim/nav_enter_anim" app:popExitAnim="@anim/nav_exit_anim"/>
+    </fragment>
+
+    <fragment
+        android:id="@id/navigation_discount"
+        android:name="ru.cashbox.android.ui.discount.FragmentDiscount"
+        android:label="@string/label_fragment_discount"
+        tools:layout="@layout/fragment_discount">
+        <action
+            android:id="@+id/action_navigation_discount_to_navigation_cash"
+            app:destination="@id/navigation_cash"
+            app:enterAnim="@anim/nav_enter_anim" app:exitAnim="@anim/nav_exit_anim"
+            app:popEnterAnim="@anim/nav_enter_anim" app:popExitAnim="@anim/nav_exit_anim"/>
+    </fragment>
+
+    <fragment
+        android:id="@id/navigation_enter_number"
+        android:name="ru.cashbox.android.ui.enter_number.FragmentEnterNumber"
+        android:label="@string/label_fragment_enter_number"
+        tools:layout="@layout/fragment_enter_number">
+        <action
+            android:id="@+id/action_navigation_enter_number_to_navigation_employee_room"
+            app:destination="@id/navigation_employee_room"
+            app:enterAnim="@anim/nav_enter_anim" app:exitAnim="@anim/nav_exit_anim"
+            app:popEnterAnim="@anim/nav_enter_anim" app:popExitAnim="@anim/nav_exit_anim"/>
+        <action
+            android:id="@+id/action_navigation_enter_number_to_navigation_cash"
+            app:destination="@id/navigation_cash"
+            app:enterAnim="@anim/nav_enter_anim" app:exitAnim="@anim/nav_exit_anim"
+            app:popEnterAnim="@anim/nav_enter_anim" app:popExitAnim="@anim/nav_exit_anim"/>
+    </fragment>
+
+    <fragment
+        android:id="@id/navigation_create_supply"
+        android:name="ru.cashbox.android.ui.create_supply.FragmentCreateSupply"
+        android:label="@string/label_fragment_create_supply"
+        tools:layout="@layout/fragment_create_supply">
+        <action
+            android:id="@+id/action_navigation_create_supply_to_navigation_cash"
+            app:destination="@id/navigation_cash"
+            app:enterAnim="@anim/nav_enter_anim" app:exitAnim="@anim/nav_exit_anim"
+            app:popEnterAnim="@anim/nav_enter_anim" app:popExitAnim="@anim/nav_exit_anim"/>
+    </fragment>
+
+    <action
+        android:id="@+id/action_global_fragmentLoginEmployee"
+        app:destination="@id/navigation_login_employee"
+        app:popUpTo="@+id/navigation_login_employee"
+        app:popUpToInclusive="true"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_enter_anim"
+        app:popExitAnim="@anim/nav_default_exit_anim"/>
+
+</navigation>
