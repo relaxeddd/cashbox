@@ -76,10 +76,7 @@ class PrinterSettingsAddFragment : Fragment(), PrinterHelper.ScanListener {
                     printerHelper.savePrinters(printers)
                     printerHelper.selectPrinter(printer!!.ip)
 
-                    val transaction = childFragmentManager.beginTransaction()
-                    val printerSettingsHistoryFragment = PrinterSettingsHistoryFragment()
-                    transaction.replace(R.id.printer_settings_container, printerSettingsHistoryFragment)
-                    transaction.commit()
+                    (activity as PrinterSettingsActivity).goToSettingsHistoryFragment()
 
                     Toast.makeText(viewContext, "Принтер сохранен и установлен по умолчанию", Toast.LENGTH_SHORT).show()
                 } else {
@@ -92,7 +89,7 @@ class PrinterSettingsAddFragment : Fragment(), PrinterHelper.ScanListener {
 
         btnTestPrint!!.setOnClickListener {
             if (printer != null) {
-                printerHelper.testPrint(App.context, printer!!.ip, printer!!.ip)
+                printerHelper.testPrint(App.context, printer!!.ip, printer!!.port)
             } else {
                 Toast.makeText(viewContext, "Сначала выполните поиск принтера", Toast.LENGTH_SHORT).show()
             }

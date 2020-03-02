@@ -249,9 +249,8 @@
                         android:id="@+id/text_create_supply_amount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:digits="0123456789."
                         android:hint="@string/amount"
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:singleLine="true"
                         android:text="@{viewModel.textAmount}" />
 
@@ -275,7 +274,6 @@
                         android:id="@+id/text_create_supply_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:digits="0123456789."
                         android:hint="@string/price"
                         android:inputType="numberDecimal"
                         android:singleLine="true"

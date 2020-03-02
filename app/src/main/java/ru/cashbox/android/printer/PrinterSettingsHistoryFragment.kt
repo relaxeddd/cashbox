@@ -81,7 +81,7 @@ class PrinterSettingsHistoryFragment : Fragment() {
 
         btnTestPrint!!.setOnClickListener {
             if (currentPrinter != null) {
-                printerHelper.testPrint(App.context, currentPrinter!!.ip, currentPrinter!!.ip)
+                printerHelper.testPrint(App.context, currentPrinter!!.ip, currentPrinter!!.port)
             }
         }
 

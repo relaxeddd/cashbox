@@ -26,20 +26,20 @@ class PrinterSettingsHistoryAdapter(context: Context, val printers: ArrayList<Pr
         return i.toLong()
     }
 
-    override fun getView(i: Int, convertView: View, viewGroup: ViewGroup): View {
+    override fun getView(i: Int, convertView: View?, viewGroup: ViewGroup?): View {
         var view: View? = convertView
         if (view == null) {
             view = inflater.inflate(R.layout.printer_settings_history_item, viewGroup, false)
         }
 
         val item = getItem(i)
-        val title = view!!.findViewById<TextView>(R.id.printer_settings_item_title)
-        title.text = item.name
-        val ip = view.findViewById<TextView>(R.id.printer_settings_item_ip)
-        ip.text = item.ip
-        val checkBox = view.findViewById<CustomCheckBox>(R.id.printer_settings_item_checkbox)
-        checkBox.isChecked = item.selected
+        val title = view?.findViewById<TextView>(R.id.printer_settings_item_title)
+        title?.text = item.name
+        val ip = view?.findViewById<TextView>(R.id.printer_settings_item_ip)
+        ip?.text = item.ip
+        val checkBox = view?.findViewById<CustomCheckBox>(R.id.printer_settings_item_checkbox)
+        checkBox?.isChecked = item.selected
 
-        return view
+        return view!!
     }
 }

@@ -36,11 +36,11 @@ class FragmentCreateSupply : FragmentBase<ViewModelCreateSupply, FragmentCreateS
         super.configureBinding()
         binding.viewModel = viewModel
         binding.textCreateSupplyAmount.addTextChangedListener(object: TextWatcher {
-            override fun afterTextChanged(s: Editable?) {}
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            override fun afterTextChanged(s: Editable?) {
                 viewModel.textAmount.value = s.toString()
             }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
         binding.textCreateSupplyAmount.setOnKeyListener(object: View.OnKeyListener {
             override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
@@ -54,11 +54,11 @@ class FragmentCreateSupply : FragmentBase<ViewModelCreateSupply, FragmentCreateS
             }
         })
         binding.textCreateSupplyPrice.addTextChangedListener(object: TextWatcher {
-            override fun afterTextChanged(s: Editable?) {}
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            override fun afterTextChanged(s: Editable?) {
                 viewModel.textPrice.value = s.toString()
             }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
         binding.buttonCreateSupplyAddPosition.setOnClickListener {
             val item = binding.spinnerCreateSupplyName.selectedItem

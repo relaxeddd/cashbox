@@ -81,6 +81,25 @@ class AdapterModificators(private val apiAddress: String?) : ListAdapter<TechMap
                     selectedModificators.add(item)
                 }
                 notifyDataSetChanged()
+            } else if (item.maxModificatorsCount == 1) {
+                var modificatorToRemove: TechMapModificator? = null
+
+                for (modificator in selectedModificators) {
+                    if (modificator.groupId == item.groupId && item.id != -1L) {
+                        modificatorToRemove = modificator
+                        break
+                    }
+                }
+
+                if (modificatorToRemove != null && item.id != modificatorToRemove.id) {
+                    modificatorToRemove.count = 0.0
+                    selectedModificators.remove(modificatorToRemove)
+                }
+                item.count = 1.0
+                if (!selectedModificators.contains(item)) {
+                    selectedModificators.add(item)
+                }
+                notifyDataSetChanged()
             }
         }
     }
@@ -140,7 +159,7 @@ class AdapterModificators(private val apiAddress: String?) : ListAdapter<TechMap
                     } else {
                         image_modificator_image.setImageResource(R.color.colorAccent)
                     }
-                    check_box_modificator.isChecked = item.count.roundToInt() > 0
+                    check_box_modificator.isChecked = item.count.roundToInt() > 0 && selectedModificators.contains(item)
                     if (item.count.roundToInt() <= 1) {
                         text_modificator_count.visibility = View.GONE
                     } else {

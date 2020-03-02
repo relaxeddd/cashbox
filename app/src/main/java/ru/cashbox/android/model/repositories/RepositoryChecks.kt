@@ -78,10 +78,19 @@ class RepositoryChecks(private val apiHelper: ApiHelper, repositoryUsers: Reposi
 
         if (response.isSuccessful && bills != null && bills.content.isNotEmpty()) {
             val checkItems = ArrayList<CheckItem>()
+            val myItems: ArrayList<BillItem> = ArrayList()
+            val myTechmaps: ArrayList<BillTechMap> = ArrayList()
+            var timestamp = System.currentTimeMillis()
 
             bills.content.forEach { bill ->
-                bill.items.forEach { checkItems.add(it.copy(checkId = bill.id)) }
-                bill.techmaps.forEach { checkItems.add(it.copy(checkId = bill.id)) }
+                bill.items.forEach {
+                    timestamp++
+                    checkItems.add(it.copy(checkId = bill.id, timestamp = timestamp))
+                }
+                bill.techmaps.forEach {
+                    timestamp++
+                    checkItems.add(it.copy(checkId = bill.id, timestamp = timestamp))
+                }
             }
             this.checkItems.value = checkItems
             this.bills.value = bills.content

@@ -121,7 +121,7 @@ class FragmentCash : FragmentBase<ViewModelCash, FragmentCashBinding>() {
                 dialog.modificators = modificators
                 dialog.confirmListener = object: ListenerResult<List<TechMapModificator>> {
                     override fun onResult(result: List<TechMapModificator>) {
-                        viewModel.addTechMapToCheck(result)
+                        viewModel.addTechMapToCheckWithCheck(result)
                     }
                 }
                 dialog.show(childFragmentManager, "Enter Domain Dialog")

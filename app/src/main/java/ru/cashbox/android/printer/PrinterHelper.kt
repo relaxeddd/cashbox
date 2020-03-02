@@ -196,26 +196,27 @@ object PrinterHelper {
                 fptr.open()
 
                 val user = repositoryUsers?.sessionEmployee?.value?.user
-                fptr.setParam(1021, user?.fullname)
+                fptr.setParam(1021, user?.fullname ?: "")
                 fptr.operatorLogin()
 
                 fptr.setParam(IFptr.LIBFPTR_PARAM_RECEIPT_TYPE, IFptr.LIBFPTR_RT_SELL)
                 fptr.openReceipt()
 
-                val checkItems = check.items
+                //if (openReceiptCode == 0) {
+                    val checkItems = check.items
 
-                for (checkItem in checkItems) {
-                    fptr.setParam(IFptr.LIBFPTR_PARAM_COMMODITY_NAME, checkItem.billName)
-                    fptr.setParam(IFptr.LIBFPTR_PARAM_PRICE, checkItem.price)
-                    fptr.setParam(IFptr.LIBFPTR_PARAM_QUANTITY, checkItem.count)
-                    fptr.setParam(IFptr.LIBFPTR_PARAM_TAX_TYPE, IFptr.LIBFPTR_TAX_VAT0)
-                    fptr.setParam(IFptr.LIBFPTR_PARAM_PAYMENT_TYPE, if (check.payedType == PayType.WIRE) IFptr.LIBFPTR_PT_ELECTRONICALLY else IFptr.LIBFPTR_PT_CASH)
-                    fptr.setParam(IFptr.LIBFPTR_PARAM_POSITION_SUM, checkItem.getFinalPrice())
-                    fptr.registration()
-                }
+                    for (checkItem in checkItems) {
+                        fptr.setParam(IFptr.LIBFPTR_PARAM_COMMODITY_NAME, checkItem.billName)
+                        fptr.setParam(IFptr.LIBFPTR_PARAM_PRICE, checkItem.price)
+                        fptr.setParam(IFptr.LIBFPTR_PARAM_QUANTITY, checkItem.count)
+                        fptr.setParam(IFptr.LIBFPTR_PARAM_TAX_TYPE, IFptr.LIBFPTR_TAX_VAT0)
+                        fptr.registration()
+                    }
 
-                fptr.payment()
-                fptr.closeReceipt()
+                fptr.setParam(IFptr.LIBFPTR_PARAM_PAYMENT_TYPE, IFptr.LIBFPTR_PT_CASH)
+                    fptr.payment()
+                    fptr.closeReceipt()
+                //}
                 fptr.continuePrint()
                 fptr.close()
                 fptr.destroy()
@@ -270,7 +271,7 @@ object PrinterHelper {
     }
 
     private class TestPrintTask(private val context: Context, private val ip: String, private val port: String) :
-        AsyncTask<Void, Void, Void>() {
+        AsyncTask<Void?, Void?, Void?>() {
 
         override fun onPreExecute() {
             printerBusy = true
@@ -298,11 +299,10 @@ object PrinterHelper {
                 fptr.close()
                 fptr.destroy()
             }
-
             return null
         }
 
-        override fun onPostExecute(aVoid: Void) {
+        override fun onPostExecute(aVoid: Void?) {
             nextAction()
         }
     }

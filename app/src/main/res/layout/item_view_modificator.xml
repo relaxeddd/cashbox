@@ -51,7 +51,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1"
-            android:textSize="@dimen/font_38"
+            android:textSize="@dimen/font_42"
+            android:textStyle="bold"
             android:textColor="@color/black"
             app:layout_constraintTop_toTopOf="@+id/image_modificator_image"
             app:layout_constraintBottom_toBottomOf="@+id/image_modificator_image"
@@ -70,14 +71,17 @@
             android:textColor="@color/black"
             android:textSize="@dimen/font_14"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/check_box_modificator"
-            app:layout_constraintTop_toBottomOf="@+id/image_modificator_image" />
+            app:layout_constraintTop_toTopOf="@+id/check_box_modificator" />
 
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/check_box_modificator"
-            android:layout_width="@dimen/size_24"
-            android:layout_height="@dimen/size_24"
+            android:layout_width="@dimen/size_48"
+            android:layout_height="@dimen/size_48"
+            android:clickable="false"
+            android:focusable="false"
             android:layout_marginStart="@dimen/size_4"
             android:layout_marginTop="@dimen/size_4"
             android:padding="@dimen/size_4"

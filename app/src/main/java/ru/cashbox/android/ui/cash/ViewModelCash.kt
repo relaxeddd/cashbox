@@ -98,7 +98,7 @@ class ViewModelCash(app: App, private val repositoryUsers: RepositoryUsers,
         val currentChecks = checks.filter { it.status == CheckStatus.OPENED }
         openChecks.value = currentChecks
         if (currentCheck.value == null && currentChecks.isNotEmpty()) {
-            currentCheck.value = currentChecks.first()
+            currentCheck.value = currentChecks.last()
         }
     }
 
@@ -179,7 +179,7 @@ class ViewModelCash(app: App, private val repositoryUsers: RepositoryUsers,
     }
 
     fun payCash() {
-        changeBillStatus(getString(R.string.check_paid, true)) { repositoryChecks.payBillByCash(it) }
+        changeBillStatus(getString(R.string.check_paid, true), true) { repositoryChecks.payBillByCash(it) }
     }
 
     fun payCard() {
@@ -280,7 +280,16 @@ class ViewModelCash(app: App, private val repositoryUsers: RepositoryUsers,
         repositoryChecks.addCheckItem(billTechMap)
     }
 
+    fun addTechMapToCheckWithCheck(modificators: List<TechMapModificator>) {
+        if (currentCheck.value == null) {
+            newCheck {addTechMapToCheck(modificators)}
+        } else {
+            addTechMapToCheck(modificators)
+        }
+    }
+
     fun addTechMapToCheck(modificators: List<TechMapModificator>) {
+
         var selectedTechMap: TechMap? = null
 
         if (modificators.isNotEmpty()) {

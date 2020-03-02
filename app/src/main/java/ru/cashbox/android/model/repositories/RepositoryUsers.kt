@@ -96,7 +96,7 @@ class RepositoryUsers(private val apiHelper: ApiHelper, sharedHelper: SharedHelp
         if (response.isSuccessful) {
             tokenEmployee.value = ""
             sessionEmployee.value = null
-            PrinterHelper.closeShift(App.context)
+            //PrinterHelper.closeShift(App.context)
         }
 
         return response

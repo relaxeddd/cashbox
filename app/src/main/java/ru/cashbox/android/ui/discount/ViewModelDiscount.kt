@@ -2,8 +2,10 @@ package ru.cashbox.android.ui.discount
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import kotlinx.coroutines.launch
 import ru.cashbox.android.App
 import ru.cashbox.android.R
+import ru.cashbox.android.common.UNAUTHORIZED
 import ru.cashbox.android.model.*
 import ru.cashbox.android.model.repositories.RepositoryChecks
 import ru.cashbox.android.ui.base.ViewModelBase
